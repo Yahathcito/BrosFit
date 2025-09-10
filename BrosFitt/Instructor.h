@@ -17,6 +17,7 @@ private:
 	int telefono;
 	string fechaNacimiento;
 	string correo;
+	string especialidades[8];
 
 public:
 

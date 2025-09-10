@@ -1,7 +1,7 @@
 #include "Instructor.h"
 
-Instructor::Instructor()
-{
+Instructor::Instructor(){
+
 }
 
 Instructor::Instructor(string cedula, string nombre, int telefono, string fechaNacimiento, string correo)
