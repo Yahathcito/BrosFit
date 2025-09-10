@@ -140,6 +140,7 @@
     <ClCompile Include="ContenecorClasesCliente.cpp" />
     <ClCompile Include="Ejercicio.cpp" />
     <ClCompile Include="Instructor.cpp" />
+    <ClCompile Include="Interfaz.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Medicion.cpp" />
     <ClCompile Include="Rutina.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="ContenecorClasesCliente.h" />
     <ClInclude Include="Ejercicio.h" />
     <ClInclude Include="Instructor.h" />
+    <ClInclude Include="Interfaz.h" />
     <ClInclude Include="Medicion.h" />
     <ClInclude Include="Rutina.h" />
     <ClInclude Include="Sucursal.h" />
