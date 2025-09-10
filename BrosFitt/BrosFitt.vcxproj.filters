@@ -27,6 +27,12 @@
     <ClCompile Include="ClaseGrupal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColeccionCliente.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="coleccionInstructores.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cliente.h">
@@ -36,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClaseGrupal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColeccionCliente.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="coleccionInstructores.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

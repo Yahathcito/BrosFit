@@ -130,12 +130,16 @@
   <ItemGroup>
     <ClCompile Include="ClaseGrupal.cpp" />
     <ClCompile Include="Cliente.cpp" />
+    <ClCompile Include="ColeccionCliente.cpp" />
+    <ClCompile Include="coleccionInstructores.cpp" />
     <ClCompile Include="Instructor.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClaseGrupal.h" />
     <ClInclude Include="Cliente.h" />
+    <ClInclude Include="ColeccionCliente.h" />
+    <ClInclude Include="coleccionInstructores.h" />
     <ClInclude Include="Instructor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
