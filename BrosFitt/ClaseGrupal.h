@@ -1,4 +1,6 @@
 #pragma once
-class ClaseGrupal
-{
+class ClaseGrupal{
+	private:
+
+	public: 
 };

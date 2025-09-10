@@ -27,6 +27,9 @@
     <ClCompile Include="ClaseGrupal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ContenecorClasesCliente.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cliente.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClaseGrupal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ContenecorClasesCliente.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
