@@ -2,6 +2,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "ColeccionClientes.h"
+#include "ColeccionMediciones.h"
+#include "ColeccionRutina.h"
+#include "ColeccionEjercicios.h"
+
 using namespace std;
 
 class Instructor
