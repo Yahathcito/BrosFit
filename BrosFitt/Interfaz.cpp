@@ -42,7 +42,6 @@
 
                 break;
             case 2: 
-                int opcion;
                 do {
                     cout << "\n--- INFORMES DE CLIENTES ---" << endl;
                     cout << "1. Lista de clientes por sucursal" << endl;
