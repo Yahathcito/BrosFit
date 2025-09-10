@@ -24,6 +24,7 @@
     <ProjectGuid>{141b3f10-67e4-43ee-9fe0-505db9b1d705}</ProjectGuid>
     <RootNamespace>BrosFitt</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>BrosFit</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
