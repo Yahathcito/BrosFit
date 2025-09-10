@@ -1,0 +1,70 @@
+#include "ColeccionEjercicios.h"
+
+ColeccionEjercicios::ColeccionEjercicios() {
+	tam = 5;
+	cantidad = 0;
+	ejercicios = new Ejercicio * [tam];
+	for (int i = 0; i < tam; i++) {
+		ejercicios[i] = nullptr;
+	}
+}
+ColeccionEjercicios::~ColeccionEjercicios() {
+	for (int i = 0; i < cantidad; i++) {
+		delete ejercicios[i];
+	}
+	delete[] ejercicios;
+}
+void ColeccionEjercicios::agregarEjercicio(Ejercicio* ejercicio) {
+	if (cantidad == tam) {
+		// Redimensionar el arreglo
+		int nuevoTam = tam * 2;
+		Ejercicio** nuevoArreglo = new Ejercicio * [nuevoTam];
+		for (int i = 0; i < cantidad; i++) {
+			nuevoArreglo[i] = ejercicios[i];
+		}
+		for (int i = cantidad; i < nuevoTam; i++) {
+			nuevoArreglo[i] = nullptr;
+		}
+		delete[] ejercicios;
+		ejercicios = nuevoArreglo;
+		tam = nuevoTam;
+	}
+	ejercicios[cantidad] = ejercicio;
+	cantidad++;
+}
+Ejercicio* ColeccionEjercicios::buscarEjercicio(string codigo) {
+	for (int i = 0; i < cantidad; i++) {
+		if (ejercicios[i]->getCodigo() == codigo) {
+			return ejercicios[i];
+		}
+	}
+	return nullptr;
+}
+bool ColeccionEjercicios::eliminarEjercicio(string codigo) {
+	for (int i = 0; i < cantidad; i++) {
+		if (ejercicios[i]->getCodigo() == codigo) {
+			delete ejercicios[i];
+			for (int j = i; j < cantidad - 1; j++) {
+				ejercicios[j] = ejercicios[j + 1];
+			}
+			ejercicios[cantidad - 1] = nullptr;
+			cantidad--;
+			return true;
+		}
+	}
+	return false;
+}
+string ColeccionEjercicios::listarEjercicios() {
+	string resultado = "";
+	for (int i = 0; i < cantidad; i++) {
+		resultado += ejercicios[i]->toString() + "\n";
+	}
+	return resultado;
+}
+int ColeccionEjercicios::getCantidad() {
+	return cantidad;
+}
+int ColeccionEjercicios::getTam() {
+	return tam;
+}
+
