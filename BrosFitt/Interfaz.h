@@ -7,5 +7,6 @@ using namespace std;
 class Interfaz{
 public: 
 	static void menu();
+	static void ingresoDatosGenerales();
 };
 

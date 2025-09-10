@@ -1,3 +1,4 @@
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -16,10 +17,12 @@ private:
 	string telefono;
 	string correoElectronico;
 	int capacidadMaxima;
+	ColeccionClientes* clientes;
+	ColeccionInstructores* instructores;
 
 public:
 	Sucursal();
-	Sucursal(string nombre, string direccion, string telefono, string correoElectronico, int capacidadMaxima);
+	Sucursal(string nombre, string direccion, string telefono, string correoElectronico, int tamClientes, int tamInstructores);
 	string getNombre();
 	void setNombre(string nombre);
 	string getDireccion();
@@ -30,6 +33,13 @@ public:
 	void setCorreoElectronico(string correoElectronico);
 	int getCapacidadMaxima();
 	void setCapacidadMaxima(int capacidadMaxima);
+	ColeccionClientes* getClientes();
+	ColeccionInstructores* getColeccionInstructores();
+	void setClientes(ColeccionClientes*);
+	bool existenInstructores();
+	void setInstructores(ColeccionInstructores*);
+	void agregarInstructorXSucursal(Instructor*);
+	void agregarClienteXSucursal(Cliente*);
 	string toString();
 	~Sucursal();
 

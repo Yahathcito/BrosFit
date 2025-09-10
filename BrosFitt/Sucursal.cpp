@@ -1,16 +1,19 @@
 #include "Sucursal.h"
 #include <sstream>
+
 Sucursal::Sucursal()
 {
 }
 
-Sucursal::Sucursal(string nombre, string direccion, string telefono, string correoElectronico, int capacidadMaxima)
+Sucursal::Sucursal(string nombre, string direccion, string telefono, string correoElectronico, int tamClientes, int tamInstructores)
 {
 	this->nombre = nombre;
 	this->direccion = direccion;
 	this->telefono = telefono;
 	this->correoElectronico = correoElectronico;
-	this->capacidadMaxima = capacidadMaxima;
+	clientes = new ColeccionClientes(tamClientes);
+	instructores = new ColeccionInstructores(tamInstructores);
+	
 }
 string Sucursal::getNombre()
 {
@@ -52,6 +55,40 @@ void Sucursal::setCapacidadMaxima(int capacidadMaxima)
 {
 	this->capacidadMaxima = capacidadMaxima;
 }
+
+
+
+bool Sucursal::existenInstructores() {
+
+	if (instructores->getCantidad() > 0) {
+		return true;
+	}
+	return false;
+}
+
+void Sucursal::setInstructores(ColeccionInstructores*)
+{
+	this->instructores = instructores;
+}
+
+void Sucursal::agregarInstructorXSucursal(Instructor* instructor)
+{
+	instructores->agregarInstructor(instructor);
+}
+
+
+
+void Sucursal::agregarClienteXSucursal(Cliente* cliente)
+{
+	clientes->agregarCliente(cliente);
+}
+
+
+ColeccionInstructores* Sucursal::getColeccionInstructores()
+{
+	return instructores;
+}
+
 string Sucursal::toString()
 {
 	stringstream s;

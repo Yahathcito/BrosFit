@@ -16,7 +16,10 @@ public:
 	int getCantidad();
 	int getTam();
 	bool insertarAlInicio(Sucursal*);
-	Sucursal* insertarAlFinal(string);
-	Sucursal* insertarFinal(Sucursal*);
+
+		bool insertarAlFinal(Sucursal*);
+		string toString();
+
+
 };
 
