@@ -2,6 +2,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "ColeccionInstructores.h"
+#include "ColeccionClientes.h"
+#include "ColeccionClaseGrupal.h"
+
 using namespace std;
 class Sucursal
 {
