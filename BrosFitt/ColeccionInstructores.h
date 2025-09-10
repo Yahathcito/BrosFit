@@ -14,8 +14,10 @@ public:
 	Instructor* buscarInstructor(string);
 	bool eliminarInstructor(string);
 	string listarInstructores();
+	bool insertarAlFinal(Instructor*);
 	int getCantidad();
 	int getTam();
+	string toString();
 
 };
 

@@ -9,6 +9,9 @@ Cliente::Cliente() {
 	fechaInscripcion = "";
 	numeroCelular = 0;
 	sexo = ' ';
+
+
+
 }
 Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscripcion, string fechaNacimiento, int celular, char sexo) {
 	this->cedulaIdentidad = cedula;
@@ -18,6 +21,8 @@ Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscri
 	this->fechaInscripcion = fechaInscripcion;
 	this->numeroCelular = celular;
 	this->sexo = sexo;
+
+
 }
 
 Cliente::~Cliente()

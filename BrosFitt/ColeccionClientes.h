@@ -14,6 +14,7 @@ public:
 	Cliente* buscarCliente(string);
 	bool eliminarCliente(string);
 	string listarClientes();
+	bool insertarAlFinal(Cliente*);	
 	int getCantidad();
 	int getTam();
 };

@@ -53,10 +53,45 @@ string ColeccionInstructores::listarInstructores() {
 	}
 	return resultado;
 }
+bool ColeccionInstructores::insertarAlFinal(Instructor* instructor)
+{
+	// debes verificar si ya esta ingresado el instructor	
+	// verificar que no tenga los mismo datos de otro instructor
+	if (buscarInstructor(instructor->getCedula()) != nullptr) {
+		cout << "El instructor ya está ingresado." << endl;
+		return false;
+	}
+	if (cantidad == tam) {
+		// Redimensionar el arreglo
+		int nuevoTam = tam * 2;
+		Instructor** nuevoArreglo = new Instructor * [nuevoTam];
+		for (int i = 0; i < cantidad; i++) {
+			nuevoArreglo[i] = instructores[i];
+		}
+		for (int i = cantidad; i < nuevoTam; i++) {
+			nuevoArreglo[i] = nullptr;
+		}
+		delete[] instructores;
+		instructores = nuevoArreglo;
+		tam = nuevoTam;
+	}
+	instructores[cantidad] = nullptr; // Aquí debería ir el puntero al nuevo instructor
+	cantidad++;
+	return true;
+}
 int ColeccionInstructores::getCantidad() {
 	return cantidad;
 }
 
 int ColeccionInstructores::getTam() {
 	return tam;
+}
+
+string ColeccionInstructores::toString()
+{
+	string resultado = "";
+	for (int i = 0; i < cantidad; i++) {
+		resultado += instructores[i]->toString() + "\n";
+	}
+	return resultado;
 }

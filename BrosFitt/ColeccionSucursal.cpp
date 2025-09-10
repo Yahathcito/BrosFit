@@ -108,7 +108,38 @@ bool ColeccionSucursal::insertarAlInicio(Sucursal* v)
 
 
 
-Sucursal* ColeccionSucursal::insertarFinal(Sucursal* v)
+bool ColeccionSucursal::insertarAlFinal(Sucursal* v)
 {
-	return nullptr;
+
+	if (buscarSucursal(v->getNombre()) != nullptr) {
+		cout << "La sucursal ya está ingresada." << endl;
+		delete v;
+		return false;
+	}
+	if (cantidad == tam) {
+		// Redimensionar el arreglo
+		int nuevoTam = tam * 2;
+		Sucursal** nuevoArreglo = new Sucursal * [nuevoTam];
+		for (int i = 0; i < cantidad; i++) {
+			nuevoArreglo[i] = sucursales[i];
+		}
+		for (int i = cantidad; i < nuevoTam; i++) {
+			nuevoArreglo[i] = nullptr;
+		}
+		delete[] sucursales;
+		sucursales = nuevoArreglo;
+		tam = nuevoTam;
+	}
+	sucursales[cantidad] = v; // Aquí se inserta la nueva sucursal al final del arreglo
+	cantidad++;
+	return true;
+}
+
+string ColeccionSucursal::toString()
+{
+	string resultado = "";
+	for (int i = 0; i < cantidad; i++) {
+		resultado += sucursales[i]->toString() + "\n";
+	}
+	return resultado;
 }

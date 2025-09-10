@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 
+
+
 using namespace std;
 class Cliente {
 private:
@@ -15,6 +17,7 @@ private:
 	string fechaInscripcion;
 	int numeroCelular;
 	char sexo;
+
 
 
 public:

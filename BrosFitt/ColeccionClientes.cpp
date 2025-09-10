@@ -52,6 +52,34 @@ string ColeccionClientes::listarClientes() {
 	}
 	return resultado;
 }
+bool ColeccionClientes::insertarAlFinal(Cliente* cliente)
+{
+	// debes verificar si ya esta ingresado el cliente	
+	// verificar que no tenga los mismo datos de otro cliente
+	if (buscarCliente(cliente->getCedula()) != nullptr) {
+		cout << "El cliente ya está ingresado." << endl;
+		return false;
+	}
+	if (cantidad == tam) {
+		// Redimensionar el arreglo
+		int nuevoTam = tam * 2;
+		Cliente** nuevoArreglo = new Cliente * [nuevoTam];
+		for (int i = 0; i < cantidad; i++) {
+			nuevoArreglo[i] = clientes[i];
+		}
+		for (int i = cantidad; i < nuevoTam; i++) {
+			nuevoArreglo[i] = nullptr;
+		}
+		delete[] clientes;
+		clientes = nuevoArreglo;
+		tam = nuevoTam;
+	}
+	clientes[cantidad] = nullptr; // Aquí debería ir el puntero al nuevo cliente
+	cantidad++;
+	return true;
+}
+
+
 int ColeccionClientes::getCantidad() {
 	return cantidad;
 }
