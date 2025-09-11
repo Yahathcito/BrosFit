@@ -17,7 +17,7 @@
 
             switch (opcion) {
             case 1: 
-				Interfaz::ingresoDatosGenerales(); 
+				ingresoDatosGenerales(); 
                 break;
             case 2: 
                 do {

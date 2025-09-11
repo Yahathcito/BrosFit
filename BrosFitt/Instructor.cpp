@@ -43,10 +43,10 @@ void Instructor::setNombre(string nombre)
 {
 	this->nombre = nombre;
 }
-int Instructor::getTelefono()
+/*int Instructor::getTelefono()
 {
 	return telefono;
-}
+}*/
 
 void Instructor::setTelefono(int telefono)
 {
