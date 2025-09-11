@@ -1,17 +1,6 @@
 #include "Instructor.h"
 #include "Sucursal.h"
 
-
-Instructor::Instructor()
-{
-	cedula = "";
-	nombre = "";
-	telefono = 0;
-	fechaNacimiento = "";
-	correo = "";
-
-
-}
 Instructor::Instructor(string cedula, string nombre, int telefono, string fechaNacimiento, string correo, string esp[], int tamClientes,int cantEspecialidades)
 {
 	this->cedula = cedula;
