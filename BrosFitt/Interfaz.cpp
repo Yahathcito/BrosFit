@@ -165,7 +165,7 @@
     {
 		char seguir, sexo; 
 		int opcion, numeroCelular, telefono=0, cantidadEspecialidades = 0, cantidadClientes = 0 ;
-        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], codigoSucu, nombreInstructor;
+        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], codigoSucu, nombreInstructor,nombreSucursal  ;
         ColeccionInstructores* coleccionInstructores = new ColeccionInstructores(20);
         Sucursal* s, * m, * k;
         ColeccionClientes* coleccionClientes = NULL;
@@ -174,6 +174,8 @@
         ColeccionSucursal* coleccionSucursales = new ColeccionSucursal(30);
 
 		do {
+			system("cls");
+
 			cout << "\n--- INGRESO DE DATOS GENERALES ---" << endl;
 			cout << "1. Ingreso de sucursales" << endl;
             cout << "2. Ingreso de instructores (asociar sucursal)" << endl;
@@ -183,6 +185,7 @@
 			cin >> opcion;
 			switch (opcion) {
 			case 1:
+                
 				do {
 					system("cls");
 
@@ -238,8 +241,9 @@
 				break;
 			case 2: 
                 do {
+					system("cls");
                     
-                   /* cout << "Ingrese la cedula del instructor: ";
+                    cout << "Ingrese la cedula del instructor: ";
                     cin >> cedula;
                     cout << "Ingrese el nombre del instructor: ";
                     cin >> nombre;
@@ -257,13 +261,10 @@
                     }
 					cout << "Ingrese la cantidad de clientes que tendra a cargo el instructor: ";  
 					cin >> cantidadClientes;
-				*/
-				// se debe nombrar la misma cantidad que el numero de especialidades que va a tener el instructor 
-					cantidadEspecialidades = 2;
+				
+				
               
-					//
-					//crossFit, HIIT, TRX , pesas, spinning , cardio, yoga, zumba , estas son las especialides posibles
-					//muestrelas al usuario
+					
 
 					// especialidades posibles
 					string especialidadesPosibles[8] = { "CrossFit", "HIIT", "TRX", "Pesas", "Spinning", "Cardio", "Yoga", "Zumba" };
@@ -286,15 +287,14 @@
                         especialidad[i] = especialidadesPosibles[opcionEspecialidad - 1];
 					}
 						
-
+					system("cls");
 		
                     
-					//Instructor* nuevoInstructor = new Instructor(cedula,nombre,telefono,fechaNacimiento,correo,especialidad,cantidadClientes,cantidadEspecialidades);*/
-					//cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << coleccionSucursales->toString() << endl;
-     //               
-					//cin >> nombreSucursal;
-					codigoSucu = "123";
-					nuevoInstructor = new Instructor("0923456789", "Juan Perez", 998765432, "15/04/1985", "juan.perez@example.com", especialidad, 10, cantidadEspecialidades);
+					Instructor* nuevoInstructor = new Instructor(cedula,nombre,telefono,fechaNacimiento,correo,especialidad,cantidadClientes,cantidadEspecialidades);
+                    cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << endl<<endl;
+                    cout<<"Esta es la lista de las sucursales disponibles" <<endl<<endl<<
+                    coleccionSucursales->toString() << endl;
+                    cin >> codigoSucu;
 
 					if(s = coleccionSucursales->buscarSucursal(codigoSucu))
                     {
@@ -303,6 +303,7 @@
                         cout << "Sucursal no encontrada. Asegurese de ingresar un nombre valido." << endl;
 						continue; // Volver al inicio del bucle para intentar de nuevo
                     }
+					
 
 					s->agregarInstructorXSucursal(nuevoInstructor);
 				
@@ -310,30 +311,31 @@
 				
 
 
-                    // Mostrar instructores de ESA sucursal:
-                    cout << "Instructores en la sucursal con el codigo " << s->getCodigo() << ":\n"
-                    << s->getColeccionInstructores()->toString() << endl;
+                  
                    
                     cout << "Desea ingresar otro instructor? (s/n): ";
                     cin >> seguir;
                     if (seguir != 's' && seguir != 'S') {
-                        break;
-                    }
+						
+						break;
+
+					}
+                    
 
                 } while (true);
 
-				
+                system("cls");
+                cout << "Instructores en la sucursal con el codigo " << s->getCodigo() << ":\n"
+                    << s->getColeccionInstructores()->toString() << endl;//se mostra que se llena el contenedor
+                system("pause");
 
-				break;
+                break;
 
                 case 3: 
          
                 do {
-                  
-               
 
-
-               /*     cout << "Ingrese la cedula del cliente: ";
+                /*     cout << "Ingrese la cedula del cliente: ";
                     cin >> cedula;
                     cout << "Ingrese el nombre del cliente: ";
                     cin >> nombre;
