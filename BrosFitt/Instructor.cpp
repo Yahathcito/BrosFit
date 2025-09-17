@@ -2,15 +2,39 @@
 #include "Sucursal.h"
 
 
+
+Instructor::Instructor()
+{
+	cedula = "";
+	nombre = "";
+	telefono = 0;
+	fechaNacimiento = "";
+	correo = "";
+	for (int i = 0; i < 8; i++) {
+		especialidades[i] = "";
+	}
+	
+}
+
+Instructor::Instructor(string cedula, string nombre, int telefono, string fechaNacimiento, string correo, string especialidades[], int cantidadEspecialidades, int tamClientes)
 {
 	this->cedula = cedula;
 	this->nombre = nombre;
 	this->telefono = telefono;
 	this->fechaNacimiento = fechaNacimiento;
 	this->correo = correo;
-	for (int i = 0; i < tamEspecialidades && i < 8; i++) {
-		this->especialidades[i] = especialidades[i];
+	for (int i = 0; i < 8; i++) {
+		if (i < cantidadEspecialidades) {
+			this->especialidades[i] = especialidades[i];
+		}
+		else {
+			this->especialidades[i] = "";
+		}
 	}
+	clientes = new ColeccionClientes(tamClientes);
+	mediciones = new ColeccionMediciones(20);
+	rutinas = new ColeccionRutina(20);
+	ejercicios = new ColeccionEjercicios(20);
 }
 
 string Instructor::getCedula()
@@ -57,17 +81,18 @@ void Instructor::setCorreo(string correo)
 	this->correo = correo;
 }
 
-string Instructor::getEspecialidad(){
-	string especialidades = "";
+string Instructor::getEspecialidad()
+{
+	string resultado = "";
 	for (int i = 0; i < 8; i++) {
-		if (this->especialidades[i] != "") {
-			especialidades += this->especialidades[i] + ", ";
+		if (especialidades[i] != "") {
+			resultado += especialidades[i];
+			if (i < 7 && especialidades[i + 1] != "") {
+				resultado += ", ";
+			}
 		}
 	}
-	if (especialidades.length() > 2) {
-		especialidades = especialidades.substr(0, especialidades.length() - 2); // Quitar la ultima coma y espacio
-	}
-	return especialidades;
+	return resultado;
 }
 void Instructor::setEspecialidad(string especialidad)
 {
@@ -123,17 +148,25 @@ void Instructor::setEjercicios(ColeccionEjercicios* ejercicios)
 {
 	this->ejercicios = ejercicios;
 }
+// muestra las especialidades, si son 8 las 8 y si son menos las que tenga, hazlo bien y ordenando en pantalla, muestrame el nombre de esas especialidades
 
 string Instructor::toString()
 {
-	stringstream s;
-	s << "Cedula: " << cedula << endl;
-	s << "Nombre: " << nombre << endl;
-	s << "Telefono: " << telefono << endl;
-	s << "Fecha de Nacimiento: " << fechaNacimiento << endl;
-	s << "Correo: " << correo << endl;
-	return s.str();
+	stringstream ss;
+	ss << "Cedula: " << cedula << "\n";
+	ss << "Nombre: " << nombre << "\n";
+	ss << "Telefono: " << telefono << "\n";
+	ss << "Fecha de Nacimiento: " << fechaNacimiento << "\n";
+	ss << "Correo: " << correo << "\n";
+	ss << "Especialidades: " << getEspecialidad() << "\n";
+	ss << "Cantidad de Clientes a Cargo: " << clientes->getCantidad() << "\n";
+	return ss.str();
 }
+
+
+
+
+
 Instructor::~Instructor()
 {
 	delete clientes;

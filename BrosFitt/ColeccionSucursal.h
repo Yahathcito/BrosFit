@@ -12,7 +12,6 @@ public:
 	~ColeccionSucursal();
 	void agregarSucursal(Sucursal*);
 	Sucursal* buscarSucursal(string);
-	bool eliminarSucursal(string);
 	string listarSucursales();
 	int getCantidad();
 	int getTam();

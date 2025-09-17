@@ -1,11 +1,6 @@
 #include "Interfaz.h"
 
 
-
-
-
-
-
         void Interfaz::menu() {
 		
 
@@ -169,13 +164,13 @@
     void Interfaz::ingresoDatosGenerales()
     {
 		char seguir, sexo; 
-        int opcion, numeroCelular, telefono, cantidadEspecialidades= 0, cantidadClientes =0;
-        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], nombreSucursal="", nombreInstructor;
+		int opcion, numeroCelular, telefono=0, cantidadEspecialidades = 0, cantidadClientes = 0 ;
+        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], codigoSucu, nombreInstructor;
         ColeccionInstructores* coleccionInstructores = new ColeccionInstructores(20);
         Sucursal* s, * m, * k;
         ColeccionClientes* coleccionClientes = NULL;
         Cliente* cli = nullptr;
-        Instructor* nuevoInstructor;
+		Instructor* nuevoInstructor = nullptr;
         ColeccionSucursal* coleccionSucursales = new ColeccionSucursal(30);
 
 		do {
@@ -210,13 +205,13 @@
 					//// crear la sucursal con los datos ingresados por el usuario
      //               s = new Sucursal(codigo, provincia, canton, correoElectronico, telefono, capacidadClientes, capacidadInstructores);
 
-					s = new Sucursal("123", "Pichincha", "Quito", "correo@sucursalA.com", "555-1234", 100, 10);
-					m = new Sucursal("456", "Guayas", "Guayaquil", "correo@sucursalB.com", "555-5678", 200, 20);
-					k = new Sucursal("789", "Azuay", "Cuenca", "correo@sucursalC.com", "555-9012", 150, 15);
+					s = new Sucursal("123", "Quito", "Pichincha", "correo@sucursalA.com", "555-1234", 100, 10);
+					//m = new Sucursal("456", "Guayaquil", "Guayas", "correo@sucursalB.com", "555-5678", 200, 20);
+					//k = new Sucursal("789", "Cuenca", "Azuay", "correo@sucursalC.com", "555-9012", 150, 15);
 
 					// insertar la sucursal en el contenedor
-					coleccionSucursales->insertarAlFinal(k);
-					coleccionSucursales->insertarAlFinal(m);
+		/*			coleccionSucursales->insertarAlFinal(k);
+					coleccionSucursales->insertarAlFinal(m);*/
 
                     if (coleccionSucursales->insertarAlFinal(s)) {
 						cout << "Sucursal agregada exitosamente!" << endl;
@@ -239,7 +234,7 @@
 
 
 
-
+             
 				break;
 			case 2: 
                 do {
@@ -277,14 +272,20 @@
                     for (int i = 0; i < 8; i++) {
                         cout << i + 1 << ". " << especialidadesPosibles[i] << endl;
 					}
+
 					//ingrese las especialidades del instructor
 
-
-					cout << "Ingrese las especialidades del instructor: " << endl;
-					for (int i = 0; i < cantidadEspecialidades; i++) {
-						cout << "Especialidad " << (i + 1) << ": ";
-						cin >> especialidad[i];
-					}			
+                    for (int i = 0; i < cantidadEspecialidades; i++) {
+                        int opcionEspecialidad;
+                        cout << "Ingrese el numero de la especialidad " << i + 1 << ": ";
+                        cin >> opcionEspecialidad;
+                        while (opcionEspecialidad < 1 || opcionEspecialidad > 8) {
+                            cout << "Opcion invalida. Ingrese un numero entre 1 y 8: ";
+                            cin >> opcionEspecialidad;
+                        }
+                        especialidad[i] = especialidadesPosibles[opcionEspecialidad - 1];
+					}
+						
 
 		
                     
@@ -292,13 +293,12 @@
 					//cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << coleccionSucursales->toString() << endl;
      //               
 					//cin >> nombreSucursal;
-					nombreSucursal = "123";
-					nuevoInstructor = new Instructor("123456789", "Juan Perez", 5551234, "01/01/1980", "juan.perez@example.com", especialidad, 10, cantidadEspecialidades);
+					codigoSucu = "123";
+					nuevoInstructor = new Instructor("0923456789", "Juan Perez", 998765432, "15/04/1985", "juan.perez@example.com", especialidad, 10, cantidadEspecialidades);
 
-					
-					if(s = coleccionSucursales->buscarSucursal(nombreSucursal))
+					if(s = coleccionSucursales->buscarSucursal(codigoSucu))
                     {
-                        cout << "Sucursal encontrada: " << s->getNombre() << endl;
+                        cout << "Sucursal encontrada, codigo: " << s->getCodigo() << endl;
                     } else {
                         cout << "Sucursal no encontrada. Asegurese de ingresar un nombre valido." << endl;
 						continue; // Volver al inicio del bucle para intentar de nuevo
@@ -308,9 +308,11 @@
 				
 				
 				
-// Mostrar instructores de ESA sucursal:
-cout << "Instructores en la sucursal " << s->getNombre() << ":\n"
-     << s->getColeccionInstructores()->toString() << endl;
+
+
+                    // Mostrar instructores de ESA sucursal:
+                    cout << "Instructores en la sucursal con el codigo " << s->getCodigo() << ":\n"
+                    << s->getColeccionInstructores()->toString() << endl;
                    
                     cout << "Desea ingresar otro instructor? (s/n): ";
                     cin >> seguir;
@@ -331,7 +333,7 @@ cout << "Instructores en la sucursal " << s->getNombre() << ":\n"
                
 
 
-                    cout << "Ingrese la cedula del cliente: ";
+               /*     cout << "Ingrese la cedula del cliente: ";
                     cin >> cedula;
                     cout << "Ingrese el nombre del cliente: ";
                     cin >> nombre;
@@ -346,24 +348,30 @@ cout << "Instructores en la sucursal " << s->getNombre() << ":\n"
                     cout << "Ingrese el sexo del cliente (M/F): ";
                     cin >> sexo;
                 
-					Cliente* cli = new Cliente(cedula, nombre, correo, fechaInscripcion, fechaNacimiento, numeroCelular, sexo);
-					cout << "ingrese el nombre de la sucursal a la que quiere asociar el cliente: " << coleccionSucursales->toString() << endl;
-					cin >> nombreSucursal;
-
-					s = coleccionSucursales->buscarSucursal(nombreSucursal);// Poner Atencion BRR
+					Cliente* cli = new Cliente(cedula, nombre, correo, fechaInscripcion, fechaNacimiento, numeroCelular, sexo);*/
+					Cliente* cli = new Cliente("0912345678", "Maria Gomez", "gagaga@hah", "01/01/2023", "20/05/1990", 987, 'F');
+					// Mostrar sucursales disponibles para asociar el cliente
+				    cout << "Sucursales disponibles para asociar:" <<endl; 
+                    cout << coleccionSucursales->toString() << endl;
+                    cout << "Digite el codigo de sucursal a asociar:";cin>>codigoSucu;
+					s = coleccionSucursales->buscarSucursal(codigoSucu);
                     s->agregarClienteXSucursal(cli);
-                    //nuevoInstructor = 
 
-					cout << "Ingrese el nombre del instructor que tendra a cargo el cliente: " << s->getColeccionInstructores()->toString() << endl;
-                    cin >> nombreInstructor;
+                    cout<<"Instructores de la sucursal "<<codigoSucu<<": "<<endl; cout<< s->getColeccionInstructores()->toString() << endl;
+                    cout<<"Digite la cedula del instructor deseado: "; cin >> cedula;
 
-					s->getColeccionInstructores()->buscarInstructor(nombreInstructor)->getClientes()->insertarAlFinal(cli);
+					s->getColeccionInstructores()->buscarInstructor(cedula)->getClientes()->insertarAlFinal(cli);
                         cout << "Cliente agregado exitosamente!" << endl;
                     
                     cout << "Desea ingresar otro cliente? (s/n): ";
                     cin >> seguir;
                 } while (seguir == 's' || seguir == 'S');
+
+				//comprobacion rapida de que se crea el cliente
+				cout << "Clientes actuales en la sucursal " << s->getCodigo() << ": " << s->getClientes()->listarClientes() << endl;
+
                 break;
+				
 			case 0: break;
 			default: cout << "Opcion invalida!" << endl;
 			}

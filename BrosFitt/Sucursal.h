@@ -12,12 +12,13 @@ class Sucursal
 {
 private:
 
-	string nombre;
+	string codigo;
 	string canton;
 	string provincia;
 	string telefono;
 	string correoElectronico;
-	int capacidadMaxima;
+	int capacidadMaximaClientes;
+	int capacidadMaximaInstructores;
 	ColeccionClientes* clientes;
 	ColeccionInstructores* instructores;
 
@@ -31,8 +32,14 @@ public:
 	void setTelefono(string telefono);
 	string getCorreoElectronico();
 	void setCorreoElectronico(string correoElectronico);
-	int getCapacidadMaxima();
-	void setCapacidadMaxima(int capacidadMaxima);
+
+	string getCodigo();
+	void setCodigo(string codigo);
+	int getCapacidadMaximaInstructores();
+	void setCapacidadMaximaInstructores(int capacidadMaximaInstructores);
+	int getCapacidadMaximaClientes();
+
+
 	ColeccionClientes* getClientes();
 	ColeccionInstructores* getColeccionInstructores();
 	void setClientes(ColeccionClientes*);

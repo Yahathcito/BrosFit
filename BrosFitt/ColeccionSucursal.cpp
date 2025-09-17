@@ -40,21 +40,7 @@ void ColeccionSucursal::agregarSucursal(Sucursal* sucursal)
 // explica donde se esta insertando la nueva sucursal al final del arreglo?
 
 
-bool ColeccionSucursal::eliminarSucursal(string nombre)
-{
-	for (int i = 0; i < cantidad; i++) {
-		if (sucursales[i]->getNombre() == nombre) {
-			delete sucursales[i];
-			for (int j = i; j < cantidad - 1; j++) {
-				sucursales[j] = sucursales[j + 1];
-			}
-			sucursales[cantidad - 1] = nullptr;
-			cantidad--;
-			return true;
-		}
-	}
-	return false;
-}
+
 string ColeccionSucursal::listarSucursales()
 {
 	string resultado = "";
@@ -103,7 +89,7 @@ bool ColeccionSucursal::insertarAlInicio(Sucursal* v)
 bool ColeccionSucursal::insertarAlFinal(Sucursal* v)
 {
 
-	if (buscarSucursal(v->getNombre()) != nullptr) {
+	if (buscarSucursal(v->getCodigo()) != nullptr) {
 		cout << "La sucursal ya está ingresada." << endl;
 		delete v;
 		return false;
@@ -128,10 +114,10 @@ bool ColeccionSucursal::insertarAlFinal(Sucursal* v)
 }
 
 // VERIFICA QUE SE BUSQUE BIEN LA SUCURSAL
-Sucursal* ColeccionSucursal::buscarSucursal(string nombre)
+Sucursal* ColeccionSucursal::buscarSucursal(string codigo)
 {
 		for (int i = 0; i < cantidad; i++) {
-		if (sucursales[i]->getNombre() == nombre) {
+		if (sucursales[i]->getCodigo() == codigo) {
 			return sucursales[i];
 		}
 	}

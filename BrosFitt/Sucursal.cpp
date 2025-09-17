@@ -6,25 +6,19 @@ Sucursal::Sucursal()
 
 
 }
-Sucursal::Sucursal(string nombre, string provincia, string canton, string correoElectronico, string telefono, int tamClientes, int tamInstructores)
+Sucursal::Sucursal(string codigo, string provincia, string canton, string correoElectronico, string telefono, int tamClientes, int tamInstructores)
 {
-	this->nombre = nombre;
+	this->codigo = codigo;
 	this->canton = canton;
 	this->provincia = provincia;
 	this->telefono = telefono;
 	this->correoElectronico = correoElectronico;
-	this->capacidadMaxima = tamClientes;
+	this->capacidadMaximaClientes = tamClientes;
+	this->capacidadMaximaInstructores = tamInstructores;
 	clientes = new ColeccionClientes(tamClientes);
 	instructores = new ColeccionInstructores(tamInstructores);
 }
-string Sucursal::getNombre()
-{
-	return nombre;
-}
-void Sucursal::setNombre(string nombre)
-{
-	this->nombre = nombre;
-}
+
 
 string Sucursal::getTelefono()
 {
@@ -42,14 +36,7 @@ void Sucursal::setCorreoElectronico(string correoElectronico)
 {
 	this->correoElectronico = correoElectronico;
 }
-int Sucursal::getCapacidadMaxima()
-{
-	return capacidadMaxima;
-}
-void Sucursal::setCapacidadMaxima(int capacidadMaxima)
-{
-	this->capacidadMaxima = capacidadMaxima;
-}
+
 
 
 
@@ -82,6 +69,35 @@ void Sucursal::agregarClienteXSucursal(Cliente* cliente)
 }
 
 
+string Sucursal::getCodigo()
+{
+	return codigo;
+}
+void Sucursal::setCodigo(string codigo)
+{
+	this->codigo = codigo;
+}
+int Sucursal::getCapacidadMaximaInstructores()
+{
+	return capacidadMaximaInstructores;
+}
+void Sucursal::setCapacidadMaximaInstructores(int capacidadMaximaInstructores)
+{
+	this->capacidadMaximaInstructores = capacidadMaximaInstructores;
+}
+int Sucursal::getCapacidadMaximaClientes()
+{
+	return capacidadMaximaClientes;
+}
+ColeccionClientes* Sucursal::getClientes()
+{
+	return clientes;
+}
+void Sucursal::setClientes(ColeccionClientes* clientes)
+{
+	this->clientes = clientes;
+}
+
 ColeccionInstructores* Sucursal::getColeccionInstructores()
 {
 	return instructores;
@@ -90,12 +106,12 @@ ColeccionInstructores* Sucursal::getColeccionInstructores()
 string Sucursal::toString()
 {
 	stringstream s;
-	s << "Nombre: " << nombre << endl;
+	s << "Codigo: " << codigo << endl;
 	s << "Provincia: " << provincia << endl;
 	s << "Canton: " << canton << endl;
 	s << "Telefono: " << telefono << endl;
 	s << "Correo Electronico: " << correoElectronico << endl;
-	s << "Capacidad Maxima: " << capacidadMaxima << endl;
+	
 	return s.str();
 }
 Sucursal::~Sucursal()

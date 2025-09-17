@@ -19,6 +19,11 @@ private:
 	string fechaNacimiento;
 	string correo;
 	string especialidades[8];
+	ColeccionClientes* clientes;
+	ColeccionMediciones* mediciones;
+	ColeccionRutina* rutinas;
+	ColeccionEjercicios* ejercicios;
+	
 
 	 
 
