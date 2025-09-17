@@ -1,5 +1,16 @@
 #include "Interfaz.h"
+
+
+
+
+
+
+
         void Interfaz::menu() {
+		
+
+
+
         int opcion;
 
         do {
@@ -160,13 +171,13 @@
 		char seguir, sexo; 
         int opcion, numeroCelular, telefono, cantidadEspecialidades= 0, cantidadClientes =0;
         string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], nombreSucursal="", nombreInstructor;
-		ColeccionInstructores* coleccionInstructores = new ColeccionInstructores(20);
-        Sucursal* s, *m, *k;
-		ColeccionClientes* coleccionClientes = NULL;
-		Cliente* cli = nullptr;
+        ColeccionInstructores* coleccionInstructores = new ColeccionInstructores(20);
+        Sucursal* s, * m, * k;
+        ColeccionClientes* coleccionClientes = NULL;
+        Cliente* cli = nullptr;
         Instructor* nuevoInstructor;
-		ColeccionSucursal* coleccionSucursales = new ColeccionSucursal(30);
-     
+        ColeccionSucursal* coleccionSucursales = new ColeccionSucursal(30);
+
 		do {
 			cout << "\n--- INGRESO DE DATOS GENERALES ---" << endl;
 			cout << "1. Ingreso de sucursales" << endl;
@@ -228,6 +239,7 @@
 
 
 
+
 				break;
 			case 2: 
                 do {
@@ -250,25 +262,55 @@
                     }
 					cout << "Ingrese la cantidad de clientes que tendra a cargo el instructor: ";  
 					cin >> cantidadClientes;
-				
-                    cout << "Ingrese la especialidad del instructor (CrossFit, HIIT, TRX, Pesas, Spinning, Cardio, Yoga, Zumba): ";
-                    for (int i = 0; i <= cantidadEspecialidades; i++) {
-                        cin >> especialidad[i];
+				*/
+				// se debe nombrar la misma cantidad que el numero de especialidades que va a tener el instructor 
+					cantidadEspecialidades = 2;
+              
+					//
+					//crossFit, HIIT, TRX , pesas, spinning , cardio, yoga, zumba , estas son las especialides posibles
+					//muestrelas al usuario
+
+					// especialidades posibles
+					string especialidadesPosibles[8] = { "CrossFit", "HIIT", "TRX", "Pesas", "Spinning", "Cardio", "Yoga", "Zumba" };
+                    
+					cout << "Especialidades posibles: " << endl;
+                    for (int i = 0; i < 8; i++) {
+                        cout << i + 1 << ". " << especialidadesPosibles[i] << endl;
+					}
+					//ingrese las especialidades del instructor
+
+
+					cout << "Ingrese las especialidades del instructor: " << endl;
+					for (int i = 0; i < cantidadEspecialidades; i++) {
+						cout << "Especialidad " << (i + 1) << ": ";
+						cin >> especialidad[i];
+					}			
+
+		
+                    
+					//Instructor* nuevoInstructor = new Instructor(cedula,nombre,telefono,fechaNacimiento,correo,especialidad,cantidadClientes,cantidadEspecialidades);*/
+					//cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << coleccionSucursales->toString() << endl;
+     //               
+					//cin >> nombreSucursal;
+					nombreSucursal = "123";
+					nuevoInstructor = new Instructor("123456789", "Juan Perez", 5551234, "01/01/1980", "juan.perez@example.com", especialidad, 10, cantidadEspecialidades);
+
+					
+					if(s = coleccionSucursales->buscarSucursal(nombreSucursal))
+                    {
+                        cout << "Sucursal encontrada: " << s->getNombre() << endl;
+                    } else {
+                        cout << "Sucursal no encontrada. Asegurese de ingresar un nombre valido." << endl;
+						continue; // Volver al inicio del bucle para intentar de nuevo
                     }
 
-					Instructor* nuevoInstructor = new Instructor(cedula,nombre,telefono,fechaNacimiento,correo,especialidad,cantidadClientes,cantidadEspecialidades);*/
-					/*cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << coleccionSucursales->toString() << endl;
-                    
-					cin >> nombreSucursal;*/
-					nombreSucursal = "123";
-					nuevoInstructor = new Instructor("123456789", "Juan Perez", 5551234, "01/01/1980", "juan.perez@example.com", especialidad, cantidadClientes, cantidadEspecialidades);
-
-					
-					s = coleccionSucursales->buscarSucursal(nombreSucursal);// Poner Atencion BRR
 					s->agregarInstructorXSucursal(nuevoInstructor);
 				
-					
-					cout << "Instructor agregado exitosamente!" << endl;
+				
+				
+// Mostrar instructores de ESA sucursal:
+cout << "Instructores en la sucursal " << s->getNombre() << ":\n"
+     << s->getColeccionInstructores()->toString() << endl;
                    
                     cout << "Desea ingresar otro instructor? (s/n): ";
                     cin >> seguir;
@@ -278,8 +320,7 @@
 
                 } while (true);
 
-				cout << "Instructores actuales: " << coleccionInstructores->toString() << endl;
-		
+				
 
 				break;
 

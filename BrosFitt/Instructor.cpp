@@ -9,20 +9,28 @@ Instructor::Instructor()
 	telefono = 0;
 	fechaNacimiento = "";
 	correo = "";
+	for (int i = 0; i < 8; i++) {
+		especialidades[i] = "";
+	}
+	clientes = new ColeccionClientes(10);
+	mediciones = new ColeccionMediciones(10);
+	rutinas = new ColeccionRutina(10);
+	ejercicios = new ColeccionEjercicios(10);
+
 
 
 }
-Instructor::Instructor(string cedula, string nombre, int telefono, string fechaNacimiento, string correo, string esp[], int tamClientes,int cantEspecialidades)
+
+Instructor::Instructor(string cedula, string nombre, int telefono, string fechaNacimiento, string correo, string especialidades[], int tamClientes, int tamEspecialidades)
 {
 	this->cedula = cedula;
 	this->nombre = nombre;
 	this->telefono = telefono;
 	this->fechaNacimiento = fechaNacimiento;
 	this->correo = correo;
-	for(int i = 0; i < cantEspecialidades; i++){
-		this->especialidades[i] = esp[i];
+	for (int i = 0; i < tamEspecialidades && i < 8; i++) {
+		this->especialidades[i] = especialidades[i];
 	}
-	clientes = new ColeccionClientes(tamClientes);
 }
 
 string Instructor::getCedula()

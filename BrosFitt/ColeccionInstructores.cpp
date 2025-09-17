@@ -15,15 +15,34 @@ ColeccionInstructores::~ColeccionInstructores() {
 	}
 	delete[] instructores;
 }
-void ColeccionInstructores::agregarInstructor(Instructor* instructor) {
-	if (cantidad < tam) {
-		instructores[cantidad] = instructor;
-		cantidad++;
-	}
-	else {
-		cout << "No se puede agregar más instructores, capacidad máxima alcanzada." << endl;
-	}
-}
+
+    bool ColeccionInstructores::insertarAlFinal(Instructor* instructor)
+    {
+					// debes verificar si ya esta ingresado el instructor	
+					// verificar que no tenga los mismo datos de otro instructor
+					if (buscarInstructor(instructor->getCedula()) != nullptr) {
+						cout << "El instructor ya está ingresado." << endl;
+						return false;
+					}
+					if (cantidad == tam) {
+						// Redimensionar el arreglo
+						int nuevoTam = tam * 2;
+						Instructor** nuevoArreglo = new Instructor * [nuevoTam];
+						for (int i = 0; i < cantidad; i++) {
+							nuevoArreglo[i] = instructores[i];
+						}
+						for (int i = cantidad; i < nuevoTam; i++) {
+							nuevoArreglo[i] = nullptr;
+						}
+						delete[] instructores;
+						instructores = nuevoArreglo;
+						tam = nuevoTam;
+					}
+					instructores[cantidad] = instructor; // Corregido: asignar el puntero al nuevo instructor
+					cantidad++;
+					return true;
+    }
+
 Instructor* ColeccionInstructores::buscarInstructor(string cedula) {
 	for (int i = 0; i < cantidad; i++) {
 		if (instructores[i]->getCedula() == cedula) {
@@ -52,32 +71,6 @@ string ColeccionInstructores::listarInstructores() {
 		resultado += instructores[i]->toString() + "\n";
 	}
 	return resultado;
-}
-bool ColeccionInstructores::insertarAlFinal(Instructor* instructor)
-{
-	// debes verificar si ya esta ingresado el instructor	
-	// verificar que no tenga los mismo datos de otro instructor
-	if (buscarInstructor(instructor->getCedula()) != nullptr) {
-		cout << "El instructor ya está ingresado." << endl;
-		return false;
-	}
-	if (cantidad == tam) {
-		// Redimensionar el arreglo
-		int nuevoTam = tam * 2;
-		Instructor** nuevoArreglo = new Instructor * [nuevoTam];
-		for (int i = 0; i < cantidad; i++) {
-			nuevoArreglo[i] = instructores[i];
-		}
-		for (int i = cantidad; i < nuevoTam; i++) {
-			nuevoArreglo[i] = nullptr;
-		}
-		delete[] instructores;
-		instructores = nuevoArreglo;
-		tam = nuevoTam;
-	}
-	instructores[cantidad] = nullptr; // Aquí debería ir el puntero al nuevo instructor
-	cantidad++;
-	return true;
 }
 int ColeccionInstructores::getCantidad() {
 	return cantidad;

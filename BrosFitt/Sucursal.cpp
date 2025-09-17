@@ -68,9 +68,9 @@ void Sucursal::setInstructores(ColeccionInstructores*)
 
 void Sucursal::agregarInstructorXSucursal(Instructor* instructor)
 {
-
-
 	instructores->insertarAlFinal(instructor);
+
+
 
 }
 

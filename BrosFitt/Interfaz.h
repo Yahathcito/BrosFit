@@ -5,6 +5,10 @@
 using namespace std;
 
 class Interfaz{
+private:
+
+
+
 public: 
 	static void menu();
 	static void ingresoDatosGenerales();
