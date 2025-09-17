@@ -3,17 +3,19 @@
 
 Sucursal::Sucursal()
 {
-}
 
-Sucursal::Sucursal(string nombre, string direccion, string telefono, string correoElectronico, int tamClientes, int tamInstructores)
+
+}
+Sucursal::Sucursal(string nombre, string provincia, string canton, string correoElectronico, string telefono, int tamClientes, int tamInstructores)
 {
 	this->nombre = nombre;
-	this->direccion = direccion;
+	this->canton = canton;
+	this->provincia = provincia;
 	this->telefono = telefono;
 	this->correoElectronico = correoElectronico;
+	this->capacidadMaxima = tamClientes;
 	clientes = new ColeccionClientes(tamClientes);
 	instructores = new ColeccionInstructores(tamInstructores);
-	
 }
 string Sucursal::getNombre()
 {
@@ -23,14 +25,7 @@ void Sucursal::setNombre(string nombre)
 {
 	this->nombre = nombre;
 }
-string Sucursal::getDireccion()
-{
-	return direccion;
-}
-void Sucursal::setDireccion(string direccion)
-{
-	this->direccion = direccion;
-}
+
 string Sucursal::getTelefono()
 {
 	return telefono;
@@ -73,7 +68,10 @@ void Sucursal::setInstructores(ColeccionInstructores*)
 
 void Sucursal::agregarInstructorXSucursal(Instructor* instructor)
 {
-	instructores->agregarInstructor(instructor);
+
+
+	instructores->insertarAlFinal(instructor);
+
 }
 
 
@@ -93,7 +91,8 @@ string Sucursal::toString()
 {
 	stringstream s;
 	s << "Nombre: " << nombre << endl;
-	s << "Direccion: " << direccion << endl;
+	s << "Provincia: " << provincia << endl;
+	s << "Canton: " << canton << endl;
 	s << "Telefono: " << telefono << endl;
 	s << "Correo Electronico: " << correoElectronico << endl;
 	s << "Capacidad Maxima: " << capacidadMaxima << endl;

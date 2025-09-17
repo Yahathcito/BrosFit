@@ -87,11 +87,11 @@ int ColeccionInstructores::getTam() {
 	return tam;
 }
 
-string ColeccionInstructores::toString()
-{
+string ColeccionInstructores::toString() {
 	string resultado = "";
 	for (int i = 0; i < cantidad; i++) {
 		resultado += instructores[i]->toString() + "\n";
 	}
 	return resultado;
 }
+

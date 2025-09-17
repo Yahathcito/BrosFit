@@ -6,6 +6,7 @@ private:
 	int tam;
 	int cantidad;
 	Sucursal** sucursales;
+
 public:
 	ColeccionSucursal(int);
 	~ColeccionSucursal();

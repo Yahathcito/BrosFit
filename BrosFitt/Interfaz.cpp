@@ -14,6 +14,7 @@
             cout << "0. Salir" << endl;
             cout << "Seleccione una opcion: ";
             cin >> opcion;
+			system("cls");
 
             switch (opcion) {
             case 1: 
@@ -156,19 +157,16 @@
 
     void Interfaz::ingresoDatosGenerales()
     {
-		char seguir;
-        int opcion;
-		ColeccionInstructores* coleccionInstructores = nullptr;  
-        Sucursal* s;
-		ColeccionClientes* coleccionClientes = nullptr;
+		char seguir, sexo; 
+        int opcion, numeroCelular, telefono, cantidadEspecialidades= 0, cantidadClientes =0;
+        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], nombreSucursal="", nombreInstructor;
+		ColeccionInstructores* coleccionInstructores = new ColeccionInstructores(20);
+        Sucursal* s, *m, *k;
+		ColeccionClientes* coleccionClientes = NULL;
 		Cliente* cli = nullptr;
-		Instructor* nuevoInstructor = nullptr;
-        ColeccionSucursal* coleccionSucursales= nullptr;
-        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion;
-        int numeroCelular;
-        char sexo;
-		string especialidad[8], nombreSucursal, nombreInstructor;
-        int telefono, cantidadEspecialidades, cantidadClientes;
+        Instructor* nuevoInstructor;
+		ColeccionSucursal* coleccionSucursales = new ColeccionSucursal(30);
+     
 		do {
 			cout << "\n--- INGRESO DE DATOS GENERALES ---" << endl;
 			cout << "1. Ingreso de sucursales" << endl;
@@ -180,31 +178,61 @@
 			switch (opcion) {
 			case 1:
 				do {
-					string codigo, nombre, direccion, telefono;
-                    int capacidadClientes,capacidadInstructores;
-					cout << "Ingrese el codigo de la sucursal: ";
-					cin >> codigo;
-					cout << "Ingrese el nombre de la sucursal: ";
-					cin >> nombre;
-					cout << "Ingrese la direccion de la sucursal: ";
-					cin >> direccion;
-					cout << "Ingrese el telefono de la sucursal: ";
-					cin >> telefono;
-					cout << "Cual es la capacidad maxima de instructores de la sucursal: ";
-					cin >> capacidadInstructores;
-					cout << "Cual es la capacidad maxima de clientes de la sucursal: ";
-					cin >> capacidadClientes;
+					system("cls");
 
-					s = new Sucursal(codigo, nombre, direccion, telefono, capacidadClientes, capacidadInstructores);
-					
+     //               string codigo, nombre, canton, provincia, telefono, correoElectronico;
+					//int capacidadClientes,capacidadInstructores;
+					//cout << "Ingrese el codigo de la sucursal: ";
+					//cin >> codigo;
+					//cout << "Ingrese el nombre de la sucursal: ";
+					//cin >> nombre;
+					//cout << "Ingrese el canton de la sucursal: ";
+					//cin >> canton;
+					//cout << "Ingrese la provincia de la sucursal: ";
+					//cin >> provincia;
+					//cout << "Ingrese el telefono de la sucursal: ";
+					//cin >> telefono;
+					//cout << "Cual es la capacidad maxima de instructores de la sucursal: ";
+					//cin >> capacidadInstructores;
+					//cout << "Cual es la capacidad maxima de clientes de la sucursal: ";
+					//cin >> capacidadClientes;
+					//// crear la sucursal con los datos ingresados por el usuario
+     //               s = new Sucursal(codigo, provincia, canton, correoElectronico, telefono, capacidadClientes, capacidadInstructores);
+
+					s = new Sucursal("123", "Pichincha", "Quito", "correo@sucursalA.com", "555-1234", 100, 10);
+					m = new Sucursal("456", "Guayas", "Guayaquil", "correo@sucursalB.com", "555-5678", 200, 20);
+					k = new Sucursal("789", "Azuay", "Cuenca", "correo@sucursalC.com", "555-9012", 150, 15);
+
+					// insertar la sucursal en el contenedor
+					coleccionSucursales->insertarAlFinal(k);
+					coleccionSucursales->insertarAlFinal(m);
+
                     if (coleccionSucursales->insertarAlFinal(s)) {
 						cout << "Sucursal agregada exitosamente!" << endl;
 					}
+					// muestra que se este llenando el contenedor
+					cout << "Desea ingresar otra sucursal? (s/n): ";
+					cin >> seguir;
+
+					if (seguir != 's' && seguir != 'S') {
+						break;
+					}
+
+
+
 				} while (true);
+				//muestra que se este llenando el contenidor por consola 
+                //comprobacion rapida de que se llena el contenedor
+
+				cout << "Sucursales actuales: " << coleccionSucursales->toString() << endl;
+
+
+
 				break;
 			case 2: 
                 do {
-                    cout << "Ingrese la cedula del instructor: ";
+                    
+                   /* cout << "Ingrese la cedula del instructor: ";
                     cin >> cedula;
                     cout << "Ingrese el nombre del instructor: ";
                     cin >> nombre;
@@ -228,24 +256,31 @@
                         cin >> especialidad[i];
                     }
 
-					Instructor* nuevoInstructor = new Instructor(cedula,nombre,telefono,fechaNacimiento,correo,especialidad,cantidadClientes,cantidadEspecialidades);
-					cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << coleccionSucursales->toString() << endl;
+					Instructor* nuevoInstructor = new Instructor(cedula,nombre,telefono,fechaNacimiento,correo,especialidad,cantidadClientes,cantidadEspecialidades);*/
+					/*cout << "ingrese el nombre de la sucursal a la que quiere asociar el Instructor: " << coleccionSucursales->toString() << endl;
+                    
+					cin >> nombreSucursal;*/
+					nombreSucursal = "123";
+					nuevoInstructor = new Instructor("123456789", "Juan Perez", 5551234, "01/01/1980", "juan.perez@example.com", especialidad, cantidadClientes, cantidadEspecialidades);
 
-					cin >> nombreSucursal;
-
-				   s = coleccionSucursales->buscarSucursal(nombreSucursal);
+					
+					s = coleccionSucursales->buscarSucursal(nombreSucursal);// Poner Atencion BRR
 					s->agregarInstructorXSucursal(nuevoInstructor);
-
-
-
-
-
-                    if (coleccionInstructores->insertarAlFinal(nuevoInstructor)) {
-                        cout << "Instructor agregado exitosamente!" << endl;
-                    }
+				
+					
+					cout << "Instructor agregado exitosamente!" << endl;
+                   
                     cout << "Desea ingresar otro instructor? (s/n): ";
                     cin >> seguir;
-                } while (seguir == 's' || seguir == 'S');
+                    if (seguir != 's' && seguir != 'S') {
+                        break;
+                    }
+
+                } while (true);
+
+				cout << "Instructores actuales: " << coleccionInstructores->toString() << endl;
+		
+
 				break;
 
                 case 3: 
@@ -295,6 +330,4 @@
 
 
     }
-//---------------------------------------------------------------------
-
    
