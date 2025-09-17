@@ -2,26 +2,6 @@
 #include "Sucursal.h"
 
 
-Instructor::Instructor()
-{
-	cedula = "";
-	nombre = "";
-	telefono = 0;
-	fechaNacimiento = "";
-	correo = "";
-	for (int i = 0; i < 8; i++) {
-		especialidades[i] = "";
-	}
-	clientes = new ColeccionClientes(10);
-	mediciones = new ColeccionMediciones(10);
-	rutinas = new ColeccionRutina(10);
-	ejercicios = new ColeccionEjercicios(10);
-
-
-
-}
-
-Instructor::Instructor(string cedula, string nombre, int telefono, string fechaNacimiento, string correo, string especialidades[], int tamClientes, int tamEspecialidades)
 {
 	this->cedula = cedula;
 	this->nombre = nombre;
@@ -51,10 +31,10 @@ void Instructor::setNombre(string nombre)
 {
 	this->nombre = nombre;
 }
-int Instructor::getTelefono()
+/*int Instructor::getTelefono()
 {
 	return telefono;
-}
+}*/
 
 void Instructor::setTelefono(int telefono)
 {
