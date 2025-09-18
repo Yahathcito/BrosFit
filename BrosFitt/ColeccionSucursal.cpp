@@ -37,8 +37,9 @@ void ColeccionSucursal::agregarSucursal(Sucursal* sucursal)
 }
 
 
-// explica donde se esta insertando la nueva sucursal al final del arreglo?
-
+Sucursal* ColeccionSucursal::getPorIndice(int i) {          // <-- NUEVO
+	return (i >= 0 && i < cantidad) ? sucursales[i] : nullptr;
+}
 
 
 string ColeccionSucursal::listarSucursales()
@@ -53,6 +54,9 @@ int ColeccionSucursal::getCantidad()
 {
 	return cantidad;
 }
+
+
+
 int ColeccionSucursal::getTam()
 {
 	return tam;
@@ -82,6 +86,7 @@ bool ColeccionSucursal::insertarAlInicio(Sucursal* v)
 	cantidad++;
 	return true;
 }
+
 
 
 
@@ -122,6 +127,11 @@ Sucursal* ColeccionSucursal::buscarSucursal(string codigo)
 		}
 	}
 	return nullptr;
+}
+
+bool ColeccionSucursal::eliminarSucursal(string)
+{
+	return false;
 }
 
 

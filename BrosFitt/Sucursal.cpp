@@ -65,7 +65,7 @@ void Sucursal::agregarInstructorXSucursal(Instructor* instructor)
 
 void Sucursal::agregarClienteXSucursal(Cliente* cliente)
 {
-	clientes->agregarCliente(cliente);
+	clientes->insertarAlFinal(cliente);
 }
 
 

@@ -83,12 +83,13 @@ void Cliente::setSexo(char sexo) {
 }
 string Cliente::toString() {
 	stringstream ss;
-	ss << "Cliente: " << nombre << " (" << cedulaIdentidad << ")\n";
-	ss << "Correo: " << correoElectronico << "\n";
-	ss << "Celular: " << numeroCelular << "\n";
+	ss << "Cedula: " << cedulaIdentidad << "\n";
+	ss << "Nombre: " << nombre << "\n";
+	ss << "Correo Electronico: " << correoElectronico << "\n";
+	ss << "Fecha de Nacimiento: " << fechaNacimiento << "\n";
+	ss << "Fecha de Inscripcion: " << fechaInscripcion << "\n";
+	ss << "Numero de Celular: " << numeroCelular << "\n";
 	ss << "Sexo: " << sexo << "\n";
-	ss << "Fecha Nacimiento: " << fechaNacimiento << "\n";
-	ss << "Fecha Inscripcion: " << fechaInscripcion << "\n";
 	return ss.str();
 }
 

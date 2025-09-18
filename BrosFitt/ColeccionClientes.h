@@ -11,11 +11,13 @@ public:
 	ColeccionClientes(int);
 	~ColeccionClientes();
 	void agregarCliente(Cliente*);
-	Cliente* buscarCliente(string);
+	Cliente* buscarCli(string);
+	Cliente* buscarCliente(const string& cedula);  
 	bool eliminarCliente(string);
 	string listarClientes();
 	bool insertarAlFinal(Cliente*);	
 	int getCantidad();
 	int getTam();
+
 };
 

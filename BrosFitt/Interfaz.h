@@ -7,10 +7,12 @@ using namespace std;
 class Interfaz{
 private:
 
-
+	static ColeccionSucursal* coleccionSucursales;
+	static ColeccionClientes* coleccionClientes;
 
 public: 
 	static void menu();
 	static void ingresoDatosGenerales();
+	static void informeDeClientes();
 };
 

@@ -76,6 +76,9 @@ int ColeccionInstructores::getCantidad() {
 	return cantidad;
 }
 
+Instructor* ColeccionInstructores::getPorIndice(int i) {    // <-- NUEVO
+	return (i >= 0 && i < cantidad) ? instructores[i] : nullptr;
+}
 int ColeccionInstructores::getTam() {
 	return tam;
 }

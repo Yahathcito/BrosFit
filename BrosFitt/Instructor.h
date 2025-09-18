@@ -40,6 +40,7 @@ public:
 	void setFechaNacimiento(string);
 	string getCorreo();
 	void setCorreo(string);
+	Instructor* getPorIndice(int);
 	string getEspecialidad();
 	void setEspecialidad(string);
 	ColeccionClientes* getClientes();
