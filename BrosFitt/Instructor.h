@@ -6,12 +6,10 @@
 #include "ColeccionMediciones.h"
 #include "ColeccionRutina.h"
 #include "ColeccionEjercicios.h"
-
+#include "ColeccionClaseGrupal.h"
 using namespace std;
 
-
-class Instructor
-{
+class Instructor {
 private:
 	string cedula;
 	string nombre;
@@ -20,11 +18,15 @@ private:
 	string correo;
 	string especialidades[8];
 
-	 
-
+	ColeccionClientes* clientes;
+	ColeccionMediciones* mediciones;
+	ColeccionRutina* rutinas;
+	ColeccionEjercicios* ejercicios;
+	ColeccionClaseGrupal* clasesAsociadas; 
 public:
 	Instructor();
-	Instructor(string, string, int, string ,string, string[],int,int);
+	Instructor(string, string, int, string, string, string[], int, int);
+
 	string getCedula();
 	void setCedula(string);
 	string getNombre();
@@ -35,8 +37,13 @@ public:
 	void setFechaNacimiento(string);
 	string getCorreo();
 	void setCorreo(string);
+
+	// tiene especialidade
+	bool tieneEspecialidad(string);
+	Instructor* getPorIndice(int);
 	string getEspecialidad();
 	void setEspecialidad(string);
+
 	ColeccionClientes* getClientes();
 	void setClientes(ColeccionClientes*);
 	ColeccionMediciones* getMediciones();
@@ -45,8 +52,8 @@ public:
 	void setRutinas(ColeccionRutina*);
 	ColeccionEjercicios* getEjercicios();
 	void setEjercicios(ColeccionEjercicios*);
+
 	string toString();
 	~Instructor();
-
 };
 

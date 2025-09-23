@@ -32,7 +32,7 @@ private:
 	}
 public:
 	Medicion();
-	Medicion(string, string, string, string, float, float, float, float, int, float, float, float, float, float);
+	Medicion( string, string, string, float, float, float, float, int, float, float, float, float, float);
 	string getNombreCliente();
 	void setNombreCliente(string);
 	string getIdCliente();

@@ -14,14 +14,13 @@ ColeccionMediciones::~ColeccionMediciones() {
 	}
 	delete[] mediciones;
 }
-void ColeccionMediciones::agregarMedicion(Medicion* medicion) {
+bool ColeccionMediciones::agregarMedicion(Medicion* nuevaMedicion) {
 	if (cantidad < tam) {
-		mediciones[cantidad] = medicion;
+		mediciones[cantidad] = nuevaMedicion;
 		cantidad++;
+		return true;
 	}
-	else {
-		cout << "No se puede agregar más mediciones, capacidad máxima alcanzada." << endl;
-	}
+	return false;
 }
 Medicion* ColeccionMediciones::buscarMedicion(string idCliente, string fechaMedicion) {
 	for (int i = 0; i < cantidad; i++) {
@@ -44,6 +43,12 @@ bool ColeccionMediciones::eliminarMedicion(string idCliente, string fechaMedicio
 		}
 	}
 	return false;
+}
+Medicion* ColeccionMediciones::getPorIndice(int indice) {
+	if (indice >= 0 && indice < cantidad) {
+		return mediciones[indice];
+	}
+	return nullptr;
 }
 string ColeccionMediciones::listarMediciones() {
 	string resultado = "";

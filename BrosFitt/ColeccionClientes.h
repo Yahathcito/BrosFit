@@ -1,21 +1,24 @@
 #pragma once
-#include "Cliente.h"
+#include <string>
+#include"Cliente.h"
 
-using namespace std;
 class ColeccionClientes {
 private:
 	int tam;
 	int cantidad;
 	Cliente** clientes;
+
 public:
 	ColeccionClientes(int);
 	~ColeccionClientes();
+
 	void agregarCliente(Cliente*);
-	Cliente* buscarCliente(string);
-	bool eliminarCliente(string);
-	string listarClientes();
-	bool insertarAlFinal(Cliente*);	
+	Cliente* buscarCli(std::string);
+	Cliente* buscarCliente(const std::string& cedula);
+	bool eliminarCliente(std::string);
+	std::string listarClientes();
+	bool insertarAlFinal(Cliente*);
 	int getCantidad();
 	int getTam();
+	std::string toString();
 };
-

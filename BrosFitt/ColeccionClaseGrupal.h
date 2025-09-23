@@ -1,19 +1,28 @@
 #pragma once
+#include <string>
 #include "ClaseGrupal.h"
-class ColeccionClaseGrupal
-{
+
+class ColeccionClaseGrupal {
 private:
 	int tam;
 	int cantidad;
-	ClaseGrupal** clases;
+    ClaseGrupal** clases;
+
+	bool ocupadas[8];
+	std::string nombresPredefinidos[8] = {
+		"CrossFit", "HIIT", "TRX", "Pesas",
+		"Spinning", "Cardio", "Yoga", "Zumba"
+	};
+
 public:
-	ColeccionClaseGrupal(int);
+	ColeccionClaseGrupal();
 	~ColeccionClaseGrupal();
-	void agregarClase(ClaseGrupal*);
-	ClaseGrupal* buscarClase(string);
-	bool eliminarClase(string);
-	string listarClases();
+
+	bool agregarClase(ClaseGrupal*);
+	ClaseGrupal* buscarClase(int);
+	bool eliminarClase(int);
+	void mostrarDisponibles();
 	int getCantidad();
 	int getTam();
+	std::string toString();
 };
-

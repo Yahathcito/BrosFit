@@ -32,37 +32,15 @@ void ColeccionSucursal::agregarSucursal(Sucursal* sucursal)
 		sucursales = nuevoArreglo;
 		tam = nuevoTam;
 	}
-	sucursales[cantidad] = sucursal;
-	cantidad++;
-}
-Sucursal* ColeccionSucursal::buscarSucursal(string nombre)
-{
-	for (int i = 0; i < cantidad; i++) {
-		if (sucursales[i]->getNombre() == nombre) {
-			return sucursales[i];
-		}
-	}
-	return nullptr;
+	sucursales[cantidad++] = sucursal;
 }
 
-// explica donde se esta insertando la nueva sucursal al final del arreglo?
 
-
-bool ColeccionSucursal::eliminarSucursal(string nombre)
-{
-	for (int i = 0; i < cantidad; i++) {
-		if (sucursales[i]->getNombre() == nombre) {
-			delete sucursales[i];
-			for (int j = i; j < cantidad - 1; j++) {
-				sucursales[j] = sucursales[j + 1];
-			}
-			sucursales[cantidad - 1] = nullptr;
-			cantidad--;
-			return true;
-		}
-	}
-	return false;
+Sucursal* ColeccionSucursal::getPorIndice(int i) {          // <-- NUEVO
+	return (i >= 0 && i < cantidad) ? sucursales[i] : nullptr;
 }
+
+
 string ColeccionSucursal::listarSucursales()
 {
 	string resultado = "";
@@ -75,6 +53,9 @@ int ColeccionSucursal::getCantidad()
 {
 	return cantidad;
 }
+
+
+
 int ColeccionSucursal::getTam()
 {
 	return tam;
@@ -108,10 +89,11 @@ bool ColeccionSucursal::insertarAlInicio(Sucursal* v)
 
 
 
+
 bool ColeccionSucursal::insertarAlFinal(Sucursal* v)
 {
 
-	if (buscarSucursal(v->getNombre()) != nullptr) {
+	if (buscarSucursal(v->getCodigo()) != nullptr) {
 		cout << "La sucursal ya está ingresada." << endl;
 		delete v;
 		return false;
@@ -135,6 +117,24 @@ bool ColeccionSucursal::insertarAlFinal(Sucursal* v)
 	return true;
 }
 
+// VERIFICA QUE SE BUSQUE BIEN LA SUCURSAL
+Sucursal* ColeccionSucursal::buscarSucursal(string codigo)
+{
+		for (int i = 0; i < cantidad; i++) {
+		if (sucursales[i]->getCodigo() == codigo) {
+			return sucursales[i];
+		}
+	}
+	return nullptr;
+}
+
+bool ColeccionSucursal::eliminarSucursal(string)
+{
+	return false;
+}
+
+
+
 string ColeccionSucursal::toString()
 {
 	string resultado = "";
@@ -143,3 +143,4 @@ string ColeccionSucursal::toString()
 	}
 	return resultado;
 }
+

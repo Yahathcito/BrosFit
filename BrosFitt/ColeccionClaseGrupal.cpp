@@ -2,9 +2,8 @@
 #include <sstream>
 
 
-ColeccionClaseGrupal::ColeccionClaseGrupal(int)
-{
-	tam = 5;
+ColeccionClaseGrupal::ColeccionClaseGrupal() {
+	tam = 8;
 	cantidad = 0;
 	clases = new ClaseGrupal * [tam];
 	for (int i = 0; i < tam; i++) {
@@ -18,25 +17,19 @@ ColeccionClaseGrupal::~ColeccionClaseGrupal() {
 	delete[] clases;
 }
 
-void ColeccionClaseGrupal::agregarClase(ClaseGrupal* clase) {
-	if (cantidad == tam) {
-		// Redimensionar el arreglo
-		int nuevoTam = tam * 2;
-		ClaseGrupal** nuevoArreglo = new ClaseGrupal * [nuevoTam];
-		for (int i = 0; i < cantidad; i++) {
-			nuevoArreglo[i] = clases[i];
-		}
-		for (int i = cantidad; i < nuevoTam; i++) {
-			nuevoArreglo[i] = nullptr;
-		}
-		delete[] clases;
-		clases = nuevoArreglo;
-		tam = nuevoTam;
+bool ColeccionClaseGrupal::agregarClase(ClaseGrupal* clase) {
+	for(int i=0;i<cantidad;i++){
+		if(clases[i]->getCodigo()==clase->getCodigo()) 
+		    return false; 
 	}
-	clases[cantidad] = clase;
-	cantidad++;
+	if (cantidad < tam) {
+		clases[cantidad++] = clase;
+		int indice = clase->getCodigo()-1; 
+		ocupadas[indice] == true; 
+	}
+	return false; 
 }
-ClaseGrupal* ColeccionClaseGrupal::buscarClase(string codigo) {
+ClaseGrupal* ColeccionClaseGrupal::buscarClase(int codigo) {
 	for (int i = 0; i < cantidad; i++) {
 		if (clases[i]->getCodigo() == codigo) {
 			return clases[i];
@@ -44,7 +37,7 @@ ClaseGrupal* ColeccionClaseGrupal::buscarClase(string codigo) {
 	}
 	return nullptr;
 }
-bool ColeccionClaseGrupal::eliminarClase(string codigo) {
+bool ColeccionClaseGrupal::eliminarClase(int codigo) {
 	for (int i = 0; i < cantidad; i++) {
 		if (clases[i]->getCodigo() == codigo) {
 			delete clases[i];
@@ -58,12 +51,20 @@ bool ColeccionClaseGrupal::eliminarClase(string codigo) {
 	}
 	return false;
 }
-string ColeccionClaseGrupal::listarClases() {
-	string resultado = "";
-	for (int i = 0; i < cantidad; i++) {
-		resultado += clases[i]->toString() + "\n";
+void ColeccionClaseGrupal::mostrarDisponibles(){
+    cout << "\nClases disponibles:\n";
+    for (int i = 0; i < tam; i++) {
+        if (!ocupadas[i]) {
+            cout << i + 1 << ". " << nombresPredefinidos[i] << endl;
+        }
+    }
+}
+string ColeccionClaseGrupal::toString() {
+	stringstream ss; 
+	for(int i=0;i<cantidad;i++){
+		ss << clases[i]->toString();
 	}
-	return resultado;
+	return ss.str();
 }
 int ColeccionClaseGrupal::getCantidad() {
 	return cantidad;

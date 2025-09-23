@@ -1,18 +1,6 @@
 #include "Cliente.h"
-
-//Constructores y desctructor 
-Cliente::Cliente() {
-	cedulaIdentidad = "";
-	nombre = "";
-	correoElectronico = "";
-	fechaNacimiento = "";
-	fechaInscripcion = "";
-	numeroCelular = 0;
-	sexo = ' ';
-
-
-
-}
+#include "ColeccionMediciones.h"
+#include "ContenedorClasesCliente.h"
 Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscripcion, string fechaNacimiento, int celular, char sexo) {
 	this->cedulaIdentidad = cedula;
 	this->nombre = nombre;
@@ -22,11 +10,14 @@ Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscri
 	this->numeroCelular = celular;
 	this->sexo = sexo;
 
-
+	coleccionMediciones = new ColeccionMediciones(10); 
+	clasesCliente = new ContenedorClasesCliente();
 }
 
 Cliente::~Cliente()
 {
+	delete coleccionMediciones;
+	delete clasesCliente;
 }
 
 //setters y getters 
@@ -83,18 +74,29 @@ void Cliente::setSexo(char sexo) {
 }
 string Cliente::toString() {
 	stringstream ss;
-	ss << "Cliente: " << nombre << " (" << cedulaIdentidad << ")\n";
-	ss << "Correo: " << correoElectronico << "\n";
-	ss << "Celular: " << numeroCelular << "\n";
+	ss << "Cedula: " << cedulaIdentidad << "\n";
+	ss << "Nombre: " << nombre << "\n";
+	ss << "Correo Electronico: " << correoElectronico << "\n";
+	ss << "Fecha de Nacimiento: " << fechaNacimiento << "\n";
+	ss << "Fecha de Inscripcion: " << fechaInscripcion << "\n";
+	ss << "Numero de Celular: " << numeroCelular << "\n";
 	ss << "Sexo: " << sexo << "\n";
-	ss << "Fecha Nacimiento: " << fechaNacimiento << "\n";
-	ss << "Fecha Inscripcion: " << fechaInscripcion << "\n";
 	return ss.str();
 }
 
+ColeccionMediciones* Cliente::getHistorialMediciones()
+{
+	
+		return coleccionMediciones;
+}
 
 
-//metodos de las clases funcionales 
+void Cliente::setHistorialMediciones(ColeccionMediciones* coleccion)
+{
+	coleccionMediciones = coleccion;
+}
+
+
 
 
 

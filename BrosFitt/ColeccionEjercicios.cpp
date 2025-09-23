@@ -1,7 +1,7 @@
 #include "ColeccionEjercicios.h"
 
-ColeccionEjercicios::ColeccionEjercicios() {
-	tam = 5;
+ColeccionEjercicios::ColeccionEjercicios(int tam) {
+	this->tam = tam;
 	cantidad = 0;
 	ejercicios = new Ejercicio * [tam];
 	for (int i = 0; i < tam; i++) {

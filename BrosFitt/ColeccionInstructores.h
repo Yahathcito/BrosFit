@@ -1,23 +1,25 @@
 #pragma once
-#include "Instructor.h"	
+#include <string>
+#include "Instructor.h"
 
-class ColeccionInstructores
-{
+
+class ColeccionInstructores {
 private:
 	int tam;
 	int cantidad;
 	Instructor** instructores;
+
 public:
 	ColeccionInstructores(int);
 	~ColeccionInstructores();
+
 	void agregarInstructor(Instructor*);
-	Instructor* buscarInstructor(string);
-	bool eliminarInstructor(string);
-	string listarInstructores();
+	Instructor* buscarInstructor(std::string);
+	bool eliminarInstructor(std::string);
+	std::string listarInstructores();
 	bool insertarAlFinal(Instructor*);
 	int getCantidad();
 	int getTam();
-	string toString();
-
+	std::string toString();
+	Instructor* getPorIndice(int i);
 };
-

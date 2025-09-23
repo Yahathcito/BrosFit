@@ -22,8 +22,11 @@ void ColeccionClientes::agregarCliente(Cliente* cliente) {
 	else {
 		cout << "No se puede agregar más clientes, capacidad máxima alcanzada." << endl;
 	}
+
+
 }
-Cliente* ColeccionClientes::buscarCliente(string cedula) {
+
+Cliente* ColeccionClientes::buscarCli(string cedula) {
 	for (int i = 0; i < cantidad; i++) {
 		if (clientes[i]->getCedula() == cedula) {
 			return clientes[i];
@@ -31,6 +34,7 @@ Cliente* ColeccionClientes::buscarCliente(string cedula) {
 	}
 	return nullptr;
 }
+
 bool ColeccionClientes::eliminarCliente(string cedula) {
 	for (int i = 0; i < cantidad; i++) {
 		if (clientes[i]->getCedula() == cedula) {
@@ -46,22 +50,20 @@ bool ColeccionClientes::eliminarCliente(string cedula) {
 	return false;
 }
 string ColeccionClientes::listarClientes() {
-	string resultado = "";
+	string resultado;
 	for (int i = 0; i < cantidad; i++) {
-		resultado += clientes[i]->toString() + "\n";
+		if (clientes[i]) {
+			resultado += clientes[i]->toString() + "\n";
+		}
 	}
 	return resultado;
 }
-bool ColeccionClientes::insertarAlFinal(Cliente* cliente)
-{
-	// debes verificar si ya esta ingresado el cliente	
-	// verificar que no tenga los mismo datos de otro cliente
+bool ColeccionClientes::insertarAlFinal(Cliente* cliente){
 	if (buscarCliente(cliente->getCedula()) != nullptr) {
 		cout << "El cliente ya está ingresado." << endl;
 		return false;
 	}
 	if (cantidad == tam) {
-		// Redimensionar el arreglo
 		int nuevoTam = tam * 2;
 		Cliente** nuevoArreglo = new Cliente * [nuevoTam];
 		for (int i = 0; i < cantidad; i++) {
@@ -74,15 +76,32 @@ bool ColeccionClientes::insertarAlFinal(Cliente* cliente)
 		clientes = nuevoArreglo;
 		tam = nuevoTam;
 	}
-	clientes[cantidad] = nullptr; // Aquí debería ir el puntero al nuevo cliente
-	cantidad++;
+	clientes[cantidad++] = cliente;
 	return true;
 }
-
 
 int ColeccionClientes::getCantidad() {
 	return cantidad;
 }
 int ColeccionClientes::getTam() {
 	return tam;
+}
+
+
+Cliente* ColeccionClientes::buscarCliente(const string& ced) {
+	for (int i = 0; i < cantidad; ++i)
+		if (clientes[i] && clientes[i]->getCedula() == ced) return clientes[i];
+	return nullptr;
+}
+
+
+
+string ColeccionClientes::toString() {
+	string resultado;
+	for (int i = 0; i < cantidad; i++) {
+		if (clientes[i]) {
+			resultado += clientes[i]->toString() + "\n";
+		}
+	}
+	return resultado;
 }

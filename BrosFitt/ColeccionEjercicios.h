@@ -8,7 +8,7 @@ private:
 	int cantidad;
 	Ejercicio** ejercicios;
 public:
-	ColeccionEjercicios();
+	ColeccionEjercicios(int);
 	~ColeccionEjercicios();
 	void agregarEjercicio(Ejercicio*);
 	Ejercicio* buscarEjercicio(string);

@@ -137,7 +137,7 @@
     <ClCompile Include="ColeccionMediciones.cpp" />
     <ClCompile Include="ColeccionRutina.cpp" />
     <ClCompile Include="ColeccionSucursal.cpp" />
-    <ClCompile Include="ContenecorClasesCliente.cpp" />
+    <ClCompile Include="ContenedorClasesCliente.cpp" />
     <ClCompile Include="Ejercicio.cpp" />
     <ClCompile Include="Instructor.cpp" />
     <ClCompile Include="Interfaz.cpp" />
@@ -156,7 +156,7 @@
     <ClInclude Include="ColeccionMediciones.h" />
     <ClInclude Include="ColeccionRutina.h" />
     <ClInclude Include="ColeccionSucursal.h" />
-    <ClInclude Include="ContenecorClasesCliente.h" />
+    <ClInclude Include="ContenedorClasesCliente.h" />
     <ClInclude Include="Ejercicio.h" />
     <ClInclude Include="Instructor.h" />
     <ClInclude Include="Interfaz.h" />
