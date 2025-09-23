@@ -3,6 +3,8 @@
 
 ColeccionSucursal* Interfaz::coleccionSucursales = nullptr;
 ColeccionClientes* Interfaz::coleccionClientes = nullptr;
+ColeccionInstructores* Interfaz::coleccionInstructores = nullptr;
+ColeccionMediciones* Interfaz::coleccionMediciones = nullptr;
 
 void Interfaz::menu() {
     if (!coleccionSucursales) {
@@ -12,6 +14,14 @@ void Interfaz::menu() {
     {
         coleccionClientes = new ColeccionClientes(100);
     }
+	if (!coleccionInstructores)
+	{
+		coleccionInstructores = new ColeccionInstructores(100);
+	}
+	if (!coleccionMediciones)
+	{
+		coleccionMediciones = new ColeccionMediciones(100);
+	}
 
 
         int opcion;
@@ -41,22 +51,7 @@ void Interfaz::menu() {
                 subMenuInformeDeInstructores();
                 break;
             case 4: 
-                
-                do {
-                    cout << "\n--- HISTORIAL DE MEDICIONES ---" << endl;
-                    cout << "1. Ingresar medicion de cliente" << endl;
-                    cout << "2. Mostrar historial de mediciones de cliente" << endl;
-                    cout << "0. Volver" << endl;
-                    cout << "Seleccione una opcion: ";
-                    cin >> opcion;
-                    switch (opcion) {
-                    case 1: cout << "Ingresando medicion..." << endl; break;
-                    case 2: cout << "Mostrando historial de mediciones..." << endl; break;
-                    case 0: break;
-                    default: cout << "Opcion invalida!" << endl;
-                    }
-                } while (opcion != 0);
-                
+				subMenuHistorialDeMediciones();
                 break;
             case 5: 
                 cout << "\n--- REPORTE IMC ---" << endl;
@@ -606,3 +601,191 @@ void Interfaz::menu() {
                 }
                 } while (opcion != 0);
 		}
+
+   
+        void Interfaz::subMenuHistorialDeMediciones() {
+            system("cls");
+            if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                cout << "No hay sucursales cargadas.\n";
+                return;
+            }
+            int opcion;
+            do {
+                cout << "\n--- HISTORIAL DE MEDICIONES ---\n"
+                    << "1. Ingresar registro de medicion a un cliente\n"
+                    << "2. Mostrar historial de mediciones de un cliente\n"
+                    << "0. Volver\n"
+                    << "Seleccione una opcion: ";
+                cin >> opcion;
+
+                switch (opcion) {
+                case 1: {
+                    cout << "=== Ingresar medicion a cliente ===\n";
+                    string cedulaCliente;
+                    cout << "Cedula del cliente: ";
+                    cin >> cedulaCliente;
+
+                    Cliente* cliEncontrado = nullptr;
+                    Sucursal* sucDondeEsta = nullptr;
+                    Instructor* instructorAsignado = nullptr;
+
+                    if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                        cout << "No hay sucursales registradas.\n";
+                        break;
+                    }
+
+                    // Buscar cliente en las sucursales
+                    for (int i = 0; i < coleccionSucursales->getCantidad() && !cliEncontrado; ++i) {
+                        Sucursal* suc = coleccionSucursales->getPorIndice(i);
+                        if (!suc) continue;
+                        if (!suc->getClientes()) continue;
+
+                        cliEncontrado = suc->getClientes()->buscarCliente(cedulaCliente);
+                        if (cliEncontrado) {
+                            sucDondeEsta = suc;
+                            ColeccionInstructores* ci = suc->getColeccionInstructores();
+                            if (!ci || ci->getCantidad() == 0) continue;
+
+                            for (int j = 0; j < ci->getCantidad() && !instructorAsignado; ++j) {
+                                Instructor* ins = ci->getPorIndice(j);
+                                if (!ins) continue;
+                                if (!ins->getClientes()) continue;
+                                if (ins->getClientes()->buscarCliente(cedulaCliente)) {
+                                    instructorAsignado = ins;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!cliEncontrado) {
+                        cout << "Cliente no encontrado.\n";
+                        break;
+                    }
+                    if (!instructorAsignado) {
+                        cout << "El cliente no tiene un instructor asignado.\n";
+                        break;
+                    }
+
+                    cout << "Cliente encontrado y con instructor asignado.\n";
+                    cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
+                    cout << "Instructor: " << instructorAsignado->getNombre() << endl;
+
+                    Medicion* nuevaMedicion = new Medicion(cliEncontrado->getCedula(),
+                        "15/06/2024", instructorAsignado->getNombre(), 70.5, 1.75,
+                        15.0, 40.0, 30,
+                        10, 80.0, 95.0,
+                        100.0, 50.0);
+
+                    if (!cliEncontrado->getHistorialMediciones()) {
+                        cliEncontrado->setHistorialMediciones(new ColeccionMediciones(10));
+                    }
+
+                    if (cliEncontrado->getHistorialMediciones()->agregarMedicion(nuevaMedicion)) {
+                        cout << "Medicion agregada exitosamente al historial del cliente.\n";
+                    }
+                    else {
+                        cout << "No se pudo agregar la medicion. El historial puede estar lleno.\n";
+                        delete nuevaMedicion;
+                    }
+
+                    system("pause");
+                    break;
+                }
+
+                case 2: {
+                    cout << "=== Mostrar historial de mediciones de un cliente ===\n";
+                    string cedulaCliente;
+                    cout << "Cedula del cliente: ";
+                    cin >> cedulaCliente;
+
+                    Cliente* cliEncontrado = nullptr;
+                    Sucursal* sucDondeEsta = nullptr;
+                    Instructor* instructorAsignado = nullptr;
+
+                    if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                        cout << "No hay sucursales registradas.\n";
+                        break;
+                    }
+
+                    for (int i = 0; i < coleccionSucursales->getCantidad() && !cliEncontrado; ++i) {
+                        Sucursal* suc = coleccionSucursales->getPorIndice(i);
+                        if (!suc) continue;
+                        if (!suc->getClientes()) continue;
+
+                        cliEncontrado = suc->getClientes()->buscarCliente(cedulaCliente);
+                        if (cliEncontrado) {
+                            sucDondeEsta = suc;
+                            ColeccionInstructores* ci = suc->getColeccionInstructores();
+                            if (!ci || ci->getCantidad() == 0) continue;
+
+                            for (int j = 0; j < ci->getCantidad() && !instructorAsignado; ++j) {
+                                Instructor* ins = ci->getPorIndice(j);
+                                if (!ins) continue;
+                                if (!ins->getClientes()) continue;
+                                if (ins->getClientes()->buscarCliente(cedulaCliente)) {
+                                    instructorAsignado = ins;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!cliEncontrado) {
+                        cout << "Cliente no encontrado.\n";
+                        break;
+                    }
+                    if (!instructorAsignado) {
+                        cout << "El cliente no tiene un instructor asignado.\n";
+                        break;
+                    }
+
+                    cout << "Cliente encontrado y con instructor asignado.\n";
+                    cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
+                    cout << "Instructor: " << instructorAsignado->getNombre() << endl;
+
+                    ColeccionMediciones* historial = cliEncontrado->getHistorialMediciones();
+                    if (!historial || historial->getCantidad() == 0) {
+                        cout << "El cliente no tiene mediciones registradas.\n";
+                    }
+                    else {
+                        cout << "Historial de mediciones del cliente " << cliEncontrado->getNombre() << ":\n";
+                        for (int i = 0; i < historial->getCantidad(); ++i) {
+                            Medicion* med = historial->getPorIndice(i);
+                            if (med) {
+                                cout << i + 1 << ". Fecha: " << med->getFechaMedicion()
+                                    << ", Peso: " << med->getPeso() << " kg"
+                                    << ", Estatura: " << med->getEstatura() << " m"
+                                    << ", % Grasa: " << med->getPorcentajeGrasa() << "%"
+                                    << ", % Musculo: " << med->getPorcentajeMusculo() << "%\n";
+                            }
+                        }
+                        int opcionDetalle;
+                        cout << "Ingrese el numero de la medicion para ver detalles, o 0 para salir: ";
+                        cin >> opcionDetalle;
+                        if (opcionDetalle > 0 && opcionDetalle <= historial->getCantidad()) {
+                            Medicion* medDetallada = historial->getPorIndice(opcionDetalle - 1);
+                            if (medDetallada) {
+                                cout << "\n--- Detalle de la Medicion ---\n";
+                                cout << medDetallada->toString() << endl;
+                            }
+                        }
+                    }
+
+                    system("pause");
+                    break;
+                }
+
+                case 0:
+                    break;
+
+                default:
+                    cout << "Opcion invalida!\n";
+                    system("pause");
+                    break;
+                }
+
+            } while (opcion != 0);
+        }
+
+		
+        
+        

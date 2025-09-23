@@ -174,7 +174,7 @@ string Medicion::toString()
 	s << "Medida de Cadera: " << medidaCadera << " cm" << endl;
 	s << "Medida de Pecho: " << medidaPecho << " cm" << endl;
 	s << "Medida de Muslo: " << medidaMuslo << " cm" << endl;
-	s << "IMC: " << imc << endl;
+	
 	return s.str();
 }
 Medicion::~Medicion()
