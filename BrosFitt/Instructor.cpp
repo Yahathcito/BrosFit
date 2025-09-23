@@ -81,6 +81,19 @@ void Instructor::setCorreo(string correo)
 	this->correo = correo;
 }
 
+bool Instructor::tieneEspecialidad(string n)
+{
+	for (int i = 0; i < 8; i++) {
+		if (especialidades[i] == "") {
+			return false;
+		}
+		if (especialidades[i] == n ) {
+			return true;
+		}
+	}
+	return false;
+}
+
 string Instructor::getEspecialidad()
 {
 	string resultado = "";

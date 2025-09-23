@@ -3,7 +3,6 @@
 #include <sstream>
 #include <string>
 #include "ColeccionClientes.h"
-#include "Instructor.h"
 using namespace std;
 
 class ClaseGrupal {
@@ -14,7 +13,7 @@ private:
 	string duracion;
 	int capacidadMaxima;
 	string salon;
-	
+	ColeccionClientes* clientesMatriculados; 
 
 public:
 	ClaseGrupal(int, string, string, string, int, string);

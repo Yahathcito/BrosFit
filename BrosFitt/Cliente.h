@@ -2,9 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
-class ColeccionMediciones;     // forward declaration
-class ContenedorClasesCliente; // forward declaration
+#include "ContenedorClasesCliente.h"
+#include "ColeccionMediciones.h"
 
 using namespace std;
 
@@ -25,7 +24,7 @@ private:
 public:
 	Cliente(string, string, string, string, string, int, char);
 	~Cliente();
-
+	void setHistorialMediciones(ColeccionMediciones*);
 	string getCedula();
 	void setCedula(string);
 	string getNombre();

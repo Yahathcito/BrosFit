@@ -6,7 +6,7 @@ class ColeccionClaseGrupal {
 private:
 	int tam;
 	int cantidad;
-	ClaseGrupal** clases;
+    ClaseGrupal** clases;
 
 	bool ocupadas[8];
 	std::string nombresPredefinidos[8] = {

@@ -32,8 +32,7 @@ void ColeccionSucursal::agregarSucursal(Sucursal* sucursal)
 		sucursales = nuevoArreglo;
 		tam = nuevoTam;
 	}
-	sucursales[cantidad] = sucursal;
-	cantidad++;
+	sucursales[cantidad++] = sucursal;
 }
 
 

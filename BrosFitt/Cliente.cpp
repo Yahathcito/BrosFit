@@ -10,10 +10,14 @@ Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscri
 	this->numeroCelular = celular;
 	this->sexo = sexo;
 
+	coleccionMediciones = new ColeccionMediciones(10); 
+	clasesCliente = new ContenedorClasesCliente();
 }
 
 Cliente::~Cliente()
 {
+	delete coleccionMediciones;
+	delete clasesCliente;
 }
 
 //setters y getters 
@@ -87,6 +91,10 @@ ColeccionMediciones* Cliente::getHistorialMediciones()
 }
 
 
+void Cliente::setHistorialMediciones(ColeccionMediciones* coleccion)
+{
+	coleccionMediciones = coleccion;
+}
 
 
 

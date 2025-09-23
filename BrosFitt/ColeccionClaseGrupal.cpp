@@ -2,14 +2,12 @@
 #include <sstream>
 
 
-ColeccionClaseGrupal::ColeccionClaseGrupal()
-{
+ColeccionClaseGrupal::ColeccionClaseGrupal() {
 	tam = 8;
 	cantidad = 0;
 	clases = new ClaseGrupal * [tam];
 	for (int i = 0; i < tam; i++) {
 		clases[i] = nullptr;
-		ocupadas[i] = false; 
 	}
 }
 ColeccionClaseGrupal::~ColeccionClaseGrupal() {

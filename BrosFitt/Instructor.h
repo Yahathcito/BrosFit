@@ -6,7 +6,7 @@
 #include "ColeccionMediciones.h"
 #include "ColeccionRutina.h"
 #include "ColeccionEjercicios.h"
-
+#include "ColeccionClaseGrupal.h"
 using namespace std;
 
 class Instructor {
@@ -22,7 +22,7 @@ private:
 	ColeccionMediciones* mediciones;
 	ColeccionRutina* rutinas;
 	ColeccionEjercicios* ejercicios;
-
+	ColeccionClaseGrupal* clasesAsociadas; 
 public:
 	Instructor();
 	Instructor(string, string, int, string, string, string[], int, int);
@@ -38,6 +38,8 @@ public:
 	string getCorreo();
 	void setCorreo(string);
 
+	// tiene especialidade
+	bool tieneEspecialidad(string);
 	Instructor* getPorIndice(int);
 	string getEspecialidad();
 	void setEspecialidad(string);
