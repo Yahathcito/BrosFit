@@ -1,4 +1,4 @@
-#include "Interfaz.h"
+ï»¿#include "Interfaz.h"
 
 
 ColeccionSucursal* Interfaz::coleccionSucursales = nullptr;
@@ -38,7 +38,7 @@ void Interfaz::menu() {
 				subMenuInformeDeClientes();
                 break;
             case 3: 
-              /*  subMenuInformeDeInstructores();*/
+                subMenuInformeDeInstructores();
                 break;
             case 4: 
                 
@@ -68,7 +68,7 @@ void Interfaz::menu() {
                 do {
                     cout << "\n--- RUTINAS ---" << endl;
                     cout << "1. Ingresar ejercicios a la bateria" << endl;
-                    //Creo que la batería ya viene por defecto con los ejercicios, entonces sería mas como mostrar la batería de ejercicios solamente
+                    //Creo que la baterÃ­a ya viene por defecto con los ejercicios, entonces serÃ­a mas como mostrar la baterÃ­a de ejercicios solamente
                     cout << "2. Generar nueva rutina a cliente" << endl;
                     cout << "0. Volver" << endl;
                     cout << "Seleccione una opcion: ";
@@ -220,7 +220,7 @@ void Interfaz::menu() {
 					if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
 						cout << "No hay sucursales disponibles. Por favor, ingrese una sucursal primero." << endl;
 						system("pause");
-						break; // Salir del bucle do-while y volver al menú principal
+						break; // Salir del bucle do-while y volver al menÃº principal
 					}
 
                     
@@ -313,7 +313,7 @@ void Interfaz::menu() {
       //                  if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
       //                      cout << "No hay sucursales disponibles. Por favor, ingrese una sucursal primero." << endl;
       //                      system("pause");
-      //                      break; // Salir del bucle do-while y volver al menú principal
+      //                      break; // Salir del bucle do-while y volver al menÃº principal
 						//}
 						////verificar que la sucursal tenga instructores
 						//cout << "Sucursales disponibles:" << endl;
@@ -323,7 +323,7 @@ void Interfaz::menu() {
       //                  if (!s || !s->getColeccionInstructores() || s->getColeccionInstructores()->getCantidad() == 0) {
       //                      cout << "No hay instructores disponibles en esta sucursal. Por favor, ingrese un instructor primero." << endl;
       //                      system("pause");
-      //                      break; // Salir del bucle do-while y volver al menú principal
+      //                      break; // Salir del bucle do-while y volver al menÃº principal
 						//}
 
 
@@ -508,3 +508,101 @@ void Interfaz::menu() {
         }
 
 
+
+      /*  Informe Instructores
+            âˆ’ Lista de instructores por sucursal(5 ptos.)
+            âˆ’ Lista de instructores por especialidad(5 ptos.)
+			la lista por especialidad hazla por vector predefinido de especialidades para que el usuario no ingrese cualquier cosa en un string sino int, recuerda que un instructor puede tener varias especialidades
+			son todos los istructores que tengan esa especialidad, no importa la sucursal, aunque tengan varias especialidades, si tienen la que se busca, deben salir en la lista
+
+            
+            */
+
+		void Interfaz::subMenuInformeDeInstructores() {
+            system("cls");
+            if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                cout << "No hay sucursales cargadas.\n";
+                return;
+            }
+            int opcion;
+            do {
+                cout << "\n--- INFORMES DE INSTRUCTORES ---\n"
+                    << "1. Lista de instructores por sucursal\n"
+                    << "2. Lista de instructores por especialidad\n"
+                    << "0. Volver\n"
+                    << "Seleccione una opcion: ";
+                cin >> opcion;
+                switch (opcion) {
+                case 1: {
+                    cout << "Sucursales disponibles:\n" << coleccionSucursales->toString() << endl;
+                    string codigo;
+                    cout << "Digite el codigo de la sucursal: ";
+                    cin >> codigo;
+                    Sucursal* suc = coleccionSucursales->buscarSucursal(codigo);
+                    if (!suc) {
+                        cout << "Sucursal no encontrada.\n";
+                        break;
+                    }
+                    ColeccionInstructores* coleccionInstructores = suc->getColeccionInstructores();
+                    if (!coleccionInstructores || coleccionInstructores->getCantidad() == 0) {
+                        cout << "No hay instructores en esta sucursal.\n";
+                    }
+                    else {
+                        cout << "Instructores de la sucursal " << codigo << ":\n"
+                            << coleccionInstructores->listarInstructores() << endl;
+                    }
+                    system("pause");
+                    break;
+                }
+                      // SOLO SE MUESTRA LA PARTE MODIFICADA DEL case 2 EN informeDeClientes
+                  // SOLO SE MUESTRA LA PARTE MODIFICADA DEL case 2 EN informeDeClientes
+                case 2: {
+                    // debe haber al menos un instructor ingresado para que no se pidan los datos cuando no hay instructores
+                    cout << "=== Buscar instructores por especialidad ===\n";
+                    int opcionEspecialidad;
+                    string especialidadesPosibles[8] = { "CrossFit", "HIIT", "TRX", "Pesas", "Spinning", "Cardio", "Yoga", "Zumba" };
+                    cout << "Especialidades posibles: " << endl;
+					
+                    for (int i = 0; i < 8; i++) {
+                        cout << i + 1 << ". " << especialidadesPosibles[i] << endl;
+					}
+                    cout << "Ingrese el numero de la especialidad a buscar: ";
+                    cin >> opcionEspecialidad;
+                    while (opcionEspecialidad < 1 || opcionEspecialidad > 8) {
+                        cout << "Opcion invalida. Ingrese un numero entre 1 y 8: ";
+                        cin >> opcionEspecialidad;
+                    }
+                    string especialidadBuscada = especialidadesPosibles[opcionEspecialidad - 1];
+                    ColeccionInstructores* instructoresConEspecialidad = new ColeccionInstructores(100);
+                    for (int i = 0; i < coleccionSucursales->getCantidad(); ++i) {
+                        Sucursal* suc = coleccionSucursales->getPorIndice(i);
+                        if (!suc || !suc->getColeccionInstructores()) continue;
+                        ColeccionInstructores* ci = suc->getColeccionInstructores();
+                        for (int j = 0; j < ci->getCantidad(); ++j) {
+                            Instructor* ins = ci->getPorIndice(j);
+                            if (ins) {
+                                for (int k = 0; k < ins->getCantEspecialidades(); ++k) {
+                                    if (ins->getEspecialidades()[k] == especialidadBuscada) {
+                                        instructoresConEspecialidad->insertarAlFinal(ins);
+                                        break; // Evitar agregar el mismo instructor varias veces
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (instructoresConEspecialidad->getCantidad() == 0) {
+                        cout << "No se encontraron instructores con la especialidad " << especialidadBuscada << ".\n";
+                    }
+                    else {
+                        cout << "Instructores con la especialidad " << especialidadBuscada << ":\n"
+                            << instructoresConEspecialidad->listarInstructores() << endl;
+                    }
+                    delete instructoresConEspecialidad; // Liberar memoria
+                }
+                    system("pause");
+                    break;
+                case 0: break;
+                default: cout << "Opcion invalida!\n";
+                }
+                } while (opcion != 0);
+		}

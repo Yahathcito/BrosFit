@@ -81,6 +81,11 @@ void Instructor::setCorreo(string correo)
 	this->correo = correo;
 }
 
+string* Instructor::getEspecialidades()
+{
+	return especialidades;
+}
+
 bool Instructor::tieneEspecialidad(string n)
 {
 	for (int i = 0; i < 8; i++) {
@@ -115,6 +120,17 @@ void Instructor::setEspecialidad(string especialidad)
 			break;
 		}
 	}
+}
+int Instructor::getCantEspecialidades()
+{
+	int count = 0;
+	for (int i = 0; i < 8; i++) {
+		if (especialidades[i] != "") {
+			count++;
+		}
+	}
+	return count;
+
 }
 ColeccionClientes* Instructor::getClientes()
 {
