@@ -1,26 +1,25 @@
 #pragma once
-#include <iostream>	
+#include <iostream>
 #include <sstream>
 #include <string>
-#include "Instructor.h"
 #include "ColeccionClientes.h"
-
+#include "Instructor.h"
 using namespace std;
-class ClaseGrupal
-{
+
+class ClaseGrupal {
 private:
-	string codigo;
+	int codigo;
 	string nombreClase;
 	string horario;
 	string duracion;
 	int capacidadMaxima;
 	string salon;
-	ColeccionClientes* clientesMatriculados;
+	
+
 public:
-	ClaseGrupal();
-	ClaseGrupal(string, string, string, string, int, string);
-	string getCodigo();
-	void setCodigo(string);
+	ClaseGrupal(int, string, string, string, int, string);
+	int getCodigo();
+	void setCodigo(int);
 	string getNombreClase();
 	void setNombreClase(string);
 	string getHorario();
@@ -34,4 +33,3 @@ public:
 	string toString();
 	~ClaseGrupal();
 };
-

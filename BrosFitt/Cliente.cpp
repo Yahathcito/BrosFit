@@ -1,18 +1,6 @@
 #include "Cliente.h"
-
-//Constructores y desctructor 
-Cliente::Cliente() {
-	cedulaIdentidad = "";
-	nombre = "";
-	correoElectronico = "";
-	fechaNacimiento = "";
-	fechaInscripcion = "";
-	numeroCelular = 0;
-	sexo = ' ';
-
-
-
-}
+#include "ColeccionMediciones.h"
+#include "ContenedorClasesCliente.h"
 Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscripcion, string fechaNacimiento, int celular, char sexo) {
 	this->cedulaIdentidad = cedula;
 	this->nombre = nombre;
@@ -21,7 +9,6 @@ Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscri
 	this->fechaInscripcion = fechaInscripcion;
 	this->numeroCelular = celular;
 	this->sexo = sexo;
-
 
 }
 
@@ -93,9 +80,15 @@ string Cliente::toString() {
 	return ss.str();
 }
 
+ColeccionMediciones* Cliente::getHistorialMediciones()
+{
+	
+		return coleccionMediciones;
+}
 
 
-//metodos de las clases funcionales 
+
+
 
 
 

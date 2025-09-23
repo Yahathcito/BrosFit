@@ -18,7 +18,8 @@ Medicion::Medicion()
 	medidaMuslo = 0.0;
 	imc = 0.0;
 }
-Medicion::Medicion(string nombreCliente, string idCliente, string fechaMedicion, string nombreInstructor, float peso, float estatura, float porcentajeGrasa, float porcentajeMusculo, int edadMetabolica, float porcentajeGrasaVisceral, float medidaCintura, float medidaCadera, float medidaPecho, float medidaMuslo)
+Medicion::Medicion( string idCliente, string fechaMedicion, string nombreInstructor, float peso, float estatura, 
+	float porcentajeGrasa, float porcentajeMusculo, int edadMetabolica, float porcentajeGrasaVisceral, float medidaCintura, float medidaCadera, float medidaPecho, float medidaMuslo)
 {
 	this->nombreCliente = nombreCliente;
 	this->idCliente = idCliente;
@@ -34,7 +35,7 @@ Medicion::Medicion(string nombreCliente, string idCliente, string fechaMedicion,
 	this->medidaCadera = medidaCadera;
 	this->medidaPecho = medidaPecho;
 	this->medidaMuslo = medidaMuslo;
-	calcularIMC();
+
 }
 string Medicion::getNombreCliente()
 {

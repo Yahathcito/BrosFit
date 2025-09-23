@@ -1,10 +1,10 @@
 #include "ClaseGrupal.h"
+#include "Instructor.h"
+#include "ColeccionClientes.h"
 
 
-ClaseGrupal::ClaseGrupal()
-{
-}
-ClaseGrupal::ClaseGrupal(string codigo, string nombreClase, string horario, string duracion, int capacidadMaxima, string salon)
+
+ClaseGrupal::ClaseGrupal(int codigo, string nombreClase, string horario, string duracion, int capacidadMaxima, string salon)
 {
 	this->codigo = codigo;
 	this->nombreClase = nombreClase;
@@ -13,11 +13,11 @@ ClaseGrupal::ClaseGrupal(string codigo, string nombreClase, string horario, stri
 	this->capacidadMaxima = capacidadMaxima;
 	this->salon = salon;
 }
-string ClaseGrupal::getCodigo()
+int ClaseGrupal::getCodigo()
 {
 	return codigo;
 }
-void ClaseGrupal::setCodigo(string codigo)
+void ClaseGrupal::setCodigo(int codigo)
 {
 	this->codigo = codigo;
 }

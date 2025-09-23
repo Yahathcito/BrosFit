@@ -38,7 +38,7 @@ void Interfaz::menu() {
 				subMenuInformeDeClientes();
                 break;
             case 3: 
-    
+              /*  subMenuInformeDeInstructores();*/
                 break;
             case 4: 
                 
@@ -125,9 +125,6 @@ void Interfaz::menu() {
             }
         } while (opcion != 0);
     }
-
-
-//---------------------------------------------------------------------------------
 
 
 
@@ -508,12 +505,6 @@ void Interfaz::menu() {
             default: cout << "Opcion invalida!\n";
             }
             } while (opcion != 0);
-        };
+        }
 
 
-
-
-
-  
-
-    

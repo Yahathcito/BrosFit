@@ -3,13 +3,14 @@
 #include <sstream>
 #include <string>
 
-
+class ColeccionMediciones;     // forward declaration
+class ContenedorClasesCliente; // forward declaration
 
 using namespace std;
+
 class Cliente {
 private:
-
-	//Datos personales del cliente 
+	// Datos personales del cliente 
 	string cedulaIdentidad;
 	string nombre;
 	string correoElectronico;
@@ -18,15 +19,13 @@ private:
 	int numeroCelular;
 	char sexo;
 
-
+	ColeccionMediciones* coleccionMediciones;
+	ContenedorClasesCliente* clasesCliente; // relación con clases grupales
 
 public:
-
-	//Constructores y destructor 
-	Cliente();
 	Cliente(string, string, string, string, string, int, char);
 	~Cliente();
-	//Getters y Setters 
+
 	string getCedula();
 	void setCedula(string);
 	string getNombre();
@@ -43,9 +42,5 @@ public:
 	void setSexo(char);
 	string toString();
 
-
-
-
+	ColeccionMediciones* getHistorialMediciones();
 };
-
-
