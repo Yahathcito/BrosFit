@@ -37,13 +37,12 @@ public:
 	void setFechaNacimiento(string);
 	string getCorreo();
 	void setCorreo(string);
-
-	// tiene especialidade
+	string* getEspecialidades();
 	bool tieneEspecialidad(string);
 	Instructor* getPorIndice(int);
 	string getEspecialidad();
 	void setEspecialidad(string);
-
+	int getCantEspecialidades();
 	ColeccionClientes* getClientes();
 	void setClientes(ColeccionClientes*);
 	ColeccionMediciones* getMediciones();

@@ -11,7 +11,9 @@ private:
 public:
 	ColeccionClientes(int);
 	~ColeccionClientes();
-
+	
+	
+	Cliente* getClientesxIndice(int);
 	void agregarCliente(Cliente*);
 	Cliente* buscarCli(std::string);
 	Cliente* buscarCliente(const std::string& cedula);
