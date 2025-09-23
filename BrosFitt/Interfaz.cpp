@@ -57,7 +57,7 @@ void Interfaz::menu() {
 				subMenuReporteIMC();
                 break;
             case 6: 
-				/*subMenuRutinas();*/
+				subMenuRutinas();
                 break;
             case 7: 
                 
@@ -843,8 +843,11 @@ sistema. La rutina se divide en ejercicios para las siguientes áreas del cuerpo
 pecho y tríceps, bíceps, piernas y espalda.
 Nota: No se guardan rutinas anteriores asignadas al cliente, únicamente se mantiene en el
 sistema la rutina actual, la cual puede cambiar en el momento que así lo considere el
-instructor. 
+instructor.
+ 
             hazlo por favor 
             */
 
 
+
+		
