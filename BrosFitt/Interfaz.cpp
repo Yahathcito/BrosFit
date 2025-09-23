@@ -57,26 +57,7 @@ void Interfaz::menu() {
 				subMenuReporteIMC();
                 break;
             case 6: 
-                
-                do {
-                    cout << "\n--- RUTINAS ---" << endl;
-                    cout << "1. Ingresar ejercicios a la bateria" << endl;
-                    //Creo que la batería ya viene por defecto con los ejercicios, entonces sería mas como mostrar la batería de ejercicios solamente
-                    cout << "2. Generar nueva rutina a cliente" << endl;
-                    cout << "0. Volver" << endl;
-                    cout << "Seleccione una opcion: ";
-                    cin >> opcion;
-                    switch (opcion) {
-                    case 1: cout << "Ingresando ejercicios..." << endl; 
-                        //lo mismo que dije antes 
-                        break;
-                    case 2: cout << "Generando rutina de cliente..." << endl; 
-                        break;
-                    case 0: break;
-                    default: cout << "Opcion invalida!" << endl;
-                    }
-                } while (opcion != 0);
-                
+				/*subMenuRutinas();*/
                 break;
             case 7: 
                 
@@ -120,13 +101,7 @@ void Interfaz::menu() {
     }
 
 
-
-
-
-
-
-
-    void Interfaz::subMenuIngresoDatosGenerales() {
+        void Interfaz::subMenuIngresoDatosGenerales() {
 
 		char seguir, sexo;
 		int opcion, numeroCelular, telefono = 0, cantidadEspecialidades = 0, cantidadClientes = 0;
@@ -854,3 +829,22 @@ void Interfaz::menu() {
                 }
                 } while (opcion != 0);
 		}
+
+        /*Rutinas
+            − El sistema debe permitir ingresar ejercicios a la “batería de
+            ejercicios”. (4 ptos.)
+            − El sistema debe permitir la generación de una nueva rutina a un cliente
+            especifico(a partir de la “batería de ejercicios”).Se debe poder
+            buscar cualquier cliente de cualquier sucursal y mostrar la rutina
+            generada. (14 ptos.)
+           El sistema además debe permitir que el instructor genere la rutina actual del cliente
+a partir de una batería de ejercicios previamente registrados y clasificados en el
+sistema. La rutina se divide en ejercicios para las siguientes áreas del cuerpo:
+pecho y tríceps, bíceps, piernas y espalda.
+Nota: No se guardan rutinas anteriores asignadas al cliente, únicamente se mantiene en el
+sistema la rutina actual, la cual puede cambiar en el momento que así lo considere el
+instructor. 
+            hazlo por favor 
+            */
+
+
