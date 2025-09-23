@@ -14,6 +14,13 @@ ColeccionClientes::~ColeccionClientes() {
 	}
 	delete[] clientes;
 }
+Cliente* ColeccionClientes::getClientesxIndice(int o)
+{
+	if (o >= 0 && o < cantidad) {
+		return clientes[o];
+	}
+	return nullptr;
+}
 void ColeccionClientes::agregarCliente(Cliente* cliente) {
 	if (cantidad < tam) {
 		clientes[cantidad] = cliente;

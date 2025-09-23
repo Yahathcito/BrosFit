@@ -54,9 +54,7 @@ void Interfaz::menu() {
 				subMenuHistorialDeMediciones();
                 break;
             case 5: 
-                cout << "\n--- REPORTE IMC ---" << endl;
-                cout << "Mostrando clientes por rangos de IMC en sucursal..." << endl;
-                
+				subMenuReporteIMC();
                 break;
             case 6: 
                 
@@ -378,7 +376,7 @@ void Interfaz::menu() {
     }
    
 
-    void Interfaz::subMenuInformeDeClientes() {
+        void Interfaz::subMenuInformeDeClientes() {
         system("cls");
         if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
             cout << "No hay sucursales cargadas.\n";
@@ -416,10 +414,8 @@ void Interfaz::menu() {
                 system("pause");
                 break;
             }
-                  // SOLO SE MUESTRA LA PARTE MODIFICADA DEL case 2 EN informeDeClientes
-          // SOLO SE MUESTRA LA PARTE MODIFICADA DEL case 2 EN informeDeClientes
+          
             case 2: {
-				// debe haber al menos un cliente ingresado para que no se pidan los datos cuando no hay clientes
                 cout << "=== Buscar cliente por cedula ===\n";
                 string cedBuscada;
                 cout << "Cedula del cliente: ";
@@ -502,16 +498,6 @@ void Interfaz::menu() {
             } while (opcion != 0);
         }
 
-
-
-      /*  Informe Instructores
-            − Lista de instructores por sucursal(5 ptos.)
-            − Lista de instructores por especialidad(5 ptos.)
-			la lista por especialidad hazla por vector predefinido de especialidades para que el usuario no ingrese cualquier cosa en un string sino int, recuerda que un instructor puede tener varias especialidades
-			son todos los istructores que tengan esa especialidad, no importa la sucursal, aunque tengan varias especialidades, si tienen la que se busca, deben salir en la lista
-
-            
-            */
 
 		void Interfaz::subMenuInformeDeInstructores() {
             system("cls");
@@ -786,6 +772,85 @@ void Interfaz::menu() {
             } while (opcion != 0);
         }
 
-		
         
+		void Interfaz::subMenuReporteIMC() {
+           // no uses mapas
         
+            system("cls");
+            if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                cout << "No hay sucursales cargadas.\n";
+                return;
+            }
+            int opcion;
+            do {
+                cout << "\n--- REPORTE DE IMC ---\n"
+                    << "1. Generar reporte de IMC por sucursal\n"
+                    << "0. Volver\n"
+                    << "Seleccione una opcion: ";
+                cin >> opcion;
+                switch (opcion) {
+                case 1: {
+                    cout << "Sucursales disponibles:\n" << coleccionSucursales->toString() << endl;
+                    string codigo;
+                    cout << "Digite el codigo de la sucursal: ";
+                    cin >> codigo;
+                    Sucursal* suc = coleccionSucursales->buscarSucursal(codigo);
+                    if (!suc) {
+                        cout << "Sucursal no encontrada.\n";
+                        break;
+                    }
+                    ColeccionClientes* coleccionClientes = suc->getClientes();
+                    if (!coleccionClientes || coleccionClientes->getCantidad() == 0) {
+                        cout << "No hay clientes en esta sucursal.\n";
+                        break;
+                    }
+                    // Inicializar contadores y listas para cada categoria
+                    int conteos[8] = { 0 }; // 8 categorias
+                    string listas[8] = { "", "", "", "", "", "", "", "" };
+                    for (int i = 0; i < coleccionClientes->getCantidad(); ++i) {
+                        Cliente* cli = coleccionClientes->getClientesxIndice(i);//
+						// que devuelve un puntero a cliente
+                        if (!cli || !cli->getHistorialMediciones() || cli->getHistorialMediciones()->getCantidad() == 0) continue;
+                        Medicion* ultimaMedicion = cli->getHistorialMediciones()->getPorIndice(cli->getHistorialMediciones()->getCantidad() - 1);
+                        if (!ultimaMedicion) continue;
+                        float imc = ultimaMedicion->getIMC();
+                        int categoria = -1;
+                        if (imc < 16.00) categoria = 0; // Delgadez severa
+                        else if (imc >= 16.01 && imc <= 16.99) categoria = 1; // Delgadez moderada
+                        else if (imc >= 17.00 && imc <= 18.49) categoria = 2; // Delgadez leve
+                        else if (imc >= 18.50 && imc <= 24.99) categoria = 3; // Normal
+                        else if (imc >= 25.00 && imc <= 29.99) categoria = 4; // Pre-obesidad
+                        else if (imc >= 30.00 && imc <= 34.99) categoria = 5; // Obesidad leve
+                        else if (imc >= 35.00 && imc <= 39.99) categoria = 6; // Obesidad media
+						else if (imc >= 40.00) categoria = 7; // Obesidad morbida
+                        if (categoria != -1) {
+                            conteos[categoria]++;
+                            listas[categoria] += cli->getNombre() + " (IMC: " + to_string(imc) + ")\n";
+                        }
+                    }
+                    // Mostrar resultados
+                    string categoriasNombres[8] = {
+                        "Delgadez severa (<16.00)",
+                        "Delgadez moderada (16.01-16.99)",
+                        "Delgadez leve (17.00-18.49)",
+                        "Normal (18.5-24.99)",
+                        "Pre-obesidad (25.00-29.99)",
+                        "Obesidad leve (30.00-34.99)",
+                        "Obesidad media (35.00-39.99)",
+                        "Obesidad morbida (>=40.00)"
+                    };
+                    cout << "\n--- Reporte de IMC para la sucursal " << codigo << " ---\n";
+                    for (int j = 0; j < 8; ++j) {
+                        cout << categoriasNombres[j] << ": " << conteos[j] << " cliente(s)\n";
+                        if (conteos[j] > 0) {
+                            cout << listas[j];
+                        }
+                    }
+                }
+                    system("pause");
+                    break;
+                case 0: break;
+                default: cout << "Opcion invalida!\n";
+                }
+                } while (opcion != 0);
+		}
