@@ -12,7 +12,8 @@ private:
 
 public: 
 	static void menu();
-	static void ingresoDatosGenerales();
-	static void informeDeClientes();
+	static void subMenuIngresoDatosGenerales();
+	static void subMenuInformeDeClientes();
+
 };
 

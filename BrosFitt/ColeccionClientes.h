@@ -18,6 +18,7 @@ public:
 	bool insertarAlFinal(Cliente*);	
 	int getCantidad();
 	int getTam();
+	string toString();
 
 };
 

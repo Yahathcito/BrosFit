@@ -31,30 +31,14 @@ void Interfaz::menu() {
 			system("cls");
 
             switch (opcion) {
-            case 1: 
-				ingresoDatosGenerales(); 
+            case 1:
+				subMenuIngresoDatosGenerales();
                 break;
-            case 2: 
-               
-				informeDeClientes();
+            case 2:
+				subMenuInformeDeClientes();
                 break;
             case 3: 
-                
-                do {
-                    cout << "\n--- INFORMES DE INSTRUCTORES ---" << endl;
-                    cout << "1. Lista de instructores por sucursal" << endl;
-                    cout << "2. Lista de instructores por especialidad" << endl;
-                    cout << "0. Volver" << endl;
-                    cout << "Seleccione una opcion: ";
-                    cin >> opcion;
-                    switch (opcion) {
-                    case 1: cout << "Mostrando instructores por sucursal..." << endl; break;
-                    case 2: cout << "Mostrando instructores por especialidad..." << endl; break;
-                    case 0: break;
-                    default: cout << "Opcion invalida!" << endl;
-                    }
-                } while (opcion != 0);
-                
+    
                 break;
             case 4: 
                 
@@ -152,14 +136,14 @@ void Interfaz::menu() {
 
 
 
-    void Interfaz::ingresoDatosGenerales() {
-       
-		char seguir, sexo; 
-		int opcion, numeroCelular, telefono=0, cantidadEspecialidades = 0, cantidadClientes = 0 ;
-        string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], codigoSucu, nombreInstructor,nombreSucursal  ;
-        Sucursal* s =NULL, * m, * k;
-        
-        Cliente* cli = nullptr;
+    void Interfaz::subMenuIngresoDatosGenerales() {
+
+		char seguir, sexo;
+		int opcion, numeroCelular, telefono = 0, cantidadEspecialidades = 0, cantidadClientes = 0;
+		string cedula, nombre, correo, fechaNacimiento, fechaInscripcion, especialidad[8], codigoSucu, nombreInstructor, nombreSucursal;
+		Sucursal* s = NULL, * m, * k;
+
+		Cliente* cli = nullptr;
 		Instructor* nuevoInstructor = nullptr;
        
 
@@ -232,6 +216,16 @@ void Interfaz::menu() {
 			case 2: 
                 do {
 					system("cls");
+
+
+
+					//compruebe que exista al menos una sucursal antes de agregar un instructor
+					if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+						cout << "No hay sucursales disponibles. Por favor, ingrese una sucursal primero." << endl;
+						system("pause");
+						break; // Salir del bucle do-while y volver al menú principal
+					}
+
                     
                  /*   cout << "Ingrese la cedula del instructor: ";
                     cin >> cedula;
@@ -317,136 +311,69 @@ void Interfaz::menu() {
 
                 case 3: 
          
-                do {
-
-     //           /*     cout << "Ingrese la cedula del cliente: ";
-     //               cin >> cedula;
-     //               cout << "Ingrese el nombre del cliente: ";
-     //               cin >> nombre;
-     //               cout << "Ingrese el correo electronico del cliente: ";
-     //               cin >> correo;
-     //               cout << "Ingrese la fecha de nacimiento del cliente (DD/MM/AAAA): ";
-     //               cin >> fechaNacimiento;
-     //               cout << "Ingrese la fecha de inscripcion del cliente (DD/MM/AAAA): ";
-     //               cin >> fechaInscripcion;
-     //               cout << "Ingrese el numero de celular del cliente: ";
-     //               cin >> numeroCelular;
-     //               cout << "Ingrese el sexo del cliente (M/F): ";
-     //               cin >> sexo;
-     //           
-					//Cliente* cli = new Cliente(cedula, nombre, correo, fechaInscripcion, fechaNacimiento, numeroCelular, sexo);*/
-					//Cliente* cli = new Cliente("555", "Maria Gomez", "gagaga@hah", "01/01/2023", "20/05/1990", 987, 'F');
-					//// Mostrar sucursales disponibles para asociar el cliente
-				 // /*  cout << "Sucursales disponibles para asociar:" <<endl; 
-     //               cout << coleccionSucursales->toString() << endl;
-     //               cout << "Digite el codigo de sucursal a asociar:";cin>>codigoSucu;
-					//s = coleccionSucursales->buscarSucursal(codigoSucu);
-     //               s->agregarClienteXSucursal(cli);
-
-     //               cout<<"Instructores de la sucursal "<<codigoSucu<<": "<<endl; cout<< s->getColeccionInstructores()->toString() << endl;
-     //               cout<<"Digite la cedula del instructor deseado: "; cin >> cedula;
-
-					//s->getColeccionInstructores()->buscarInstructor(cedula)->getClientes()->insertarAlFinal(cli);
-     //                   cout << "Cliente agregado exitosamente!" << endl;*/
-     //               
+					do {
+						//compruebe que exista al menos una sucursal y un instructor antes de agregar un cliente
+      //                  if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+      //                      cout << "No hay sucursales disponibles. Por favor, ingrese una sucursal primero." << endl;
+      //                      system("pause");
+      //                      break; // Salir del bucle do-while y volver al menú principal
+						//}
+						////verificar que la sucursal tenga instructores
+						//cout << "Sucursales disponibles:" << endl;
+						//cout << coleccionSucursales->toString() << endl;
+						//cout << "Digite el codigo de sucursal para verificar instructores:"; cin >> codigoSucu;
+						//s = coleccionSucursales->buscarSucursal(codigoSucu);
+      //                  if (!s || !s->getColeccionInstructores() || s->getColeccionInstructores()->getCantidad() == 0) {
+      //                      cout << "No hay instructores disponibles en esta sucursal. Por favor, ingrese un instructor primero." << endl;
+      //                      system("pause");
+      //                      break; // Salir del bucle do-while y volver al menú principal
+						//}
 
 
-					//	//ocupo agregar ese cliente en una sucursal y con un instructor de esa sucursal
-					//cout << "ingrese el nombre de la sucursal a la que quiere asociar el Cliente: " << endl << endl;
-     //               cout << "Esta es la lista de las sucursales disponibles" << endl << endl <<
-					//	coleccionSucursales->toString() << endl;
-					//cin >> codigoSucu;
-					//if (s = coleccionSucursales->buscarSucursal(codigoSucu))
-					//{
-					//	cout << "Sucursal encontrada, codigo: " << s->getCodigo() << endl;
-					//}
-					//else {
-					//	cout << "Sucursal no encontrada. Asegurese de ingresar un nombre valido." << endl;
-					//	continue; // Volver al inicio del bucle para intentar de nuevo
-					//}
-					//s->agregarClienteXSucursal(cli);
-					//cout << "Instructores de la sucursal " << codigoSucu << ": " << endl; cout << s->getColeccionInstructores()->toString() << endl;
-					//cout << "Digite la cedula del instructor deseado: "; cin >> cedula;
 
-					//s->getColeccionInstructores()->buscarInstructor(cedula)->getClientes()->insertarAlFinal(cli);
 
-					//cout << "Cliente agregado exitosamente!" << endl;
 
-     //               cout << "Desea ingresar otro cliente? (s/n): ";
-     //               cin >> seguir;
-                 
+						/*     cout << "Ingrese la cedula del cliente: ";
+							 cin >> cedula;
+							 cout << "Ingrese el nombre del cliente: ";
+							 cin >> nombre;
+							 cout << "Ingrese el correo electronico del cliente: ";
+							 cin >> correo;
+							 cout << "Ingrese la fecha de nacimiento del cliente (DD/MM/AAAA): ";
+							 cin >> fechaNacimiento;
+							 cout << "Ingrese la fecha de inscripcion del cliente (DD/MM/AAAA): ";
+							 cin >> fechaInscripcion;
+							 cout << "Ingrese el numero de celular del cliente: ";
+							 cin >> numeroCelular;
+							 cout << "Ingrese el sexo del cliente (M/F): ";
+							 cin >> sexo;
 
-                    // 1. Seleccionar sucursal
-                    cout << "Sucursales disponibles:\n" << coleccionSucursales->toString() << endl;
-                    string codigo;
-                    cout << "Codigo sucursal: ";
-                    cin >> codigo;
-                    Sucursal* suc = coleccionSucursales->buscarSucursal(codigo);
-                    if (!suc) {
-                        cout << "Sucursal no encontrada.\n";
-                        return;
-                    }
+							 Cliente* cli = new Cliente(cedula, nombre, correo, fechaInscripcion, fechaNacimiento, numeroCelular, sexo);*/
+						Cliente* cli = new Cliente("12345", "Maria Gomez", "gagaga@hah", "01/01/2023", "20/05/1990", 987, 'F');
+						// Mostrar sucursales disponibles para asociar el cliente
+						cout << "Sucursales disponibles para asociar:" << endl;
+						cout << coleccionSucursales->toString() << endl;
+						cout << "Digite el codigo de sucursal a asociar:"; cin >> codigoSucu;
+						s = coleccionSucursales->buscarSucursal(codigoSucu);
+						s->agregarClienteXSucursal(cli);
 
-                    // 2. Verificar instructores
-                    if (!suc->existenInstructores() || suc->getColeccionInstructores()->getCantidad() == 0) {
-                        cout << "La sucursal no tiene instructores. Registre uno primero.\n";
-                        return;
-                    }
+						cout << "Instructores de la sucursal " << codigoSucu << ": " << endl; cout << s->getColeccionInstructores()->toString() << endl;
+						cout << "Digite la cedula del instructor deseado: "; cin >> cedula;
 
-                    // 3. Datos del cliente (ejemplo; pide todo si quieres)
-                   /* string cedula, nombre, correo, fNac, fIns;
-                    int celular;
-                    char sexo;
-                    cout << "Cedula: "; cin >> cedula;
-                    cout << "Nombre: "; cin >> nombre;
-                    cout << "Correo: "; cin >> correo;
-                    cout << "Fecha nacimiento (DD/MM/AAAA): "; cin >> fNac;
-                    cout << "Fecha inscripcion (DD/MM/AAAA): "; cin >> fIns;
-                    cout << "Celular: "; cin >> celular;
-                    cout << "Sexo (M/F): "; cin >> sexo;*/
+						nuevoInstructor = s->getColeccionInstructores()->buscarInstructor(cedula);
+						nuevoInstructor->getClientes()->insertarAlFinal(cli);
 
-                    // 4. Ver si ya existe cedula en esa sucursal (opcional: recorrer)
-                    if (suc->getClientes()->buscarCli(cedula)) {
-                        cout << "Ya existe un cliente con esa cedula en la sucursal.\n";
-                        return;
-                    }
-					Cliente* cli = new Cliente("555", "Maria Gomez", "gagaga@hah", "01/01/2023", "20/05/1990", 987, 'F');
-                    /*Cliente* cli = new Cliente(cedula, nombre, correo, fIns, fNac, celular, sexo);*/
-
-                    // 5. Insertar en sucursal
-                    suc->agregarClienteXSucursal(cli);
-
-                    // 6. Elegir instructor de la misma sucursal
-                    cout << "Instructores de la sucursal:\n"
-                        << suc->getColeccionInstructores()->toString() << endl;
-                    string cedInst;
-                    cout << "Cedula instructor a asignar: "; cin >> cedInst;
-                    Instructor* ins = suc->getColeccionInstructores()->buscarInstructor(cedInst);
-                    if (!ins) {
-                        cout << "Instructor no encontrado. Cliente queda solo en la sucursal.\n";
-                    }
-                    else {
-                        // Asegura capacidad > 0 en la colección de clientes del instructor
-                        if (!ins->getClientes()->buscarCli(cedula)) {
-                            // Usa el método correcto según tu implementación (insertarAlFinal/agregarCliente)
-                            ins->getClientes()->insertarAlFinal(cli);
-                            cout << "Cliente vinculado al instructor.\n";
-                        }
-                    }
-
-                    // 7. Confirmación
-                    cout << "\n[OK] Cliente creado y asociado.\n";
-                    cout << "Clientes en sucursal:\n" << suc->getClientes()->listarClientes() << endl;
-                    cout << "Clientes del instructor seleccionado:\n"
-                        << (ins ? ins->getClientes()->listarClientes() : "(Instructor no asignado)") << endl;
-                
-                 } while (seguir == 's' || seguir == 'S');
-
-				//comprobacion rapida de que se crea el cliente
-				cout << "Clientes actuales en la sucursal " << s->getCodigo() << ": " << s->getClientes()->listarClientes() << endl;
-				//comprobacion rapida de que se crea el cliente y asocia a un isntructor
-				cout << "Clientes actuales del instructor " << cedula << ": " << s->getColeccionInstructores()->buscarInstructor(cedula)->getClientes()->listarClientes() << endl;
-                break;
+						cout << "Desea ingresar otro cliente? (s/n): ";
+						cin >> seguir;
+					} while (seguir == 's' || seguir == 'S');
+					system("cls");
+					//comprobacion rapida de que se crea el cliente
+					cout << "Clientes actuales a cargo del instructor : " << nuevoInstructor->getNombre() << endl;
+					cout << nuevoInstructor->getClientes()->toString() << endl;
+					cout << "Clientes actuales en la sucursal " << s->getCodigo() << ": " << endl;
+					cout << s->getClientes()->toString() << endl;
+					system("pause");
+					break;
 				
 			case 0: 
                 system("cls");
@@ -459,8 +386,8 @@ void Interfaz::menu() {
     }
    
 
-    void Interfaz::informeDeClientes() {
-		system("cls");
+    void Interfaz::subMenuInformeDeClientes() {
+        system("cls");
         if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
             cout << "No hay sucursales cargadas.\n";
             return;
@@ -500,6 +427,7 @@ void Interfaz::menu() {
                   // SOLO SE MUESTRA LA PARTE MODIFICADA DEL case 2 EN informeDeClientes
           // SOLO SE MUESTRA LA PARTE MODIFICADA DEL case 2 EN informeDeClientes
             case 2: {
+				// debe haber al menos un cliente ingresado para que no se pidan los datos cuando no hay clientes
                 cout << "=== Buscar cliente por cedula ===\n";
                 string cedBuscada;
                 cout << "Cedula del cliente: ";
@@ -548,11 +476,44 @@ void Interfaz::menu() {
                 system("pause");
                 break;
             }
-            case 3:
-                cout << "Pendiente implementar (recorrer instructores y sus clientes).\n";
+            case 3: {
+                // ocupo listar clientes por instructor especifico
+                cout << "=== Listar clientes por instructor ===\n";
+                string cedulaInstructor;
+                cout << "Cedula del instructor: ";
+                cin >> cedulaInstructor;
+                Instructor* instrEncontrado = nullptr;
+                for (int i = 0; i < coleccionSucursales->getCantidad() && !instrEncontrado; ++i) {
+                    Sucursal* suc = coleccionSucursales->getPorIndice(i);
+                    if (!suc || !suc->getColeccionInstructores()) continue;
+                    instrEncontrado = suc->getColeccionInstructores()->buscarInstructor(cedulaInstructor);
+                }
+                if (!instrEncontrado) {
+                    cout << "Instructor no encontrado.\n";
+                }
+                else {
+                    ColeccionClientes* clientesDelInstructor = instrEncontrado->getClientes();
+                    if (!clientesDelInstructor || clientesDelInstructor->getCantidad() == 0) {
+                        cout << "El instructor no tiene clientes asignados.\n";
+                    }
+                    else {
+                        cout << "Clientes del instructor " << instrEncontrado->getNombre() << ":\n"
+                            << clientesDelInstructor->listarClientes() << endl;
+                    }
+                }
+            }
+                system("pause");
                 break;
             case 0: break;
             default: cout << "Opcion invalida!\n";
             }
-        } while (opcion != 0);
-    }
+            } while (opcion != 0);
+        };
+
+
+
+
+
+  
+
+    

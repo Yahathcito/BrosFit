@@ -58,10 +58,9 @@ string ColeccionClientes::listarClientes() {
 	}
 	return resultado;
 }
-bool ColeccionClientes::insertarAlFinal(Cliente* v) {
-	if (buscarCli(v->getCedula()) != nullptr) {
+bool ColeccionClientes::insertarAlFinal(Cliente* cliente){
+	if (buscarCliente(cliente->getCedula()) != nullptr) {
 		cout << "El cliente ya está ingresado." << endl;
-		delete v;
 		return false;
 	}
 	if (cantidad == tam) {
@@ -77,8 +76,7 @@ bool ColeccionClientes::insertarAlFinal(Cliente* v) {
 		clientes = nuevoArreglo;
 		tam = nuevoTam;
 	}
-	clientes[cantidad] = v;
-	cantidad++;
+	clientes[cantidad++] = cliente;
 	return true;
 }
 
@@ -94,4 +92,16 @@ Cliente* ColeccionClientes::buscarCliente(const string& ced) {
 	for (int i = 0; i < cantidad; ++i)
 		if (clientes[i] && clientes[i]->getCedula() == ced) return clientes[i];
 	return nullptr;
+}
+
+
+
+string ColeccionClientes::toString() {
+	string resultado;
+	for (int i = 0; i < cantidad; i++) {
+		if (clientes[i]) {
+			resultado += clientes[i]->toString() + "\n";
+		}
+	}
+	return resultado;
 }
