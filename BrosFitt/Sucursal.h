@@ -21,7 +21,7 @@ private:
 	int capacidadMaximaInstructores;
 	ColeccionClientes* clientes;
 	ColeccionInstructores* instructores;
-
+	ColeccionClaseGrupal* clasesOfrecidas;
 public:
 	Sucursal();
 	Sucursal(string codigo, string provincia,string canton, string correoElectronico, string telefono,  int tamClientes, int tamInstructores);
@@ -42,6 +42,7 @@ public:
 
 	ColeccionClientes* getClientes();
 	ColeccionInstructores* getColeccionInstructores();
+	ColeccionClaseGrupal* getClasesOfrecidas();
 	void setClientes(ColeccionClientes*);
 	bool existenInstructores();
 	void setInstructores(ColeccionInstructores*);

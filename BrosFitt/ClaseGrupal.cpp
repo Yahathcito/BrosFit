@@ -12,6 +12,7 @@ ClaseGrupal::ClaseGrupal(int codigo, string nombreClase, string horario, string 
 	this->duracion = duracion;
 	this->capacidadMaxima = capacidadMaxima;
 	this->salon = salon;
+	clientesMatriculados = new ColeccionClientes(capacidadMaxima);
 }
 int ClaseGrupal::getCodigo()
 {
@@ -73,6 +74,17 @@ string ClaseGrupal::toString()
 	return s.str();
 }
 
-ClaseGrupal::~ClaseGrupal()
-{
+string ClaseGrupal::toStringClientes(){
+	stringstream s;
+	s << "Clientes matriculados en la clase " << nombreClase << " (Codigo: " << codigo << "):\n";
+	s << clientesMatriculados->toString();
+	return s.str();
+}
+
+ColeccionClientes* ClaseGrupal::getClientesMatriculados(){
+	return clientesMatriculados;
+}
+
+ClaseGrupal::~ClaseGrupal(){
+	delete clientesMatriculados;
 }

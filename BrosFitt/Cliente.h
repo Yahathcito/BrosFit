@@ -42,4 +42,5 @@ public:
 	string toString();
 
 	ColeccionMediciones* getHistorialMediciones();
+	ContenedorClasesCliente* getClasesCliente();
 };

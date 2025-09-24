@@ -7,7 +7,6 @@ private:
 	int tam;
 	int cantidad;
     ClaseGrupal** clases;
-
 	bool ocupadas[8];
 	std::string nombresPredefinidos[8] = {
 		"CrossFit", "HIIT", "TRX", "Pesas",

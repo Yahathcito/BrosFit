@@ -43,7 +43,7 @@ public:
 	Instructor* getPorIndice(int);
 	string getEspecialidad();
 	void setEspecialidad(string);
-
+	string getEspecialidadXIndice(int);
 	ColeccionClientes* getClientes();
 	void setClientes(ColeccionClientes*);
 	ColeccionMediciones* getMediciones();
@@ -52,7 +52,7 @@ public:
 	void setRutinas(ColeccionRutina*);
 	ColeccionEjercicios* getEjercicios();
 	void setEjercicios(ColeccionEjercicios*);
-
+	ColeccionClaseGrupal* getClasesAsociadas();
 	string toString();
 	~Instructor();
 };

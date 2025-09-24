@@ -35,6 +35,7 @@ Instructor::Instructor(string cedula, string nombre, int telefono, string fechaN
 	mediciones = new ColeccionMediciones(20);
 	rutinas = new ColeccionRutina(20);
 	ejercicios = new ColeccionEjercicios(20);
+	clasesAsociadas = new ColeccionClaseGrupal();
 }
 
 string Instructor::getCedula()
@@ -81,18 +82,13 @@ void Instructor::setCorreo(string correo)
 	this->correo = correo;
 }
 
-bool Instructor::tieneEspecialidad(string n)
-{
-	for (int i = 0; i < 8; i++) {
-		if (especialidades[i] == "") {
-			return false;
-		}
-		if (especialidades[i] == n ) {
-			return true;
-		}
+bool Instructor::tieneEspecialidad( string n) {
+	for (int i = 0; i < 8; ++i) {
+		if (especialidades[i] == n) return true;
 	}
 	return false;
 }
+
 
 string Instructor::getEspecialidad()
 {
@@ -115,6 +111,9 @@ void Instructor::setEspecialidad(string especialidad)
 			break;
 		}
 	}
+}
+string Instructor::getEspecialidadXIndice(int i){
+	return especialidades[i];
 }
 ColeccionClientes* Instructor::getClientes()
 {
@@ -161,6 +160,9 @@ void Instructor::setEjercicios(ColeccionEjercicios* ejercicios)
 {
 	this->ejercicios = ejercicios;
 }
+ColeccionClaseGrupal* Instructor::getClasesAsociadas(){
+	return clasesAsociadas;
+}
 // muestra las especialidades, si son 8 las 8 y si son menos las que tenga, hazlo bien y ordenando en pantalla, muestrame el nombre de esas especialidades
 
 string Instructor::toString()
@@ -186,7 +188,7 @@ Instructor::~Instructor()
 	delete mediciones;
 	delete rutinas;
 	delete ejercicios;
-
+	delete clasesAsociadas;
 }
 
 
