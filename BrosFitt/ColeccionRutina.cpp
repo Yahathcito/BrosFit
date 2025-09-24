@@ -17,6 +17,25 @@ ColeccionRutina::~ColeccionRutina() {
 	delete[] rutinas;
 }
 
+Rutina* ColeccionRutina::getRutina()
+{
+	if (cantidad > 0) {
+		return rutinas[cantidad - 1];
+	}
+	return nullptr;
+}
+
+void ColeccionRutina::setRutinaActual(Rutina* rutina)
+{
+	if (cantidad > 0) {
+		delete rutinas[cantidad - 1];
+		rutinas[cantidad - 1] = rutina;
+	}
+	else {
+		agregarRutina(rutina);
+	}
+}
+
 
 void ColeccionRutina::agregarRutina(Rutina* rutina) {
 	if (cantidad >= tam) { // Usar >= por seguridad
@@ -72,3 +91,11 @@ int ColeccionRutina::getTam() {
 	return tam;
 }
 
+
+string ColeccionRutina::toString() {
+	string resultado = "";
+	for (int i = 0; i < cantidad; i++) {
+		resultado += rutinas[i]->toString() + "\n";
+	}
+	return resultado;
+}

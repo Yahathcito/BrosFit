@@ -8,29 +8,32 @@ ColeccionEjercicios::ColeccionEjercicios(int tam) {
 		ejercicios[i] = nullptr;
 	}
 }
+Ejercicio* ColeccionEjercicios::getPorIndice(int indice) {
+	if (indice >= 0 && indice < cantidad) {
+		return ejercicios[indice];
+	}
+	return nullptr;
+}
 ColeccionEjercicios::~ColeccionEjercicios() {
 	for (int i = 0; i < cantidad; i++) {
 		delete ejercicios[i];
 	}
 	delete[] ejercicios;
 }
-void ColeccionEjercicios::agregarEjercicio(Ejercicio* ejercicio) {
-	if (cantidad == tam) {
-		// Redimensionar el arreglo
-		int nuevoTam = tam * 2;
-		Ejercicio** nuevoArreglo = new Ejercicio * [nuevoTam];
-		for (int i = 0; i < cantidad; i++) {
-			nuevoArreglo[i] = ejercicios[i];
-		}
-		for (int i = cantidad; i < nuevoTam; i++) {
-			nuevoArreglo[i] = nullptr;
-		}
-		delete[] ejercicios;
-		ejercicios = nuevoArreglo;
-		tam = nuevoTam;
+Ejercicio* ColeccionEjercicios::getEjercicio()
+{
+	if (cantidad > 0) {
+		return ejercicios[cantidad - 1];
 	}
-	ejercicios[cantidad] = ejercicio;
-	cantidad++;
+	return nullptr;
+}
+bool ColeccionEjercicios::agregarEjercicio(Ejercicio* ejercicio) {
+	if (cantidad < tam) {
+		ejercicios[cantidad] = ejercicio;
+		cantidad++;
+		return true;
+	}
+	return false;
 }
 Ejercicio* ColeccionEjercicios::buscarEjercicio(string codigo) {
 	for (int i = 0; i < cantidad; i++) {
@@ -54,6 +57,7 @@ bool ColeccionEjercicios::eliminarEjercicio(string codigo) {
 	}
 	return false;
 }
+
 string ColeccionEjercicios::listarEjercicios() {
 	string resultado = "";
 	for (int i = 0; i < cantidad; i++) {
@@ -66,5 +70,13 @@ int ColeccionEjercicios::getCantidad() {
 }
 int ColeccionEjercicios::getTam() {
 	return tam;
+}
+string ColeccionEjercicios::toString() {
+	stringstream ss;
+	ss << "Cantidad de ejercicios: " << cantidad << "\n";
+	for (int i = 0; i < cantidad; i++) {
+		ss << ejercicios[i]->toString() << "\n";
+	}
+	return ss.str();
 }
 

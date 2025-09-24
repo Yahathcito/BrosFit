@@ -7,23 +7,25 @@ using namespace std;
 class Ejercicio
 {
 private:
-	string codigo;
 	string nombre;
-	string descripcion;
 	string area;
 	int duracion; // Duracion en minutos
+	int repeticiones;
+	int series;
+	float pesoRecomendado;
+	string codigo; // Codigo unico para cada ejercicio
 
 public:
-	Ejercicio();
-	Ejercicio(string, string, string, string, int);
+	
+	Ejercicio(string, string,string, int, int, int, float);
 	string getCodigo();
 	void setCodigo(string);
 	string getNombre();
 	void setNombre(string);
 	string getDescripcion();
 	void setDescripcion(string);
-	string getArea();
-	void setArea(string);
+	string getAreaCuerpo();
+	void setAreaCuerpo(string);
 	int getDuracion();
 	void setDuracion(int);
 	string toString();

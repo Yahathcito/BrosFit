@@ -9,13 +9,15 @@ private:
 	Ejercicio** ejercicios;
 public:
 	ColeccionEjercicios(int);
+	Ejercicio* getPorIndice(int);
 	~ColeccionEjercicios();
-	void agregarEjercicio(Ejercicio*);
+	Ejercicio* getEjercicio();
+	bool agregarEjercicio(Ejercicio*);
 	Ejercicio* buscarEjercicio(string);
 	bool eliminarEjercicio(string);
 	string listarEjercicios();
 	int getCantidad();
 	int getTam();
-
+	string toString();
 };
 

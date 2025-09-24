@@ -11,6 +11,8 @@ private:
 	static ColeccionClientes* coleccionClientes;
 	static ColeccionInstructores* coleccionInstructores;
 	static ColeccionMediciones* coleccionMediciones;
+	static ColeccionEjercicios* coleccionEjercicios;
+	static ColeccionRutina* coleccionRutinas;
 
 
 public: 
