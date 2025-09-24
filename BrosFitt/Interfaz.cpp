@@ -5,6 +5,8 @@ ColeccionSucursal* Interfaz::coleccionSucursales = nullptr;
 ColeccionClientes* Interfaz::coleccionClientes = nullptr;
 ColeccionInstructores* Interfaz::coleccionInstructores = nullptr;
 ColeccionMediciones* Interfaz::coleccionMediciones = nullptr;
+ColeccionEjercicios* Interfaz::coleccionEjercicios = nullptr;
+ColeccionRutina* Interfaz::coleccionRutinas = nullptr;
 
 void Interfaz::menu() {
     if (!coleccionSucursales) {
@@ -22,6 +24,16 @@ void Interfaz::menu() {
 	{
 		coleccionMediciones = new ColeccionMediciones(100);
 	}
+    if (!coleccionEjercicios)
+    {
+        coleccionEjercicios = new ColeccionEjercicios(100);
+	}
+
+	if (!coleccionRutinas)
+	{
+		coleccionRutinas = new ColeccionRutina(100);
+	}
+
 
 
         int opcion;
@@ -849,5 +861,274 @@ instructor.
             */
 
 
+		void Interfaz::subMenuRutinas() {
+            system("cls");
+            if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                cout << "No hay sucursales cargadas.\n";
+                return;
+            }
+            int opcion;
+            do {
+                cout << "\n--- RUTINAS DE EJERCICIOS ---\n"
+                    << "1. Ingresar ejercicio a la bateria de ejercicios\n"
+                    << "2. Generar rutina para un cliente\n"
+                    << "3. Mostrar rutina de un cliente\n"
+                    << "0. Volver\n"
+                    << "Seleccione una opcion: ";
+                cin >> opcion;
+                switch (opcion) {
+                case 1: {
+                    //muestra por pantalla las opcionees en un vector para que el usario cree un int
+                    cout << "=== Ingresar ejercicio a la bateria de ejercicios ===\n";
+                    string nombreEjercicio, areaCuerpo, codigo;
+                    int duracion, repeticiones, series;
+                    float pesoRecomendado;
+                    string areasPosibles[5] = { "Pecho", "Biceps","Triceps", "Piernas", "Espalda"};
+                    cout << "Areas del cuerpo posibles: " << endl;
+                    for (int i = 0; i < 5; i++) {
+                        cout << i + 1 << ". " << areasPosibles[i] << endl;
+                    }
+                    int opcionArea;
+                    cout << "Ingrese el numero del area del cuerpo del ejercicio: ";
+                    cin >> opcionArea;
+                    while (opcionArea < 1 || opcionArea > 5) {
+                        cout << "Opcion invalida. Ingrese un numero entre 1 y 5: ";
+                        cin >> opcionArea;
+                    }
+                    
+                    areaCuerpo = areasPosibles[opcionArea - 1];
+                    cout << "Ingrese el nombre del ejercicio: ";
+                    cin.ignore(); // Limpiar el buffer de entrada
+                    getline(cin, nombreEjercicio);
 
-		
+                    cout << "Ingrese el codigo del ejercicio: ";
+                    cin >> codigo;
+                    if (coleccionEjercicios && coleccionEjercicios->buscarEjercicio(codigo)) {
+                        cout << "Ya existe un ejercicio con ese codigo en la bateria. No se puede agregar.\n";
+                        system("pause");
+                        break;
+                    }
+
+
+                    cout << "Ingrese la duracion del ejercicio (en minutos): ";
+                    cin >> duracion;
+                    cout << "Ingrese el numero de repeticiones: ";
+                    cin >> repeticiones;
+                    cout << "Ingrese el numero de series: ";
+                    cin >> series;
+                    cout << "Ingrese el peso recomendado (en kg): ";
+                    cin >> pesoRecomendado;
+                    Ejercicio* nuevoEjercicio = new Ejercicio(codigo,nombreEjercicio, areaCuerpo, duracion, repeticiones, series, pesoRecomendado);
+				
+					
+                    if (!coleccionEjercicios) {
+                        coleccionEjercicios = new ColeccionEjercicios(100);
+                    }
+                    if (coleccionEjercicios->agregarEjercicio(nuevoEjercicio)) {
+                        cout << "Ejercicio agregado exitosamente a la bateria de ejercicios.\n";
+                    }
+                    else {
+                        cout << "No se pudo agregar el ejercicio. La bateria puede estar llena.\n";
+                        delete nuevoEjercicio;
+                    }
+					//comprobacion rapida
+
+					cout << "Ejercicios actuales en la bateria: " << endl;
+					cout << coleccionEjercicios->getEjercicio()->toString() << endl;
+
+                    system("pause");
+                }
+                      break;
+
+				case 2: {
+                    cout << "=== Generar rutina para un cliente ===\n";
+                    string cedulaCliente;
+                    cout << "Cedula del cliente: ";
+                    cin >> cedulaCliente;
+                    Cliente* cliEncontrado = nullptr;
+                    Sucursal* sucDondeEsta = nullptr;
+                    Instructor* instructorAsignado = nullptr;
+                    if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                        cout << "No hay sucursales registradas.\n";
+                        break;
+                    }
+                    // Buscar cliente en las sucursales
+                    for (int i = 0; i < coleccionSucursales->getCantidad() && !cliEncontrado; ++i) {
+                        Sucursal* suc = coleccionSucursales->getPorIndice(i);
+                        if (!suc) continue;
+                        if (!suc->getClientes()) continue;
+                        cliEncontrado = suc->getClientes()->buscarCliente(cedulaCliente);
+                        if (cliEncontrado) {
+                            sucDondeEsta = suc;
+                            ColeccionInstructores* ci = suc->getColeccionInstructores();
+                            if (!ci || ci->getCantidad() == 0) continue;
+                            for (int j = 0; j < ci->getCantidad() && !instructorAsignado; ++j) {
+                                Instructor* ins = ci->getPorIndice(j);
+                                if (!ins) continue;
+                                if (!ins->getClientes()) continue;
+                                if (ins->getClientes()->buscarCliente(cedulaCliente)) {
+                                    instructorAsignado = ins;
+                                }
+                            }
+                        }
+                    }
+                    if (!cliEncontrado) {
+                        cout << "Cliente no encontrado.\n";
+                        break;
+                    }
+                    if (!instructorAsignado) {
+                        cout << "El cliente no tiene un instructor asignado.\n";
+                        break;
+                    }
+                    if (!coleccionEjercicios || coleccionEjercicios->getCantidad() == 0) {
+                        cout << "No hay ejercicios en la bateria. No se puede generar rutina.\n";
+                        break;
+                    }
+                    cout << "Cliente encontrado y con instructor asignado.\n";
+                    cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
+                    cout << "Instructor: " << instructorAsignado->getNombre() << endl;
+					// que cliEncontrado no sea nulo
+
+					// si el cliente no tiene rutina actual, crear una nueva
+                    if (!cliEncontrado) {
+                        cout << "Error: cliente no encontrado.\n";
+                        return;
+                    }
+                    cout << "Cliente encontrado: " << cliEncontrado->getNombre() << endl;
+
+                    if (!cliEncontrado->getColeccionRutinaActual()) {
+                        cout << "Atención: coleccionRutinaActual es NULL" << endl;
+                    }
+                    else {
+                        cout << "ColeccionRutinaActual existe" << endl;
+                    }
+
+					if (!cliEncontrado->getColeccionRutinaActual()->getRutina()) {
+                        cliEncontrado->getColeccionRutinaActual()->setRutinaActual(new Rutina(cedulaCliente));
+                    }
+                    Rutina* rutina = cliEncontrado->getColeccionRutinaActual()->getRutina();
+                    if (!rutina) {
+                        cout << "Error: rutina actual no inicializada.\n";
+                        return;
+                    }
+					cout << "Generando rutina para el cliente " << cliEncontrado->getNombre() << "...\n";
+					// Mostrar ejercicios disponibles
+                    // Limpiar rutina actual
+					//debe mostrarse solamnete los ejercicios del area seleccionada, no todos los ejercicios, o sea que si el ejercicio es de pecho entonces solo es de pecho
+                    rutina->limpiarRutina();
+                    // Agregar ejercicios a la rutina por area
+					string areas[5] = { "Pecho", "Biceps","Triceps", "Piernas", "Espalda"};
+                    for (const string& area : areas) {
+                        cout << "Agregando ejercicios para el area: " << area << endl;
+                        // Mostrar ejercicios disponibles para el area
+                        cout << "Ejercicios disponibles para " << area << ":\n";
+                        bool hayEjerciciosArea = false;
+                        for (int i = 0; i < coleccionEjercicios->getCantidad(); ++i) {
+                            Ejercicio* ej = coleccionEjercicios->getPorIndice(i);
+                            if (ej && ej->getAreaCuerpo() == area) {
+                                cout << "- " << ej->getCodigo() << ": " << ej->getNombre() << endl;
+                                hayEjerciciosArea = true;
+                            }
+                        }
+                        if (!hayEjerciciosArea) {
+                            cout << "No hay ejercicios disponibles para esta area.\n";
+                            continue;
+                        }
+                       
+						string codigoEjercicio;
+						// Permitir al instructor seleccionar ejercicios para el area
+
+                        
+                        do {
+                            cout << "Ingrese el codigo del ejercicio para agregar a la rutina (o 'fin' para terminar con esta area): ";
+                            cin >> codigoEjercicio;
+                            if (codigoEjercicio == "fin") break;
+                            Ejercicio* ejSeleccionado = coleccionEjercicios->buscarEjercicio(codigoEjercicio);
+                            if (!ejSeleccionado || ejSeleccionado->getAreaCuerpo() != area) {
+                                cout << "Codigo invalido o ejercicio no pertenece a esta area.\n";
+                            }
+                            else {
+                                if (rutina->getColeccionEjercicios()->agregarEjercicio(ejSeleccionado)) {
+                                    cout << "Ejercicio agregado a la rutina.\n";
+                                }
+                                else {
+                                    cout << "No se pudo agregar el ejercicio a la rutina.\n";
+                                }
+                            }
+                        } while (true);
+					}
+					//comprobacion rapida de la rutina generada
+					cout << "Rutina generada:\n" << rutina->toString() << endl;
+
+                    cout << "Rutina generada exitosamente para el cliente.\n";
+                    system("pause");
+                }
+					  break;
+                     
+                      case 3: {
+                    cout << "=== Mostrar rutina de un cliente ===\n";
+                    string cedulaCliente;
+                    cout << "Cedula del cliente: ";
+                    cin >> cedulaCliente;
+                    Cliente* cliEncontrado = nullptr;
+                    Sucursal* sucDondeEsta = nullptr;
+                    Instructor* instructorAsignado = nullptr;
+                    if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                        cout << "No hay sucursales registradas.\n";
+                        break;
+                    }
+                    // Buscar cliente en las sucursales
+                    for (int i = 0; i < coleccionSucursales->getCantidad() && !cliEncontrado; ++i) {
+                        Sucursal* suc = coleccionSucursales->getPorIndice(i);
+                        if (!suc) continue;
+                        if (!suc->getClientes()) continue;
+                        cliEncontrado = suc->getClientes()->buscarCliente(cedulaCliente);
+                        if (cliEncontrado) {
+                            sucDondeEsta = suc;
+                            ColeccionInstructores* ci = suc->getColeccionInstructores();
+                            if (!ci || ci->getCantidad() == 0) continue;
+                            for (int j = 0; j < ci->getCantidad() && !instructorAsignado; ++j) {
+                                Instructor* ins = ci->getPorIndice(j);
+                                if (!ins) continue;
+                                if (!ins->getClientes()) continue;
+                                if (ins->getClientes()->buscarCliente(cedulaCliente)) {
+                                    instructorAsignado = ins;
+                                }
+                            }
+                        }
+                    }
+                    if (!cliEncontrado) {
+                        cout << "Cliente no encontrado.\n";
+                        break;
+                    }
+                    if (!instructorAsignado) {
+                        cout << "El cliente no tiene un instructor asignado.\n";
+                        break;
+                    }
+                    cout << "Cliente encontrado y con instructor asignado.\n";
+                    cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
+                    cout << "Instructor: " << instructorAsignado->getNombre() << endl;
+                    Rutina* rutina = nullptr;
+                    if (cliEncontrado->getColeccionRutinaActual()) {
+                        rutina = cliEncontrado->getColeccionRutinaActual()->getRutina();
+                    }
+                    if (!rutina) {
+                        cout << "El cliente no tiene una rutina asignada.\n";
+                    }
+                    else {
+                        cout << "Rutina actual de " << cliEncontrado->getNombre() << ":\n";
+                        cout << rutina->getColeccionEjercicios()->toString() << endl;
+
+					}
+                    system("pause");
+                }
+            break;
+
+                    
+                case 0: break;
+                default: cout << "Opcion invalida!\n";
+     }
+                } while (opcion != 0);
+				}
+
+			

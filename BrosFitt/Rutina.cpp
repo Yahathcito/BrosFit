@@ -3,44 +3,41 @@
 
 
 
-Rutina::Rutina()
-{
-	codigo = "";
-	nombre = "";
-	descripcion = "";
+
+
+Rutina::Rutina(string codigo) {
+
+
+	this->duracion = 0;
+	this->cedulaCliente = "";
+	this->cedulaCliente = codigo;
+	coleccionEjercicios = new ColeccionEjercicios(10); // Tamaño inicial de 10, puede ajustarse según necesidad
+
+}
+
+void Rutina::limpiarRutina() {
+
 	duracion = 0;
+	cedulaCliente = "";
 }
-Rutina::Rutina(string codigo, string nombre, string descripcion, int duracion)
+
+
+
+
+
+
+
+
+string Rutina::getCedulaCliente()
 {
-	this->codigo = codigo;
-	this->nombre = nombre;
-	this->descripcion = descripcion;
-	this->duracion = duracion;
+	return cedulaCliente;
 }
-string Rutina::getCodigo()
+void Rutina::setCedulaCliente(string cedula)
 {
-	return codigo;
+	this->cedulaCliente = cedula;
 }
-void Rutina::setCodigo(string codigo)
-{
-	this->codigo = codigo;
-}
-string Rutina::getNombre()
-{
-	return nombre;
-}
-void Rutina::setNombre(string nombre)
-{
-	this->nombre = nombre;
-}
-string Rutina::getDescripcion()
-{
-	return descripcion;
-}
-void Rutina::setDescripcion(string descripcion)
-{
-	this->descripcion = descripcion;
-}
+
+
 int Rutina::getDuracion()
 {
 	return duracion;
@@ -49,18 +46,39 @@ void Rutina::setDuracion(int duracion)
 {
 	this->duracion = duracion;
 }
+
+
+
+ColeccionEjercicios* Rutina::getColeccionEjercicios()
+{
+	return coleccionEjercicios;
+}
+
 string Rutina::toString()
 {
-	stringstream s;
-	s << "Codigo: " << codigo << endl;
-	s << "Nombre: " << nombre << endl;
-	s << "Descripcion: " << descripcion << endl;
-	s << "Duracion: " << duracion << " minutos" << endl;
-	return s.str();
+	stringstream ss;
+
+	ss << "Duracion total: " << duracion << " mins\n";
+	ss << "Ejercicios:\n";
+	for (int i = 0; i < coleccionEjercicios->getCantidad(); ++i) {
+		ss << "- " << coleccionEjercicios->getEjercicio(i)->getNombre() << "\n";
+	}
+	return ss.str();
 }
+
+
+
+
 Rutina::~Rutina()
 {
+
+	delete coleccionEjercicios;
+
 }
+
+
+
+
 
 
 

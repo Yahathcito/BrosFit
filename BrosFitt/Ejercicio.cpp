@@ -1,21 +1,18 @@
 #include "Ejercicio.h"
 
-Ejercicio::Ejercicio()
-{
-	codigo = "";
-	nombre = "";
-	descripcion = "";
-	area = "";
-	duracion = 0;
-}
-Ejercicio::Ejercicio(string codigo, string nombre, string descripcion, string area, int duracion)
+
+Ejercicio::Ejercicio(string codigo, string nombre, string area, int duracion, int repeticiones, int series, float pesoRecomendado)
 {
 	this->codigo = codigo;
 	this->nombre = nombre;
-	this->descripcion = descripcion;
+	this->repeticiones = repeticiones;
+	this->series = series;
 	this->area = area;
 	this->duracion = duracion;
+	this->pesoRecomendado = pesoRecomendado;
+
 }
+
 string Ejercicio::getCodigo()
 {
 	return codigo;
@@ -32,24 +29,17 @@ void Ejercicio::setNombre(string nombre)
 {
 	this->nombre = nombre;
 }
-string Ejercicio::getDescripcion()
-{
-	return descripcion;
-}
-void Ejercicio::setDescripcion(string descripcion)
-{
-	this->descripcion = descripcion;
-}
-string Ejercicio::getArea()
+
+string Ejercicio::getAreaCuerpo()
 {
 	return area;
 }
-
-
-void Ejercicio::setArea(string area)
+void Ejercicio::setAreaCuerpo(string area)
 {
 	this->area = area;
 }
+
+
 int Ejercicio::getDuracion()
 {
 	return duracion;
@@ -58,15 +48,14 @@ void Ejercicio::setDuracion(int duracion)
 {
 	this->duracion = duracion;
 }
+
 string Ejercicio::toString()
 {
-	stringstream s;
-	s << "Codigo: " << codigo << endl;
-	s << "Nombre: " << nombre << endl;
-	s << "Descripcion: " << descripcion << endl;
-	s << "Area: " << area << endl;
-	s << "Duracion: " << duracion << " minutos" << endl;
-	return s.str();
+	stringstream ss;
+	ss << "Codigo: " << codigo << ", Nombre: " << nombre << ", Area: " << area
+		<< ", Duracion: " << duracion << " mins, Repeticiones: " << repeticiones
+		<< ", Series: " << series << ", Peso Recomendado: " << pesoRecomendado << " kg";
+	return ss.str();
 }
 Ejercicio::~Ejercicio()
 {

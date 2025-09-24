@@ -2,27 +2,44 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+
+#include "ColeccionEjercicios.h"
+
+
+
 using namespace std;
 
 class Rutina
 {
 private:
-	string codigo;
-	string nombre;
-	string descripcion;
-	int duracion; // Duracion en minutos
+
+	int duracion;
+	ColeccionEjercicios* coleccionEjercicios;
+
+	string cedulaCliente; 
 public:
-	Rutina();
-	Rutina(string codigo, string nombre, string descripcion, int duracion);
-	string getCodigo();
-	void setCodigo(string codigo);
-	string getNombre();
+	Rutina(string);
+	void limpiarRutina();
 	void setNombre(string nombre);
-	string getDescripcion();
-	void setDescripcion(string descripcion);
+	string getNombre();
+
+
+
+	string getCedulaCliente();
+	void setCedulaCliente(string cedula);
+
 	int getDuracion();
 	void setDuracion(int duracion);
+	//ocupo ver un toString de Rutina con los ejercicios que tiene el cliente, hazlo ya
+
 	string toString();
+	
+	ColeccionEjercicios* getColeccionEjercicios();
+
+
 	~Rutina();
+
+
+	
 };
 

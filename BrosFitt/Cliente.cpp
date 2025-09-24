@@ -12,12 +12,14 @@ Cliente::Cliente(string cedula, string nombre, string correo, string fechaInscri
 
 	coleccionMediciones = new ColeccionMediciones(10); 
 	clasesCliente = new ContenedorClasesCliente();
+	rutinaActual = new ColeccionRutina(20);
 }
 
 Cliente::~Cliente()
 {
 	delete coleccionMediciones;
 	delete clasesCliente;
+	delete rutinaActual;
 }
 
 //setters y getters 
@@ -72,6 +74,11 @@ char Cliente::getSexo() {
 void Cliente::setSexo(char sexo) {
 	this->sexo = sexo;
 }
+
+ColeccionRutina* Cliente::getColeccionRutinaActual() {
+	return rutinaActual;
+}
+
 string Cliente::toString() {
 	stringstream ss;
 	ss << "Cedula: " << cedulaIdentidad << "\n";

@@ -4,6 +4,7 @@
 #include <string>
 #include "ContenedorClasesCliente.h"
 #include "ColeccionMediciones.h"
+#include "ColeccionRutina.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ private:
 
 	ColeccionMediciones* coleccionMediciones;
 	ContenedorClasesCliente* clasesCliente; // relación con clases grupales
+	ColeccionRutina* rutinaActual; // relación con la rutina actual del cliente
 
 public:
 	Cliente(string, string, string, string, string, int, char);
@@ -39,7 +41,10 @@ public:
 	void setCelular(int);
 	char getSexo();
 	void setSexo(char);
+	
+	
 	string toString();
+	ColeccionRutina* getColeccionRutinaActual();
 
 	ColeccionMediciones* getHistorialMediciones();
 };
