@@ -97,6 +97,10 @@ ColeccionMediciones* Cliente::getHistorialMediciones()
 		return coleccionMediciones;
 }
 
+ContenedorClasesCliente* Cliente::getClasesCliente(){
+	return clasesCliente;
+}
+
 
 void Cliente::setHistorialMediciones(ColeccionMediciones* coleccion)
 {

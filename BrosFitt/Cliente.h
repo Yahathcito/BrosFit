@@ -47,4 +47,5 @@ public:
 	ColeccionRutina* getColeccionRutinaActual();
 
 	ColeccionMediciones* getHistorialMediciones();
+	ContenedorClasesCliente* getClasesCliente();
 };
