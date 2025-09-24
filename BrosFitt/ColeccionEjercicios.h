@@ -12,6 +12,7 @@ public:
 	Ejercicio* getPorIndice(int);
 	~ColeccionEjercicios();
 	Ejercicio* getEjercicio();
+	Ejercicio* getEjercicio(int);
 	bool agregarEjercicio(Ejercicio*);
 	Ejercicio* buscarEjercicio(string);
 	bool eliminarEjercicio(string);

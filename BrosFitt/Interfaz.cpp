@@ -24,10 +24,11 @@ void Interfaz::menu() {
 	{
 		coleccionMediciones = new ColeccionMediciones(100);
 	}
-	if (!coleccionEjercicios)
-	{
-		coleccionEjercicios = new ColeccionEjercicios(100);
+    if (!coleccionEjercicios)
+    {
+        coleccionEjercicios = new ColeccionEjercicios(100);
 	}
+
 	if (!coleccionRutinas)
 	{
 		coleccionRutinas = new ColeccionRutina(100);
@@ -1033,8 +1034,11 @@ instructor.
                             cout << "No hay ejercicios disponibles para esta area.\n";
                             continue;
                         }
-                        // Pedir al usuario que seleccione ejercicios para el area
-                        string codigoEjercicio;
+                       
+						string codigoEjercicio;
+						// Permitir al instructor seleccionar ejercicios para el area
+
+                        
                         do {
                             cout << "Ingrese el codigo del ejercicio para agregar a la rutina (o 'fin' para terminar con esta area): ";
                             cin >> codigoEjercicio;

@@ -28,6 +28,14 @@ Ejercicio* ColeccionEjercicios::getEjercicio()
 	return nullptr;
 }
 
+Ejercicio* ColeccionEjercicios::getEjercicio(int)
+{
+	if (cantidad > 0) {
+		return ejercicios[cantidad - 1];
+	}
+	return nullptr;
+}
+
 bool ColeccionEjercicios::agregarEjercicio(Ejercicio* ejercicio) {
 	if (cantidad >= tam) { // Usar >= por seguridad
 		int nuevoTam = tam * 2;
