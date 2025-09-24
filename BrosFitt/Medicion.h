@@ -22,17 +22,12 @@ private:
 	float medidaPecho;
 	float medidaMuslo;
 	float imc;
-	void calcularIMC() {
-		if (estatura > 0) {
-			imc = peso / (estatura * estatura);
-		}
-		else {
-			imc = 0;
-		}
-	}
+	
 public:
 	Medicion();
-	Medicion( string, string, string, float, float, float, float, int, float, float, float, float, float);
+	Medicion(string idCliente, string fechaMedicion, string nombreInstructor, float peso, float estatura,
+		float porcentajeGrasa, float porcentajeMusculo, int edadMetabolica, float porcentajeGrasaVisceral, float medidaCintura, float medidaCadera, float medidaPecho, float medidaMuslo);
+
 	string getNombreCliente();
 	void setNombreCliente(string);
 	string getIdCliente();
@@ -61,6 +56,8 @@ public:
 	void setMedidaPecho(float);
 	float getMedidaMuslo();
 	void setMedidaMuslo(float);
+	//calcular indice de masa corporal
+	float calcularIMC();
 	float getIMC();
 	string toString();
 	~Medicion();

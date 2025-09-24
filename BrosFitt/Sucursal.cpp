@@ -111,11 +111,13 @@ ColeccionClaseGrupal* Sucursal::getClasesOfrecidas(){
 string Sucursal::toString()
 {
 	stringstream s;
+	s << "------------------------------" << endl;
 	s << "Codigo: " << codigo << endl;
 	s << "Provincia: " << provincia << endl;
 	s << "Canton: " << canton << endl;
 	s << "Telefono: " << telefono << endl;
 	s << "Correo Electronico: " << correoElectronico << endl;
+	s << "------------------------------" << endl;
 	
 	return s.str();
 }

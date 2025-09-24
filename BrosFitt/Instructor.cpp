@@ -170,11 +170,12 @@ void Instructor::setEjercicios(ColeccionEjercicios* ejercicios)
 ColeccionClaseGrupal* Instructor::getClasesAsociadas(){
 	return clasesAsociadas;
 }
-// muestra las especialidades, si son 8 las 8 y si son menos las que tenga, hazlo bien y ordenando en pantalla, muestrame el nombre de esas especialidades
+
 
 string Instructor::toString()
 {
 	stringstream ss;
+	ss << "--------------------------\n";
 	ss << "Cedula: " << cedula << "\n";
 	ss << "Nombre: " << nombre << "\n";
 	ss << "Telefono: " << telefono << "\n";
@@ -182,6 +183,7 @@ string Instructor::toString()
 	ss << "Correo: " << correo << "\n";
 	ss << "Especialidades: " << getEspecialidad() << "\n";
 	ss << "Cantidad de Clientes a Cargo: " << clientes->getCantidad() << "\n";
+	ss << "--------------------------\n";
 	return ss.str();
 }
 

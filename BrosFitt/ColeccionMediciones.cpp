@@ -50,6 +50,9 @@ Medicion* ColeccionMediciones::getPorIndice(int indice) {
 	}
 	return nullptr;
 }
+Medicion* ColeccionMediciones::getMediciones() {
+	return *mediciones;
+}
 string ColeccionMediciones::listarMediciones() {
 	string resultado = "";
 	for (int i = 0; i < cantidad; i++) {
