@@ -55,41 +55,9 @@ void ColeccionRutina::agregarRutina(Rutina* rutina) {
 	rutinas[cantidad] = rutina; // No hay saturación porque tam >= cantidad + 1
 	cantidad++;
 }
-Rutina* ColeccionRutina::buscarRutina(string codigo) {
-	for (int i = 0; i < cantidad; i++) {
-		if (rutinas[i]->getCodigo() == codigo) {
-			return rutinas[i];
-		}
-	}
-	return nullptr;
-}
-bool ColeccionRutina::eliminarRutina(string codigo) {
-	for (int i = 0; i < cantidad; i++) {
-		if (rutinas[i]->getCodigo() == codigo) {
-			delete rutinas[i];
-			for (int j = i; j < cantidad - 1; j++) {
-				rutinas[j] = rutinas[j + 1];
-			}
-			rutinas[cantidad - 1] = nullptr;
-			cantidad--;
-			return true;
-		}
-	}
-	return false;
-}
-string ColeccionRutina::listarRutinas() {
-	string resultado = "";
-	for (int i = 0; i < cantidad; i++) {
-		resultado += rutinas[i]->toString() + "\n";
-	}
-	return resultado;
-}
-int ColeccionRutina::getCantidad() {
-	return cantidad;
-}
-int ColeccionRutina::getTam() {
-	return tam;
-}
+
+
+
 
 
 string ColeccionRutina::toString() {

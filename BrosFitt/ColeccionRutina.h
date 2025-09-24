@@ -11,11 +11,10 @@ public:
     ~ColeccionRutina();
 	Rutina* getRutina();
 
+
     void setRutinaActual(Rutina* rutina);
     void agregarRutina(Rutina*);
-    Rutina* buscarRutina(string);
-    bool eliminarRutina(string);
-    string listarRutinas();
+ 
     int getCantidad();
     int getTam();
 	string toString();

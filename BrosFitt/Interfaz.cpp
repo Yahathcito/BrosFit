@@ -1044,7 +1044,7 @@ instructor.
                                 cout << "Codigo invalido o ejercicio no pertenece a esta area.\n";
                             }
                             else {
-                                if (rutina->agregarEjercicio(ejSeleccionado)) {
+                                if (rutina->getColeccionEjercicios()->agregarEjercicio(ejSeleccionado)) {
                                     cout << "Ejercicio agregado a la rutina.\n";
                                 }
                                 else {
@@ -1053,6 +1053,9 @@ instructor.
                             }
                         } while (true);
 					}
+					//comprobacion rapida de la rutina generada
+					cout << "Rutina generada:\n" << rutina->toString() << endl;
+
                     cout << "Rutina generada exitosamente para el cliente.\n";
                     system("pause");
                 }
@@ -1110,8 +1113,7 @@ instructor.
                     }
                     else {
                         cout << "Rutina actual de " << cliEncontrado->getNombre() << ":\n";
-                        cout << rutina->toString() << endl;
-					
+                        cout << rutina->getColeccionEjercicios()->toString() << endl;
 
 					}
                     system("pause");

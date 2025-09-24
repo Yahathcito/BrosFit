@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 
-#include "Ejercicio.h"
+#include "ColeccionEjercicios.h"
 
 
 
@@ -13,10 +13,8 @@ class Rutina
 {
 private:
 
-	string codigo;
-	string nombre;
-	string descripcion;
 	int duracion;
+	ColeccionEjercicios* coleccionEjercicios;
 
 	string cedulaCliente; 
 public:
@@ -26,20 +24,17 @@ public:
 	string getNombre();
 
 
-	string getCodigo();
-	void setCodigo(string codigo);
 
 	string getCedulaCliente();
 	void setCedulaCliente(string cedula);
-	string getDescripcion();
-	void setDescripcion(string descripcion);
+
 	int getDuracion();
 	void setDuracion(int duracion);
 	//ocupo ver un toString de Rutina con los ejercicios que tiene el cliente, hazlo ya
 
 	string toString();
-	bool agregarEjercicio(Ejercicio* ejercicio);
-
+	
+	ColeccionEjercicios* getColeccionEjercicios();
 
 
 	~Rutina();
