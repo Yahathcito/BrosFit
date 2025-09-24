@@ -81,14 +81,16 @@ void Instructor::setCorreo(string correo)
 {
 	this->correo = correo;
 }
-
 bool Instructor::tieneEspecialidad( string n) {
 	for (int i = 0; i < 8; ++i) {
 		if (especialidades[i] == n) return true;
-	}
+    	}
 	return false;
 }
-
+string* Instructor::getEspecialidades()
+{
+	return especialidades;
+}
 
 string Instructor::getEspecialidad()
 {
@@ -103,8 +105,7 @@ string Instructor::getEspecialidad()
 	}
 	return resultado;
 }
-void Instructor::setEspecialidad(string especialidad)
-{
+void Instructor::setEspecialidad(string especialidad){
 	for (int i = 0; i < 8; i++) {
 		if (this->especialidades[i] == "") {
 			this->especialidades[i] = especialidad;
@@ -112,8 +113,14 @@ void Instructor::setEspecialidad(string especialidad)
 		}
 	}
 }
-string Instructor::getEspecialidadXIndice(int i){
-	return especialidades[i];
+int Instructor::getCantEspecialidades(){
+	int count = 0;
+	for (int i = 0; i < 8; i++) {
+		if (especialidades[i] != "") {
+			count++;
+		}
+	}
+	return count;
 }
 ColeccionClientes* Instructor::getClientes()
 {
