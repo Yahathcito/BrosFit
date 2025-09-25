@@ -753,7 +753,7 @@ void Interfaz::menu() {
 
         
 		void Interfaz::subMenuReporteIMC() {
-           // no uses mapas
+           
         
             system("cls");
             if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
