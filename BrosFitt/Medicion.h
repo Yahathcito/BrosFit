@@ -12,7 +12,7 @@ private:
 	string fechaMedicion;
 	string nombreInstructor;
 	float peso;
-	float estatura;
+	float  estatura;
 	float porcentajeGrasa;
 	float porcentajeMusculo;
 	int edadMetabolica;

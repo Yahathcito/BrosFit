@@ -638,12 +638,11 @@ void Interfaz::menu() {
                     cout << "Cliente encontrado y con instructor asignado.\n";
                     cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
                     cout << "Instructor: " << instructorAsignado->getNombre() << endl;
-					// debe calcularse el IMC al ingresar la medicion
+					
 
 					
-					//constrye la Medicion con datos de ejemplo pero en el IMC colocalo cmo la linea anterior
-                    Medicion* nuevaMedicion = new Medicion(cliEncontrado->getCedula(), "23/02/25", instructorAsignado->getNombre(), 50, 160, 30, 15, 30, 5, 3, 2, 4, 2);
-					nuevaMedicion->calcularIMC();
+                    Medicion* nuevaMedicion = new Medicion(cliEncontrado->getCedula(), "23/02/25", instructorAsignado->getNombre(), 90.0, 1.80, 30.0, 15.0, 30, 5, 3.0, 2.0, 4.0, 2.0);
+					
 
                     if (cliEncontrado->getHistorialMediciones()->agregarMedicion(nuevaMedicion)) {
                         cout << "Medicion agregada exitosamente al historial del cliente.\n";
@@ -754,7 +753,7 @@ void Interfaz::menu() {
 
         
 		void Interfaz::subMenuReporteIMC() {
-           // no uses mapas
+           
         
             system("cls");
             if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
@@ -792,8 +791,11 @@ void Interfaz::menu() {
 						// que devuelve un puntero a cliente
                         if (!cli || !cli->getHistorialMediciones() || cli->getHistorialMediciones()->getCantidad() == 0) continue;
                         Medicion* ultimaMedicion = cli->getHistorialMediciones()->getPorIndice(cli->getHistorialMediciones()->getCantidad() - 1);
+                        cout<<ultimaMedicion->toString()<< endl;
                         if (!ultimaMedicion) continue;
+
                         float imc = ultimaMedicion->calcularIMC();
+
                         int categoria = -1;
                         if (imc < 16) categoria = 0; // Delgadez severa
                         else if (imc >= 16.01 && imc <= 16.99) categoria = 1; // Delgadez moderada
@@ -836,23 +838,7 @@ void Interfaz::menu() {
                 } while (opcion != 0);
 		}
 
-        /*Rutinas
-            − El sistema debe permitir ingresar ejercicios a la “batería de
-            ejercicios”. (4 ptos.)
-            − El sistema debe permitir la generación de una nueva rutina a un cliente
-            especifico(a partir de la “batería de ejercicios”).Se debe poder
-            buscar cualquier cliente de cualquier sucursal y mostrar la rutina
-            generada. (14 ptos.)
-           El sistema además debe permitir que el instructor genere la rutina actual del cliente
-a partir de una batería de ejercicios previamente registrados y clasificados en el
-sistema. La rutina se divide en ejercicios para las siguientes áreas del cuerpo:
-pecho y tríceps, bíceps, piernas y espalda.
-Nota: No se guardan rutinas anteriores asignadas al cliente, únicamente se mantiene en el
-sistema la rutina actual, la cual puede cambiar en el momento que así lo considere el
-instructor.
- 
-            hazlo por favor 
-            */
+       
 
 
 		void Interfaz::subMenuRutinas() {
