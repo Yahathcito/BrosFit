@@ -17,6 +17,7 @@ Sucursal::Sucursal(string codigo, string provincia, string canton, string correo
 	this->capacidadMaximaInstructores = tamInstructores;
 	clientes = new ColeccionClientes(tamClientes);
 	instructores = new ColeccionInstructores(tamInstructores);
+	clasesOfrecidas = new ColeccionClaseGrupal();
 }
 
 
@@ -103,19 +104,27 @@ ColeccionInstructores* Sucursal::getColeccionInstructores()
 	return instructores;
 }
 
+ColeccionClaseGrupal* Sucursal::getClasesOfrecidas(){
+	return clasesOfrecidas;
+}
+
 string Sucursal::toString()
 {
 	stringstream s;
+	s << "------------------------------" << endl;
 	s << "Codigo: " << codigo << endl;
 	s << "Provincia: " << provincia << endl;
 	s << "Canton: " << canton << endl;
 	s << "Telefono: " << telefono << endl;
 	s << "Correo Electronico: " << correoElectronico << endl;
+	s << "------------------------------" << endl;
 	
 	return s.str();
 }
-Sucursal::~Sucursal()
-{
+Sucursal::~Sucursal(){
+	delete clientes;
+	delete instructores;
+	delete clasesOfrecidas;
 }
 
 

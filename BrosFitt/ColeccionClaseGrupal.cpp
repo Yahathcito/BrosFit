@@ -8,6 +8,7 @@ ColeccionClaseGrupal::ColeccionClaseGrupal() {
 	clases = new ClaseGrupal * [tam];
 	for (int i = 0; i < tam; i++) {
 		clases[i] = nullptr;
+		ocupadas[i] = false;
 	}
 }
 ColeccionClaseGrupal::~ColeccionClaseGrupal() {
@@ -18,6 +19,12 @@ ColeccionClaseGrupal::~ColeccionClaseGrupal() {
 }
 
 bool ColeccionClaseGrupal::agregarClase(ClaseGrupal* clase) {
+	if (cantidad == 0) {
+		clases[cantidad++] = clase;
+		int indice = clase->getCodigo() - 1;
+		ocupadas[indice] = true;
+		return true;
+	}
 	for(int i=0;i<cantidad;i++){
 		if(clases[i]->getCodigo()==clase->getCodigo()) 
 		    return false; 
@@ -25,7 +32,7 @@ bool ColeccionClaseGrupal::agregarClase(ClaseGrupal* clase) {
 	if (cantidad < tam) {
 		clases[cantidad++] = clase;
 		int indice = clase->getCodigo()-1; 
-		ocupadas[indice] == true; 
+		ocupadas[indice] = true; 
 	}
 	return false; 
 }
@@ -55,7 +62,7 @@ void ColeccionClaseGrupal::mostrarDisponibles(){
     cout << "\nClases disponibles:\n";
     for (int i = 0; i < tam; i++) {
         if (!ocupadas[i]) {
-            cout << i + 1 << ". " << nombresPredefinidos[i] << endl;
+			cout << "Codigo:  " << i + 1 << " = " << nombresPredefinidos[i] << endl;
         }
     }
 }

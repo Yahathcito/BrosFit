@@ -35,6 +35,7 @@ Instructor::Instructor(string cedula, string nombre, int telefono, string fechaN
 	mediciones = new ColeccionMediciones(20);
 	rutinas = new ColeccionRutina(20);
 	ejercicios = new ColeccionEjercicios(20);
+	clasesAsociadas = new ColeccionClaseGrupal();
 }
 
 string Instructor::getCedula()
@@ -80,23 +81,15 @@ void Instructor::setCorreo(string correo)
 {
 	this->correo = correo;
 }
-
+bool Instructor::tieneEspecialidad( string n) {
+	for (int i = 0; i < 8; ++i) {
+		if (especialidades[i] == n) return true;
+    	}
+	return false;
+}
 string* Instructor::getEspecialidades()
 {
 	return especialidades;
-}
-
-bool Instructor::tieneEspecialidad(string n)
-{
-	for (int i = 0; i < 8; i++) {
-		if (especialidades[i] == "") {
-			return false;
-		}
-		if (especialidades[i] == n ) {
-			return true;
-		}
-	}
-	return false;
 }
 
 string Instructor::getEspecialidad()
@@ -112,8 +105,7 @@ string Instructor::getEspecialidad()
 	}
 	return resultado;
 }
-void Instructor::setEspecialidad(string especialidad)
-{
+void Instructor::setEspecialidad(string especialidad){
 	for (int i = 0; i < 8; i++) {
 		if (this->especialidades[i] == "") {
 			this->especialidades[i] = especialidad;
@@ -121,8 +113,7 @@ void Instructor::setEspecialidad(string especialidad)
 		}
 	}
 }
-int Instructor::getCantEspecialidades()
-{
+int Instructor::getCantEspecialidades(){
 	int count = 0;
 	for (int i = 0; i < 8; i++) {
 		if (especialidades[i] != "") {
@@ -130,7 +121,6 @@ int Instructor::getCantEspecialidades()
 		}
 	}
 	return count;
-
 }
 ColeccionClientes* Instructor::getClientes()
 {
@@ -177,11 +167,15 @@ void Instructor::setEjercicios(ColeccionEjercicios* ejercicios)
 {
 	this->ejercicios = ejercicios;
 }
-// muestra las especialidades, si son 8 las 8 y si son menos las que tenga, hazlo bien y ordenando en pantalla, muestrame el nombre de esas especialidades
+ColeccionClaseGrupal* Instructor::getClasesAsociadas(){
+	return clasesAsociadas;
+}
+
 
 string Instructor::toString()
 {
 	stringstream ss;
+	ss << "--------------------------\n";
 	ss << "Cedula: " << cedula << "\n";
 	ss << "Nombre: " << nombre << "\n";
 	ss << "Telefono: " << telefono << "\n";
@@ -189,6 +183,7 @@ string Instructor::toString()
 	ss << "Correo: " << correo << "\n";
 	ss << "Especialidades: " << getEspecialidad() << "\n";
 	ss << "Cantidad de Clientes a Cargo: " << clientes->getCantidad() << "\n";
+	ss << "--------------------------\n";
 	return ss.str();
 }
 
@@ -202,7 +197,7 @@ Instructor::~Instructor()
 	delete mediciones;
 	delete rutinas;
 	delete ejercicios;
-
+	delete clasesAsociadas;
 }
 
 

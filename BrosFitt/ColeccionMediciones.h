@@ -23,7 +23,7 @@ public:
 	
 	Medicion* getPorIndice(int);
 
-	
+	Medicion* getMediciones();
 	
 	Medicion* buscarMedicion(string, string);
 	bool eliminarMedicion(string, string);

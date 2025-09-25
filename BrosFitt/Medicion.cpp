@@ -1,5 +1,6 @@
 #include "Medicion.h"
 
+
 Medicion::Medicion()
 {
 	nombreCliente = "";
@@ -35,6 +36,7 @@ Medicion::Medicion( string idCliente, string fechaMedicion, string nombreInstruc
 	this->medidaCadera = medidaCadera;
 	this->medidaPecho = medidaPecho;
 	this->medidaMuslo = medidaMuslo;
+	this->imc = imc;
 
 }
 string Medicion::getNombreCliente()
@@ -152,14 +154,30 @@ void Medicion::setMedidaMuslo(float medidaMuslo)
 {
 	this->medidaMuslo = medidaMuslo;
 }
-float Medicion::getIMC()
+
+float Medicion::calcularIMC()
 {
+	if (estatura > 0) {
+		imc = peso / (estatura * estatura);
+	}
+	else {
+		imc = 0;
+	}
 	return imc;
 }
+
+float Medicion::getIMC()
+{
+	calcularIMC();
+	return imc;
+}
+
+
 
 string Medicion::toString()
 {
 	stringstream s;
+	s << "------------------------------" << endl;
 	s << "Nombre del Cliente: " << nombreCliente << endl;
 	s << "ID del Cliente: " << idCliente << endl;
 	s << "Fecha de Medicion: " << fechaMedicion << endl;
@@ -168,13 +186,13 @@ string Medicion::toString()
 	s << "Estatura: " << estatura << " m" << endl;
 	s << "Porcentaje de Grasa: " << porcentajeGrasa << " %" << endl;
 	s << "Porcentaje de Musculo: " << porcentajeMusculo << " %" << endl;
-	s << "Edad Metabolica: " << edadMetabolica << " años" << endl;
+	s << "Edad Metabolica: " << edadMetabolica << " annios" << endl;
 	s << "Porcentaje de Grasa Visceral: " << porcentajeGrasaVisceral << " %" << endl;
 	s << "Medida de Cintura: " << medidaCintura << " cm" << endl;
 	s << "Medida de Cadera: " << medidaCadera << " cm" << endl;
 	s << "Medida de Pecho: " << medidaPecho << " cm" << endl;
 	s << "Medida de Muslo: " << medidaMuslo << " cm" << endl;
-	
+	s << "------------------------------" << endl;
 	return s.str();
 }
 Medicion::~Medicion()

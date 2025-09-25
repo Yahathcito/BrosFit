@@ -81,6 +81,7 @@ ColeccionRutina* Cliente::getColeccionRutinaActual() {
 
 string Cliente::toString() {
 	stringstream ss;
+	ss << "--------------------------\n";
 	ss << "Cedula: " << cedulaIdentidad << "\n";
 	ss << "Nombre: " << nombre << "\n";
 	ss << "Correo Electronico: " << correoElectronico << "\n";
@@ -88,13 +89,17 @@ string Cliente::toString() {
 	ss << "Fecha de Inscripcion: " << fechaInscripcion << "\n";
 	ss << "Numero de Celular: " << numeroCelular << "\n";
 	ss << "Sexo: " << sexo << "\n";
+	ss << "--------------------------\n";
 	return ss.str();
 }
 
 ColeccionMediciones* Cliente::getHistorialMediciones()
 {
-	
-		return coleccionMediciones;
+	return coleccionMediciones;
+}
+
+ContenedorClasesCliente* Cliente::getClasesCliente(){
+	return clasesCliente;
 }
 
 
