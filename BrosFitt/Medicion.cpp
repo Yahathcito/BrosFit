@@ -155,22 +155,23 @@ void Medicion::setMedidaMuslo(float medidaMuslo)
 	this->medidaMuslo = medidaMuslo;
 }
 
+
 float Medicion::calcularIMC()
 {
-	if (estatura > 0) {
+	if (estatura <= 0) {
+		imc = 0.0; // Evitar division por cero
+	} else {
 		imc = peso / (estatura * estatura);
-	}
-	else {
-		imc = 0;
 	}
 	return imc;
 }
 
 float Medicion::getIMC()
 {
-	calcularIMC();
 	return imc;
 }
+
+
 
 
 
