@@ -1124,11 +1124,11 @@ void Interfaz::menu() {
                     }
 
                     int opcion, capacidadMaxima, codigoClase;
-                    string horario, duracion, tipoClase, cedulaInstructor, salon, cedulaCliente;
+                    string horario, duracion, cedulaInstructor, salon, cedulaCliente;
                     Instructor* instr = nullptr;
                     ClaseGrupal* nuevaClase = nullptr;
                     Cliente* cliente = nullptr;
-
+					string tipoClase[8] = { "CrossFit", "HIIT", "TRX", "Pesas", "Spinning", "Cardio", "Yoga", "Zumba" };
                     do {
                         cout << "\n--- CLASES GRUPALES ---" << endl;
                         cout << "1. Crear clase grupal por sucursal" << endl;
@@ -1142,30 +1142,31 @@ void Interfaz::menu() {
 
                         switch (opcion) {
                         case 1:
+							cout << "\n";
                             cout << "===Creando clase grupal===" << endl;
                             suc->getClasesOfrecidas()->mostrarDisponibles();
                             cout << "----------------------------------" << endl;
                             cout << "Ingrese el codigo de la clase (numero): "; cin >> codigoClase;
-                            cout << "Ingrese el nombre de la clase: "; cin >> tipoClase;
+                            while (codigoClase <= 0 || codigoClase > 8) {
+								cout << "Codigo invalido. Ingrese un numero entre 1 y 8: "; cin >> codigoClase;
+                            }
                             cout << "Ingrese el horario de la clase (HH:MM): "; cin >> horario;
                             cout << "Ingrese la duracion de la clase (en minutos): "; cin >> duracion;
                             cout << "Ingrese la capacidad maxima de la clase: "; cin >> capacidadMaxima;
                             cout << "Ingrese el salon de la clase: "; cin >> salon;
                             cout << "Instructores de la sucursal " << codigo << ":\n";
-                            cout << "--------------------------------------\n";
                             cout << suc->getColeccionInstructores()->toString() << endl;
-                            cout << "--------------------------------------\n";
                             cout << "Ingrese la cedula del instructor que dictara la clase: "; cin >> cedulaInstructor;
                             instr = suc->getColeccionInstructores()->buscarInstructor(cedulaInstructor);
                             if (!instr) {
                                 cout << "Instructor no encontrado en esta sucursal.\n";
                                 break;
                             }
-                            if (!instr->tieneEspecialidad(tipoClase)) {
+                            if (!instr->tieneEspecialidad(tipoClase[codigoClase-1])) {
                                 cout << "El instructor no tiene la especialidad requerida para esta clase.\n";
                                 break;
                             }
-                            nuevaClase = new ClaseGrupal(codigoClase, tipoClase, horario, duracion, capacidadMaxima, salon);
+                            nuevaClase = new ClaseGrupal(codigoClase, tipoClase[codigoClase-1], horario, duracion, capacidadMaxima, salon);
                             if (suc->getClasesOfrecidas()->agregarClase(nuevaClase)) {
                                 cout << "Clase grupal creada exitosamente!\n";
                                 instr->getClasesAsociadas()->agregarClase(nuevaClase);
@@ -1177,6 +1178,8 @@ void Interfaz::menu() {
                             break;
 
                         case 2:
+                            cout << "\n";
+							cout << "===Matriculando cliente en clase grupal===" << endl;
                             cout << "Ingrese la cedula del cliente: ";
                             cin >> cedulaCliente;
                             cliente = suc->getClientes()->buscarCliente(cedulaCliente);
@@ -1208,7 +1211,11 @@ void Interfaz::menu() {
                             }
                             break;
 
-                        case 3: // Ver lista de clientes por clase
+                        case 3: 
+                            cout << "\n";
+							cout << "=== Ver lista de clientes por clase ===\n";
+							cout << "Clases grupales existentes:\n";
+							cout << suc->getClasesOfrecidas()->toString();
                             cout << "Ingrese el codigo de la clase: ";
                             cin >> codigoClase;
                             {
@@ -1217,11 +1224,15 @@ void Interfaz::menu() {
                                     cout << "Clase no encontrada.\n";
                                     break;
                                 }
-                                cout << clase->toStringClientes() << endl; // necesitas un m�todo que devuelva string con clientes
+                                cout << clase->toStringClientes() << endl; 
                             }
                             break;
 
-                        case 4: // Ver clases matriculadas por cliente
+                        case 4: 
+                            cout << "\n";
+							cout << "=== Ver clases matriculadas por cliente ===\n";
+							cout << "Clientes de la sucursal " << codigo << ":\n";
+							cout << suc->getClientes()->toString() << endl;
                             cout << "Ingrese la cedula del cliente: ";
                             cin >> cedulaCliente;
                             cliente = suc->getClientes()->buscarCliente(cedulaCliente);
@@ -1235,5 +1246,5 @@ void Interfaz::menu() {
                         case 0: break;
                         default: cout << "Opcion invalida!" << endl;
                         }
-                    } while (opcion != 0);
+                    }while (opcion != 0);
                 }
