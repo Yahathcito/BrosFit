@@ -578,7 +578,7 @@ void Interfaz::menu() {
             }
             int opcion;
             do {
-				system("cls");
+                system("cls");
                 cout << "\n--- HISTORIAL DE MEDICIONES ---\n"
                     << "1. Ingresar registro de medicion a un cliente\n"
                     << "2. Mostrar historial de mediciones de un cliente\n"
@@ -588,12 +588,15 @@ void Interfaz::menu() {
 
                 switch (opcion) {
                 case 1: {
-					system("cls");
+                    system("cls");
                     cout << "=== Ingresar medicion a cliente ===\n";
                     string cedulaCliente;
                     cout << "Cedula del cliente: ";
                     cin >> cedulaCliente;
-
+                    string fechaMedicion;
+                    float peso, estatura, porcentajeGrasa, porcentajeMusculo, porcentajeGrasaVisceral;
+                    int edadMetabolica;
+                    float cintura, cadera, pecho, pierna;
                     Cliente* cliEncontrado = nullptr;
                     Sucursal* sucDondeEsta = nullptr;
                     Instructor* instructorAsignado = nullptr;
@@ -625,7 +628,7 @@ void Interfaz::menu() {
                             }
                         }
                     }
-					system("cls");
+                    system("cls");
                     if (!cliEncontrado) {
                         cout << "Cliente no encontrado.\n";
                         break;
@@ -638,11 +641,33 @@ void Interfaz::menu() {
                     cout << "Cliente encontrado y con instructor asignado.\n";
                     cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
                     cout << "Instructor: " << instructorAsignado->getNombre() << endl;
-					
 
-					
-                    Medicion* nuevaMedicion = new Medicion(cliEncontrado->getCedula(), "23/02/25", instructorAsignado->getNombre(), 90.0, 1.80, 30.0, 15.0, 30, 5, 3.0, 2.0, 4.0, 2.0);
-					
+                    
+                    cout << "----------------------------" << endl;
+                    cout << "Ingrese la fecha de la medicion (DD/MM/AA): ";
+                    cin >> fechaMedicion;
+                    cout << "Ingrese el peso con decimales, si no cuenta con decimales coloque .0 (51.0): ";
+                    cin >> peso;
+                    cout << "Ingrese la estatura en metros con decimales, si no cuenta con decimales coloque .0 (1.70): ";
+                    cin >> estatura;
+                    cout << "Ingrese el porcentaje de grasa corporal, si no cuenta con decimales coloque .0  (ejemplo 20.5): ";
+                    cin >> porcentajeGrasa;
+                    cout << "Ingrese el porcentaje de grasa visceral, si no cuenta con decimales coloque .0 (ejemplo 5.0): ";
+                    cin >> porcentajeGrasaVisceral;
+                    cout << "Ingrese el porcentaje de musculo, si no cuenta con decimales coloque .0 (ejemplo 30.5): ";
+                    cin >> porcentajeMusculo;
+                    cout << "Ingrese la medida de la cintura en cm con decimales, si no cuenta con decimales coloque .0 (70.0): ";
+                    cin >> cintura;
+                    cout << "Ingrese la edad metabolica en annios, si no cuenta con decimales coloque .0 (ejemplo 25): ";
+                    cin >> edadMetabolica;
+                    cout << "Ingrese la medida de la cadera en cm con decimales, si no cuenta con decimales coloque .0 (90.0) : ";
+                    cin >> cadera;
+                    cout << "Ingrese la medida del pecho en cm con decimales, si no cuenta con decimales coloque .0 (30.0): ";
+                    cin >> pecho;
+                    cout << "Ingrese la medida del muslo en cm con decimales, si no cuenta con decimales coloque .0 (40.0): ";
+                    cin >> pierna;
+
+                    Medicion* nuevaMedicion = new Medicion(cliEncontrado->getCedula(), fechaMedicion, instructorAsignado->getNombre(), peso, estatura, porcentajeGrasa, porcentajeMusculo, edadMetabolica, porcentajeGrasaVisceral, cintura, cadera, pecho, pierna);
 
                     if (cliEncontrado->getHistorialMediciones()->agregarMedicion(nuevaMedicion)) {
                         cout << "Medicion agregada exitosamente al historial del cliente.\n";
@@ -657,12 +682,12 @@ void Interfaz::menu() {
                 }
 
                 case 2: {
-					system("cls");
+                    system("cls");
                     cout << "=== Mostrar historial de mediciones de un cliente ===\n";
                     string cedulaCliente;
                     cout << "Cedula del cliente: ";
                     cin >> cedulaCliente;
-
+                    int opcionDetalle;
                     Cliente* cliEncontrado = nullptr;
                     Sucursal* sucDondeEsta = nullptr;
                     Instructor* instructorAsignado = nullptr;
@@ -707,12 +732,13 @@ void Interfaz::menu() {
                     cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
                     cout << "Instructor: " << instructorAsignado->getNombre() << endl;
 
+					system("cls");
                     ColeccionMediciones* historial = cliEncontrado->getHistorialMediciones();
                     if (!historial || historial->getCantidad() == 0) {
                         cout << "El cliente no tiene mediciones registradas.\n";
                     }
                     else {
-                        cout << "Historial de mediciones del cliente " << cliEncontrado->getNombre() << ":\n";
+                        cout << "Historial de mediciones del o la cliente " << cliEncontrado->getNombre() << ":\n";
                         for (int i = 0; i < historial->getCantidad(); ++i) {
                             Medicion* med = historial->getPorIndice(i);
                             if (med) {
@@ -723,7 +749,8 @@ void Interfaz::menu() {
                                     << ", % Musculo: " << med->getPorcentajeMusculo() << "%\n";
                             }
                         }
-                        int opcionDetalle;
+					
+                        
                         cout << "Ingrese el numero de la medicion para ver detalles, o 0 para salir: ";
                         cin >> opcionDetalle;
                         if (opcionDetalle > 0 && opcionDetalle <= historial->getCantidad()) {
@@ -733,110 +760,159 @@ void Interfaz::menu() {
                                 cout << medDetallada->toString() << endl;
                             }
                         }
-                    }
+                        else if (opcionDetalle != 0) {
+                            cout << "Opcion invalida.\n";
+                        }
+                        cout << "------------------------------\n";
+                        cout << "Recomendaciones basadas en la ultima medicion:\n";
 
-                    system("pause");
-                    break;
-                }
+                        Medicion* ultimaMedicion = historial->getPorIndice(historial->getCantidad() - 1);
+                        if (ultimaMedicion) {
+                            float imc = ultimaMedicion->calcularIMC();
+                            cout << "IMC: " << imc << " - ";
+                            if (imc < 16) {
+                                cout << "Delgadez severa. Se recomienda consulta medica urgente.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
+                            }
+                            else if (imc >= 16.01 && imc <= 16.99) {
+                                cout << "Delgadez moderada. Se recomienda aumentar la ingesta calorica y consultar a un nutricionista.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
+                            }
+                            else if (imc >= 17.00 && imc <= 18.49) {
+                                cout << "Delgadez leve. Se recomienda una dieta equilibrada y ejercicio moderado.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
 
-                case 0:
-                    break;
+                            }
+                            else if (imc >= 18.50 && imc <= 24.99) {
+                                cout << "Normal. Mantener habitos saludables.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
+                            }
+                            else if (imc >= 25.00 && imc <= 29.99) {
+                                cout << "Pre-obesidad. Se recomienda aumentar la actividad fisica y mejorar la dieta.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
 
-                default:
-                    cout << "Opcion invalida!\n";
-                    system("pause");
-                    break;
-                }
+                            }
+                            else if (imc >= 30.00 && imc <= 34.99) {
+                                cout << "Obesidad leve. Consultar a un profesional de la salud para un plan de accion.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
+                            }
+                            else if (imc >= 35.00 && imc <= 39.99) {
+                                cout << "Obesidad media. Es importante buscar ayuda medica especializada.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
+                            }
+                            else if (imc >= 40.00) {
+                                cout << "Obesidad morbida. Atencion medica urgente requerida.\n";
+                                cout << "Consumo de proteinas: " << (ultimaMedicion->getPeso() * 0.8) << " g diarios\n";
+                                cout << "Vasos de agua: " << (ultimaMedicion->getPeso() / 7) << " vasos diarios\n";
 
-            } while (opcion != 0);
-        }
-
-        
-		void Interfaz::subMenuReporteIMC() {
-           
-        
-            system("cls");
-            if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
-                cout << "No hay sucursales cargadas.\n";
-                return;
-            }
-            int opcion;
-            do {
-                cout << "\n--- REPORTE DE IMC ---\n"
-                    << "1. Generar reporte de IMC por sucursal\n"
-                    << "0. Volver\n"
-                    << "Seleccione una opcion: ";
-                cin >> opcion;
-                switch (opcion) {
-                case 1: {
-                    cout << "Sucursales disponibles:\n" << coleccionSucursales->toString() << endl;
-                    string codigo;
-                    cout << "Digite el codigo de la sucursal: ";
-                    cin >> codigo;
-                    Sucursal* suc = coleccionSucursales->buscarSucursal(codigo);
-                    if (!suc) {
-                        cout << "Sucursal no encontrada.\n";
-                        break;
-                    }
-                    ColeccionClientes* coleccionClientes = suc->getClientes();
-                    if (!coleccionClientes || coleccionClientes->getCantidad() == 0) {
-                        cout << "No hay clientes en esta sucursal.\n";
-                        break;
-                    }
-                    // Inicializar contadores y listas para cada categoria
-                    int conteos[8] = { 0 }; // 8 categorias
-                    string listas[8] = { "", "", "", "", "", "", "", "" };
-                    for (int i = 0; i < coleccionClientes->getCantidad(); ++i) {
-                        Cliente* cli = coleccionClientes->getClientesxIndice(i);//
-						// que devuelve un puntero a cliente
-                        if (!cli || !cli->getHistorialMediciones() || cli->getHistorialMediciones()->getCantidad() == 0) continue;
-                        Medicion* ultimaMedicion = cli->getHistorialMediciones()->getPorIndice(cli->getHistorialMediciones()->getCantidad() - 1);
-                        cout<<ultimaMedicion->toString()<< endl;
-                        if (!ultimaMedicion) continue;
-
-                        float imc = ultimaMedicion->calcularIMC();
-
-                        int categoria = -1;
-                        if (imc < 16) categoria = 0; // Delgadez severa
-                        else if (imc >= 16.01 && imc <= 16.99) categoria = 1; // Delgadez moderada
-                        else if (imc >= 17.00 && imc <= 18.49) categoria = 2; // Delgadez leve
-                        else if (imc >= 18.50 && imc <= 24.99) categoria = 3; // Normal
-                        else if (imc >= 25.00 && imc <= 29.99) categoria = 4; // Pre-obesidad
-                        else if (imc >= 30.00 && imc <= 34.99) categoria = 5; // Obesidad leve
-                        else if (imc >= 35.00 && imc <= 39.99) categoria = 6; // Obesidad media
-						else if (imc >= 40.00) categoria = 7; // Obesidad morbida
-                        if (categoria != -1) {
-                            conteos[categoria]++;
-                            listas[categoria] += cli->getNombre() + " (IMC: " + to_string(imc) + ")\n";
+                            }
+                            else {
+                                cout << "IMC fuera de rango esperado.\n";
+                            }
                         }
                     }
-					system("cls");
-                    // Mostrar resultados
-                    string categoriasNombres[8] = {
-                        "Delgadez severa (<16.00)\n",
-                        "Delgadez moderada (16.01-16.99)\n",
-                        "Delgadez leve (17.00-18.49)\n",
-                        "Normal (18.5-24.99)\n",
-                        "Pre-obesidad (25.00-29.99)\n",
-                        "Obesidad leve (30.00-34.99)\n",
-                        "Obesidad media (35.00-39.99)\n",
-                        "Obesidad morbida (>=40.00)\n"
-                    };
-                    cout << "\n--- Reporte de IMC para la sucursal " << codigo << " ---\n";
-                    for (int j = 0; j < 8; ++j) {
-                        cout << categoriasNombres[j] << ": " << conteos[j] << " cliente(s)\n";
-                        if (conteos[j] > 0) {
-                            cout << listas[j];
-                        }
-                    }
-                }
                     system("pause");
                     break;
+                }
                 case 0: break;
                 default: cout << "Opcion invalida!\n";
                 }
+				} while (opcion != 0);
+				}
+
+            void Interfaz::subMenuReporteIMC() {
+
+
+                system("cls");
+                if (!coleccionSucursales || coleccionSucursales->getCantidad() == 0) {
+                    cout << "No hay sucursales cargadas.\n";
+                    return;
+                }
+                int opcion;
+                do {
+                    cout << "\n--- REPORTE DE IMC ---\n"
+                        << "1. Generar reporte de IMC por sucursal\n"
+                        << "0. Volver\n"
+                        << "Seleccione una opcion: ";
+                    cin >> opcion;
+                    switch (opcion) {
+                    case 1: {
+                        cout << "Sucursales disponibles:\n" << coleccionSucursales->toString() << endl;
+                        string codigo;
+                        cout << "Digite el codigo de la sucursal: ";
+                        cin >> codigo;
+                        Sucursal* suc = coleccionSucursales->buscarSucursal(codigo);
+                        if (!suc) {
+                            cout << "Sucursal no encontrada.\n";
+                            break;
+                        }
+                        ColeccionClientes* coleccionClientes = suc->getClientes();
+                        if (!coleccionClientes || coleccionClientes->getCantidad() == 0) {
+                            cout << "No hay clientes en esta sucursal.\n";
+                            break;
+                        }
+                        // Inicializar contadores y listas para cada categoria
+                        int conteos[8] = { 0 }; // 8 categorias
+                        string listas[8] = { "", "", "", "", "", "", "", "" };
+                        for (int i = 0; i < coleccionClientes->getCantidad(); ++i) {
+                            Cliente* cli = coleccionClientes->getClientesxIndice(i);//
+                            // que devuelve un puntero a cliente
+                            if (!cli || !cli->getHistorialMediciones() || cli->getHistorialMediciones()->getCantidad() == 0) continue;
+                            Medicion* ultimaMedicion = cli->getHistorialMediciones()->getPorIndice(cli->getHistorialMediciones()->getCantidad() - 1);
+                            cout << ultimaMedicion->toString() << endl;
+                            if (!ultimaMedicion) continue;
+
+                            float imc = ultimaMedicion->calcularIMC();
+
+                            int categoria = -1;
+                            if (imc < 16) categoria = 0; // Delgadez severa
+                            else if (imc >= 16.01 && imc <= 16.99) categoria = 1; // Delgadez moderada
+                            else if (imc >= 17.00 && imc <= 18.49) categoria = 2; // Delgadez leve
+                            else if (imc >= 18.50 && imc <= 24.99) categoria = 3; // Normal
+                            else if (imc >= 25.00 && imc <= 29.99) categoria = 4; // Pre-obesidad
+                            else if (imc >= 30.00 && imc <= 34.99) categoria = 5; // Obesidad leve
+                            else if (imc >= 35.00 && imc <= 39.99) categoria = 6; // Obesidad media
+                            else if (imc >= 40.00) categoria = 7; // Obesidad morbida
+                            if (categoria != -1) {
+                                conteos[categoria]++;
+                                listas[categoria] += cli->getNombre() + " (IMC: " + to_string(imc) + ")\n";
+                            }
+                        }
+                        system("cls");
+                        // Mostrar resultados
+                        string categoriasNombres[8] = {
+                            "Delgadez severa (<16.00)\n",
+                            "Delgadez moderada (16.01-16.99)\n",
+                            "Delgadez leve (17.00-18.49)\n",
+                            "Normal (18.5-24.99)\n",
+                            "Pre-obesidad (25.00-29.99)\n",
+                            "Obesidad leve (30.00-34.99)\n",
+                            "Obesidad media (35.00-39.99)\n",
+                            "Obesidad morbida (>=40.00)\n"
+                        };
+                        cout << "\n--- Reporte de IMC para la sucursal " << codigo << " ---\n";
+                        for (int j = 0; j < 8; ++j) {
+                            cout << categoriasNombres[j] << ": " << conteos[j] << " cliente(s)\n";
+                            if (conteos[j] > 0) {
+                                cout << listas[j];
+                            }
+                        }
+                    }
+                          system("pause");
+                          break;
+                    case 0: break;
+                    default: cout << "Opcion invalida!\n";
+                    }
                 } while (opcion != 0);
-		}
+            }
+        
 
        
 

@@ -56,7 +56,7 @@ public:
 	void setMedidaPecho(float);
 	float getMedidaMuslo();
 	void setMedidaMuslo(float);
-	//calcular indice de masa corporal
+	string interpretarIMC(float imc);
 	float calcularIMC();
 	float getIMC();
 	string toString();
