@@ -36,24 +36,18 @@ Ejercicio* ColeccionEjercicios::getEjercicio(int)
 	return nullptr;
 }
 
+
+
+
 bool ColeccionEjercicios::agregarEjercicio(Ejercicio* ejercicio) {
-	if (cantidad >= tam) { // Usar >= por seguridad
-		int nuevoTam = tam * 2;
-		Ejercicio** nuevoArreglo = new Ejercicio * [nuevoTam];
-		for (int i = 0; i < cantidad; i++) {
-			nuevoArreglo[i] = ejercicios[i];
-		}
-		for (int i = cantidad; i < nuevoTam; i++) {
-			nuevoArreglo[i] = nullptr;
-		}
-		delete[] ejercicios;
-		ejercicios = nuevoArreglo;
-		tam = nuevoTam;
+	if (cantidad < tam) {
+		ejercicios[cantidad] = ejercicio;
+		cantidad++;
+		return true;
 	}
-	ejercicios[cantidad] = ejercicio; // No hay saturación porque tam >= cantidad + 1
-	cantidad++;
-	return true;
+	return false;
 }
+
 
 Ejercicio* ColeccionEjercicios::buscarEjercicio(string codigo) {
 	for (int i = 0; i < cantidad; i++) {
