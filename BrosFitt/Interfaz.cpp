@@ -925,6 +925,7 @@ void Interfaz::menu() {
             }
             int opcion;
             do {
+				system("cls");
                 cout << "\n--- RUTINAS DE EJERCICIOS ---\n"
                     << "1. Ingresar ejercicio a la bateria de ejercicios\n"
                     << "2. Generar rutina para un cliente\n"
@@ -934,6 +935,7 @@ void Interfaz::menu() {
                 cin >> opcion;
                 switch (opcion) {
                 case 1: {
+					system("cls");
                     //muestra por pantalla las opcionees en un vector para que el usario cree un int
                     cout << "=== Ingresar ejercicio a la bateria de ejercicios ===\n";
                     string nombreEjercicio, areaCuerpo, codigo;
@@ -972,11 +974,11 @@ void Interfaz::menu() {
                     cin >> repeticiones;
                     cout << "Ingrese el numero de series: ";
                     cin >> series;
-                    cout << "Ingrese el peso recomendado (en kg): ";
+                    cout << "Ingrese el peso recomendado (45.5): ";
                     cin >> pesoRecomendado;
                     Ejercicio* nuevoEjercicio = new Ejercicio(codigo,nombreEjercicio, areaCuerpo, duracion, repeticiones, series, pesoRecomendado);
 				
-					
+					system("cls");
                     if (!coleccionEjercicios) {
                         coleccionEjercicios = new ColeccionEjercicios(100);
                     }
@@ -987,16 +989,15 @@ void Interfaz::menu() {
                         cout << "No se pudo agregar el ejercicio. La bateria puede estar llena.\n";
                         delete nuevoEjercicio;
                     }
-					//comprobacion rapida
-
-					cout << "Ejercicios actuales en la bateria: " << endl;
-					cout << coleccionEjercicios->getEjercicio()->toString() << endl;
+					
+					
 
                     system("pause");
                 }
                       break;
 
 				case 2: {
+					system("cls");
                     cout << "=== Generar rutina para un cliente ===\n";
                     string cedulaCliente;
                     cout << "Cedula del cliente: ";
@@ -1040,24 +1041,18 @@ void Interfaz::menu() {
                         cout << "No hay ejercicios en la bateria. No se puede generar rutina.\n";
                         break;
                     }
+					system("cls"); 
                     cout << "Cliente encontrado y con instructor asignado.\n";
                     cout << "Sucursal: " << sucDondeEsta->getCodigo() << endl;
                     cout << "Instructor: " << instructorAsignado->getNombre() << endl;
-					// que cliEncontrado no sea nulo
-
-					// si el cliente no tiene rutina actual, crear una nueva
+					
                     if (!cliEncontrado) {
                         cout << "Error: cliente no encontrado.\n";
                         return;
                     }
                     cout << "Cliente encontrado: " << cliEncontrado->getNombre() << endl;
 
-                    if (!cliEncontrado->getColeccionRutinaActual()) {
-                        cout << "Atención: coleccionRutinaActual es NULL" << endl;
-                    }
-                    else {
-                        cout << "ColeccionRutinaActual existe" << endl;
-                    }
+                
 
 					if (!cliEncontrado->getColeccionRutinaActual()->getRutina()) {
                         cliEncontrado->getColeccionRutinaActual()->setRutinaActual(new Rutina(cedulaCliente));
@@ -1067,16 +1062,12 @@ void Interfaz::menu() {
                         cout << "Error: rutina actual no inicializada.\n";
                         return;
                     }
+					system("cls");
 					cout << "Generando rutina para el cliente " << cliEncontrado->getNombre() << "...\n";
-					// Mostrar ejercicios disponibles
-                    // Limpiar rutina actual
-					//debe mostrarse solamnete los ejercicios del area seleccionada, no todos los ejercicios, o sea que si el ejercicio es de pecho entonces solo es de pecho
                     rutina->limpiarRutina();
-                    // Agregar ejercicios a la rutina por area
 					string areas[5] = { "Pecho", "Biceps","Triceps", "Piernas", "Espalda"};
                     for (const string& area : areas) {
                         cout << "Agregando ejercicios para el area: " << area << endl;
-                        // Mostrar ejercicios disponibles para el area
                         cout << "Ejercicios disponibles para " << area << ":\n";
                         bool hayEjerciciosArea = false;
                         for (int i = 0; i < coleccionEjercicios->getCantidad(); ++i) {
@@ -1092,7 +1083,6 @@ void Interfaz::menu() {
                         }
                        
 						string codigoEjercicio;
-						// Permitir al instructor seleccionar ejercicios para el area
 
                         
                         do {
@@ -1111,17 +1101,17 @@ void Interfaz::menu() {
                                     cout << "No se pudo agregar el ejercicio a la rutina.\n";
                                 }
                             }
+							
                         } while (true);
 					}
-					//comprobacion rapida de la rutina generada
-					cout << "Rutina generada:\n" << rutina->toString() << endl;
-
+				
                     cout << "Rutina generada exitosamente para el cliente.\n";
                     system("pause");
                 }
 					  break;
                      
                       case 3: {
+						  system("cls");
                     cout << "=== Mostrar rutina de un cliente ===\n";
                     string cedulaCliente;
                     cout << "Cedula del cliente: ";
