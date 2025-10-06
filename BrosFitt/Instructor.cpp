@@ -175,7 +175,6 @@ ColeccionClaseGrupal* Instructor::getClasesAsociadas(){
 string Instructor::toString()
 {
 	stringstream ss;
-	ss << "--------------------------\n";
 	ss << "Cedula: " << cedula << "\n";
 	ss << "Nombre: " << nombre << "\n";
 	ss << "Telefono: " << telefono << "\n";
@@ -183,7 +182,7 @@ string Instructor::toString()
 	ss << "Correo: " << correo << "\n";
 	ss << "Especialidades: " << getEspecialidad() << "\n";
 	ss << "Cantidad de Clientes a Cargo: " << clientes->getCantidad() << "\n";
-	ss << "--------------------------\n";
+	ss << "------------------------------------\n";
 	return ss.str();
 }
 

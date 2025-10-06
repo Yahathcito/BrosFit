@@ -81,7 +81,6 @@ ColeccionRutina* Cliente::getColeccionRutinaActual() {
 
 string Cliente::toString() {
 	stringstream ss;
-	ss << "--------------------------\n";
 	ss << "Cedula: " << cedulaIdentidad << "\n";
 	ss << "Nombre: " << nombre << "\n";
 	ss << "Correo Electronico: " << correoElectronico << "\n";
